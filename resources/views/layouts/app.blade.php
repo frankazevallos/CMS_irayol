@@ -40,12 +40,11 @@
 		</footer>
 
         <!-- Javascript -->
-        <script type="text/javascript" src="{{asset('manager/vendor/js/main.js')}}"></script>
+        <script src="{{asset('manager/vendor/js/main.js')}}"></script>
         <!-- Javascript -->
         @livewireScripts
 
         @stack('js')
-
         <!-- Javascript -->
     </body>
 </html>

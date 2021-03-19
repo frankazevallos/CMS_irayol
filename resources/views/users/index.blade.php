@@ -7,7 +7,7 @@
             <div class="float-left">
                 Users
             </div>
-            <div class="btn-group btn-group-sm float-right" role="group">
+            <div class="btn-group-sm float-right" role="group">
                 <a href="#item" class="btn btn-primary btn-sm" data-toggle="collapse"><i class="fa fa-filter" aria-hidden="true"></i> Number of items</a>
                 <a href="#search" class="btn btn-primary btn-sm" data-toggle="collapse"><i class="fa fa-search" aria-hidden="true"></i> Search Page</a>
                 <a href="{{ route('users.create') }}" class="btn btn-success" title="Create New Users"><i class="fa fa-user-plus" aria-hidden="true"></i> New User</a>
@@ -71,7 +71,7 @@
                                     <input name="_method" value="DELETE" type="hidden">
                                     {{ csrf_field() }}
 
-                                        <div class="btn-group btn-group-xs float-right" role="group">
+                                        <div class="btn-group-xs float-right" role="group">
                                             <a href="{{ route('users.show', $users->id ) }}" class="btn btn-info btn-sm" title="Show Users">
                                                 <i class="far fa-eye" aria-hidden="true"></i>
                                             </a>

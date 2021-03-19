@@ -12,7 +12,7 @@
                 <a href="{{ route('category.create') }}" class="btn btn-success" title="Create New Category"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
             </div>
         </div>
-        <div class="card-body ">
+        <div class="card-body p-0">
             <div id="item" class="collapse">
                 <form method="get" action="{{route('category.index')}}">
                     <div class="form-group">
@@ -83,9 +83,9 @@
                 </table>
             </div>
             @elseif(count($categories) == 0)
-                <div class="alert alert-warning" role="alert">{{__('global.no_results')}}</a></div>
+                <div class="alert alert-warning m-3" role="alert">{{__('global.no_results')}}</a></div>
             @else
-                <div class="alert alert-warning" role="alert">{{__('global.empty_results')}}</div>
+                <div class="alert alert-warning m-3" role="alert">{{__('global.empty_results')}}</div>
             @endif        
         </div>
 

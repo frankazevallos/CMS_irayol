@@ -3,14 +3,14 @@
 @section('content')
 <div class="card">
     <div class="card-header clearfix">
-        <span class="float-left">
+        <div class="float-left">
             {{ isset($category->name) ? $category->name : 'Category' }}
-        </span>
+        </div>
         <div class="float-right">
             <form method="POST" action="{!! route('category.destroy', $category->id) !!}" accept-charset="UTF-8">
                 <input name="_method" value="DELETE" type="hidden">
                 {{ csrf_field() }}
-                <div class="btn-group btn-group-sm" role="group">
+                <div class="btn-group-sm" role="group">
                     <a href="{{ route('category.index') }}" class="btn btn-primary" title="{{__('global.return_back')}}">
                         <i class="fa fa-undo" aria-hidden="true"></i> {{__('global.return_back')}}
                     </a>

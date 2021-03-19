@@ -46,7 +46,7 @@
                                     <div class="col-6">
                                         <form action="{{route('addons.active')}}" method="POST">
                                             @csrf
-                                            <input type="text" hidden name="addons_name" id="addons_name" value="{{ $module->alias }}">
+                                            <input type="text" hidden name="addons_name" value="{{ $module->alias }}">
                                             <button type="submit" class="btn btn-{{ $module->enabled() ? 'success' : 'secondary' }}">{{ $module->enabled() ? __('global.active') : __('global.inactive') }}</button>
                                         </form>
                                     </div>
@@ -62,7 +62,7 @@
                                                     <button type="button" class="btn btn-primary" disabled><i class="fas fa-sliders-h"></i></button>
                                                 @endif
                                                 <div class="btn-group " role="group">
-                                                    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
                                                         <button type="submit" class="dropdown-item" title="Delete Theme" onclick="return confirm(&quot;{{ __('global.confirm_delete') }}&quot;)">
                                                             <i class="fas fa-trash"></i> {{ __('global.delete') }}
