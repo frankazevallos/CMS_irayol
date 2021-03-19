@@ -2,22 +2,13 @@
 @push('title', 'Courses')
 
 @section('content')
-    @foreach (['danger', 'warning', 'success', 'info'] as $key)
-        @if(Session::has($key))
-            <div class="alert alert-{{ $key }} alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {{ Session::get($key) }}
-            </div>
-        @endif
-    @endforeach
-
     <div class="card">
         <div class="card-header clearfix">
             <div class="float-left">
                 {{__('courses::global.courses')}}
             </div>
-            <div class="btn-group btn-group-sm float-right" role="group">
-                <a href="{{ route('courses.create') }}" class="btn btn-success" title="Create New Category"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
+            <div class="btn-group-sm float-right" role="group">
+                <a href="{{ route('courses.create') }}" class="btn btn-success" title="Create New Category"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('courses::global.create')}}</a>
             </div>
         </div>
         <div class="card-body">
@@ -48,7 +39,7 @@
                                     <form method="POST" action="{!! route('courses.destroy', $course->id) !!}" accept-charset="UTF-8">
                                         <input name="_method" value="DELETE" type="hidden">
                                         {{ csrf_field() }}
-                                        <div class="btn-group btn-group-xs float-right" role="group">
+                                        <div class="btn-group-xs float-right" role="group">
                                             <a href="{{ route('courses.show', $course->id) }}" class="btn btn-info btn-sm" title="Show Users">
                                                 <i class="far fa-eye" aria-hidden="true"></i>
                                             </a>

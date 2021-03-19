@@ -1,16 +1,6 @@
 @extends('layouts.app')
 @push('title', 'Create Course') 
-@section('content')
-
-    @foreach (['danger', 'warning', 'success', 'info'] as $key)
-        @if(Session::has($key))
-            <div class="alert alert-{{ $key }} alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                {{ Session::get($key) }}
-            </div>
-        @endif
-    @endforeach
-    
+@section('content')    
     <form method="POST" action="{{ route('courses.update', $course->id) }}" accept-charset="UTF-8" id="create_category_form" name="create_category_form" class="form-horizontal">
         @csrf
         @method('PUT')
@@ -164,70 +154,3 @@
 </div>
 <!--Main Image Modal-->
 @endsection
-
-@push('css')
-<link href="{{ asset('manager/plugins/summernote/summernote-bs4.min.css')}}" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.css" />
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/theme/monokai.css" />
-@endpush 
-
-
-@push('js')
-<script src="{{ asset('manager/plugins/summernote/summernote-bs4.min.js')}}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/codemirror.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.20.0/mode/xml/xml.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/2.36.0/formatting.js"></script>
-<script>
-
-    $(function () {
-        $('#published_at').datetimepicker({            
-            date: moment($('#published_at').val()),
-            format: 'YYYY-MM-DD HH:mm' 
-        });
-    });
-
-    $(document).ready(function () {
-        const FMButton = function (context) {
-            const ui = $.summernote.ui;
-            const button = ui.button({
-                contents: '<i class="note-icon-picture"></i> ',
-                tooltip: "File Manager",
-                click: function () {
-                    $("#MediaModal").modal("show");
-                },
-            });
-            return button.render();
-        };
-
-        $(".summernote").summernote({
-            height: 550,
-            dialogsInBody: true,
-            codemirror: {
-                // codemirror options
-                theme: "monokai",
-            },
-            callbacks: {
-                onInit: function () {
-                    $("body > .note-popover").hide();
-                },
-            },
-            toolbar: [
-                ["style", ["style"]],
-                ["font", ["bold", "underline", "clear"]],
-                ["fontname", ["fontname"]],
-                ["color", ["color"]],
-                ["para", ["ul", "ol", "paragraph"]],
-                ["table", ["table"]],
-                ["insert", ["link", "fm-button", ["fm"], "video"]],
-                ["view", ["fullscreen", "codeview", "help"]],
-            ],
-            buttons: {
-                fm: FMButton,
-            },
-        });
-    });
-</script>
-@endpush
