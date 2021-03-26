@@ -84,9 +84,30 @@ class PackagesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(PackageRequest $request, $id)
     {
-        //
+        try {
+            $package = Package::findOrFail($id);
+
+            $package->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'interval' => $request->interval,
+                'interval_count' => $request->interval_count,
+                'trial_days' => $request->trial_days,
+                'price' => $request->price,
+                'is_active' => $request->is_active,
+                'is_private' => $request->is_private,
+                'is_one_time' => $request->is_one_time,
+                'enable_custom_link' => $request->enable_custom_link,
+                'custom_link' => $request->custom_link,
+                'custom_link_text' => $request->custom_link_text,
+            ]);
+
+            return redirect()->back()->with('success', __('paysubscriptions::global.successfully_updated'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
+        }
     }
 
     /**
