@@ -13,7 +13,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'paysubscriptions', 'middleware' => ['auth']], function () {
-    Route::get('/', [Modules\PaySubscriptions\Http\Controllers\PaySubscriptionsController::class, 'index'])->name('paysubscriptions.index');
-    Route::resource('packages', PackagesController::class);
-    Route::resource('subscription', SubscriptionsController::class);
+    Route::get('/', 'PaySubscriptionsController@index')->name('paysubscriptions.index');
+    Route::resource('packages', 'PackagesController');
+    Route::resource('subscriptions', 'SubscriptionsController');
+    Route::post('subscriptions/getuser', 'SubscriptionsController@getUser')->name('subscriptions.getuser');
+    Route::post('subscriptions/getpackage', 'SubscriptionsController@getPackage')->name('subscriptions.getpackage');
 });
