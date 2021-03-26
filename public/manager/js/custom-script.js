@@ -6,7 +6,9 @@ window.setTimeout(function () {
 }, 3000);
 
 $(document).ready(function () {
-    $('.select2').select2();
+    $('.select2').select2({
+        theme: 'bootstrap4',
+    });
 });
 
 /* User clicks the "Insert to post" button */
