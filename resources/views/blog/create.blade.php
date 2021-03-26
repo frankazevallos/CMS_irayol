@@ -48,10 +48,10 @@
                             <label for="title">{{__('global.created_at')}}</label>
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                <input type="text" class="form-control datetimepicker-input" id="published_at" name="published_at" value="{{  date('Y-m-d h:m') }}" data-toggle="datetimepicker" data-target="#published_at"/>
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                </div>
+                                    <input type="text" class="form-control datetimepicker-input" id="published_at" name="published_at" value="{{  date('Y-m-d h:m') }}" data-toggle="datetimepicker" data-target="#published_at"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
