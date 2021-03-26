@@ -15,13 +15,13 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('package_id');
-            $table->integer('created_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('package_id')->unsigned();
+            $table->integer('created_id')->unsigned()->nullable()->comment('Auth user or null');
             $table->enum('status', ['approved', 'waiting', 'declined'])->default('waiting');
             $table->date('start_date')->nullable();
-            $table->date('trial_end_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->date('trial_end_date')->nullable();
             $table->decimal('package_price', 22, 4);
             $table->longText('package_details');
             $table->string('paid_via')->nullable();
@@ -29,8 +29,9 @@ class CreateSubscriptionsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
+            $table->index('package_id');
+            $table->index('created_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
 
         });
     }
