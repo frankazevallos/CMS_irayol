@@ -32,6 +32,9 @@ return [
         'months' => 'Mensual',
         'years' => 'Anual',
     ],
+    'approved' => 'Aprobado',
+    'waiting' => 'En espera',
+    'declined' => 'Rechazado',
     'trial_days' => 'Días de prueba',
     'price' => 'Precio',
     'is_active' => 'Paquete activo',
@@ -61,5 +64,10 @@ return [
     'yes' => 'Si',
     'no' => 'No',
 
-
+    'user' => 'Usuario',
+    'package' => 'Paquete',
+    'start_date' => 'Fecha de inicio',
+    'end_date' => 'Fecha final',
+    'trial_end_date' => 'Fecha de finalización del periodo de prueba',
+    'paid_via' => 'Pagado a través de',
 ];

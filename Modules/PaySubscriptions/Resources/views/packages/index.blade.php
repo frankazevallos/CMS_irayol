@@ -5,7 +5,7 @@
     <div class="col-md-3">
         <div class="list-group">
             <a href="{{route('paysubscriptions.index')}}" class="list-group-item list-group-item-action active">{{__('paysubscriptions::global.packages')}}</a>
-            <a href="{{route('subscription.index')}}" class="list-group-item list-group-item-action">{{__('paysubscriptions::global.subscriptions')}}</a>
+            <a href="{{route('subscriptions.index')}}" class="list-group-item list-group-item-action">{{__('paysubscriptions::global.subscriptions')}}</a>
         </div>
     </div>
     <div class="col-md-9">

@@ -9,7 +9,7 @@
     <div class="col-md-4">
         <div class="form-group {{ $errors->has('interval') ? 'has-error' : '' }}">
             <label for="interval">{{__('paysubscriptions::global.interval.title')}}</label>
-            <select class="form-control" name="interval" id="interval" >
+            <select class="form-control select2" name="interval" id="interval" >
                 <option selected="" disabled>{{__('paysubscriptions::global.select_option')}}</option>
                 @foreach ($data = array('days' => __('paysubscriptions::global.interval.days'), 'months' => __('paysubscriptions::global.interval.months'), 'years' => __('paysubscriptions::global.interval.years')); as $key => $interval)                                    
                     <option value="{{$key}}" {{ old('interval', optional($package)->interval) == $key ? 'selected' : '' }}>{{$interval}}</option>
