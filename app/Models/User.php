@@ -84,17 +84,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Get created_at in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getCreatedAtAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('Y-m-d h:i:s');
-    }
-
-    /**
      * Get email_verified_at in array format
      *
      * @param  string  $value
@@ -107,17 +96,6 @@ class User extends Authenticatable
         } else {
             return '';
         }
-    }
-
-    /**
-     * Get updated_at in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getUpdatedAtAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('Y-m-d h:i:s');
     }
 
     public function page()
