@@ -7,6 +7,7 @@ return [
     'subscriptions' => 'Suscripciones',
     'subscription' => 'Suscripciòn',
     'did_not_find_any_record' => 'Lo siento, no encontramos ningún registro',
+    'name' => 'Nombre',
     'new' => 'Nuevo',
     'create' => 'Crear',
     'save' => 'Guardar',
@@ -56,18 +57,15 @@ return [
 	'deleted' => 'Eliminado',
     'confirm_delete' => '¿Estas seguro que deseas eliminar el registro?',
     'return_back' => 'Volver atrás',
-
     'successfully_added' => 'El registro fue agregado con éxito.',
     'successfully_updated' => 'El registro fue actualizado con éxito.',
     'successfully_destroy' => 'El registro fue eliminado con éxito.',
-
     'yes' => 'Si',
     'no' => 'No',
-
     'user' => 'Usuario',
     'package' => 'Paquete',
     'start_date' => 'Fecha de inicio',
     'end_date' => 'Fecha final',
-    'trial_end_date' => 'Fecha de finalización del periodo de prueba',
+    'trial_end_date' => 'Periodo de prueba',
     'paid_via' => 'Pagado a través de',
 ];
