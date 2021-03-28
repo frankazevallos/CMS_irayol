@@ -24,16 +24,25 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>{{__('paysubscriptions::global.title')}}</th>
-                                <th>{{__('paysubscriptions::global.interval.title')}}</th>
-                                <th>{{__('paysubscriptions::global.interval.interval_count')}}</th>
-                                <th>{{__('paysubscriptions::global.trial_days')}}</th>
-                                <th>{{__('paysubscriptions::global.price')}}</th>
-                                <th>{{__('paysubscriptions::global.action')}}</th>
+                                <th>{{__('paysubscriptions::global.name')}}</th>
+                                <th>{{__('paysubscriptions::global.package')}}</th>
+                                <th>{{__('paysubscriptions::global.status')}}</th>
+                                <th>{{__('paysubscriptions::global.start_date')}}</th>
+                                <th>{{__('paysubscriptions::global.end_date')}}</th>
+                                <th>{{__('paysubscriptions::global.trial_end_date')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            @foreach ($subscriptions as $subscription)
+                            <tr>
+                                <td><a href="{{ route('users.show', $subscription->user->id ) }}">{{$subscription->user->name}}</a></td>
+                                <td><a href="{{ route('packages.show', $subscription->package->id) }}">{{$subscription->package->name}}</td>
+                                <th>{{__('paysubscriptions::global.' . $subscription->status) }}</th>
+                                <th>{{$subscription->start_date}}</th>
+                                <th>{{$subscription->end_date}}</th>
+                                <th>{{$subscription->trial_end_date}}</th>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
