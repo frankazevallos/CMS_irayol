@@ -28,8 +28,9 @@
                                 <th>{{__('paysubscriptions::global.package')}}</th>
                                 <th>{{__('paysubscriptions::global.status')}}</th>
                                 <th>{{__('paysubscriptions::global.start_date')}}</th>
-                                <th>{{__('paysubscriptions::global.end_date')}}</th>
                                 <th>{{__('paysubscriptions::global.trial_end_date')}}</th>
+                                <th>{{__('paysubscriptions::global.end_date')}}</th>
+                                <th>{{__('paysubscriptions::global.action')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,8 +40,25 @@
                                 <td><a href="{{ route('packages.show', $subscription->package->id) }}">{{$subscription->package->name}}</td>
                                 <th>{{__('paysubscriptions::global.' . $subscription->status) }}</th>
                                 <th>{{$subscription->start_date}}</th>
+                                <th>{{$subscription->trial_end_date ? $subscription->trial_end_date : __('paysubscriptions::global.no_trial_period')}}</th>
                                 <th>{{$subscription->end_date}}</th>
-                                <th>{{$subscription->trial_end_date}}</th>
+                                <td>
+                                    <form method="POST" action="{{ route('subscriptions.destroy', $subscription->id) }}" accept-charset="UTF-8">
+                                        @method('DELETE')
+                                        @csrf
+                                        <div class="btn-group-xs float-right" role="group">
+                                            <a href="{{ route('subscriptions.show', $subscription->id) }}" class="btn btn-info btn-sm" title="{{__('paysubscriptions::global.view')}}">
+                                                <i class="far fa-eye" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="{{ route('subscriptions.edit', $subscription->id) }}" class="btn btn-primary btn-sm" title="{{__('paysubscriptions::global.edit')}}">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <button type="submit" class="btn btn-danger btn-sm" title="{{__('paysubscriptions::global.delete')}}" onclick="return confirm(&quot; {{__('paysubscriptions::global.confirm_delete')}} &quot;)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
