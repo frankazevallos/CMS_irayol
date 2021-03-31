@@ -43,8 +43,10 @@ $(document).ready(function () {
                 };
             },
             cache: true
-        }
+        },
     });
+
+
 
     $('#package_id').select2({
         theme: 'bootstrap4',
