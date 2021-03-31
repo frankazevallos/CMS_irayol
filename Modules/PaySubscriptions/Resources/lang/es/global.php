@@ -5,7 +5,7 @@ return [
     'packages' => 'Paquetes',
     'package' => 'Paquete',
     'subscriptions' => 'Suscripciones',
-    'subscription' => 'Suscripciòn',
+    'subscription' => 'suscripción',
     'did_not_find_any_record' => 'Lo siento, no encontramos ningún registro',
     'name' => 'Nombre',
     'new' => 'Nuevo',
@@ -66,6 +66,7 @@ return [
     'package' => 'Paquete',
     'start_date' => 'Fecha de inicio',
     'end_date' => 'Fecha final',
-    'trial_end_date' => 'Periodo de prueba',
+    'trial_end_date' => 'Período de prueba',
+    'no_trial_period' => 'Sin período de prueba',
     'paid_via' => 'Pagado a través de',
 ];
