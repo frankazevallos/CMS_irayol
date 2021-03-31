@@ -29,7 +29,6 @@ class SubscriptionsController extends Controller
      */
     public function create()
     {
-
         return view('paysubscriptions::subscriptions.create');
     }
 
@@ -42,15 +41,19 @@ class SubscriptionsController extends Controller
     {
         try {
             $package = Package::where('id', $request->package_id)->first();
-            $dt = Carbon::create($request->start_date);
-            $trial_end_date = $package->trial_days > 0 ? $dt->addDays($package->trial_days) : null;
+
+            $start_date_one = Carbon::create($request->start_date);
             
+            $trial_date = $package->trial_days > 0 ? $start_date_one->addDays($package->trial_days) : null;
+
+            $start_date_two = new Carbon($trial_date);
+
             if ($package->interval == 'days') {
-                $end_date = $dt->addDays($package->interval_count);
+                $end_date = $start_date_two->addDays($package->interval_count);
             } elseif ($package->interval == 'months') {
-                $end_date = $dt->addMonths($package->interval_count);
-            } else {
-                $end_date = $dt->addYears($package->interval_count);
+                $end_date = $start_date_two->addMonths($package->interval_count);
+            } elseif ($package->interval == 'years') {
+                $end_date = $start_date_two->addYears($package->interval_count);
             }
             
             Subscription::create([
@@ -58,7 +61,7 @@ class SubscriptionsController extends Controller
                 'package_id' => $request->package_id,
                 'status' => $request->status,
                 'start_date' => $request->start_date,
-                'trial_end_date' => $trial_end_date,
+                'trial_end_date' => $trial_date,
                 'end_date' => $end_date,
                 'created_id' => auth()->user()->id,
                 'package_price' => $package->price,
@@ -88,9 +91,9 @@ class SubscriptionsController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Subscription $subscription)
     {
-        return view('paysubscriptions::subscriptions.edit');
+        return view('paysubscriptions::subscriptions.edit', compact('subscription'));
     }
 
     /**
@@ -99,9 +102,40 @@ class SubscriptionsController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(SubscriptionRequest $request, $id)
     {
-        //
+        try {
+            $package = Package::where('id', $request->package_id)->first();
+
+            $start_date_one = Carbon::create($request->start_date);
+            
+            $trial_date = $package->trial_days > 0 ? $start_date_one->addDays($package->trial_days) : null;
+
+            $start_date_two = new Carbon($trial_date);
+
+            if ($package->interval == 'days') {
+                $end_date = $start_date_two->addDays($package->interval_count);
+            } elseif ($package->interval == 'months') {
+                $end_date = $start_date_two->addMonths($package->interval_count);
+            } elseif ($package->interval == 'years') {
+                $end_date = $start_date_two->addYears($package->interval_count);
+            }
+
+            $subscription = Subscription::findOrFail($id);
+
+            $subscription->update([
+                'user_id' => $request->user_id,
+                'package_id' => $request->package_id,
+                'status' => $request->status,
+                'start_date' => $request->start_date,
+                'trial_end_date' => $trial_date,
+                'end_date' => $end_date,
+            ]);
+
+            return redirect()->route('subscriptions.index')->with('success', __('paysubscriptions::global.successfully_updated'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
+        }
     }
 
     /**
@@ -111,7 +145,12 @@ class SubscriptionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Subscription::where('id', $id)->delete();
+            return redirect()->back()->with('warning', __('paysubscriptions::global.successfully_destroy'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
+        }
     }
 
     public function getUser(Request $request) {        
