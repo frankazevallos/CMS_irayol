@@ -18,10 +18,6 @@
                         <a href="{{ route('packages.create') }}" class="btn btn-success" title="{{__('paysubscriptions::global.create')}}">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('paysubscriptions::global.create')}}
                         </a>
-                        
-                        <a href="{{ route('packages.edit', $package->id ) }}" class="btn btn-primary" title="{{__('paysubscriptions::global.edit')}}">
-                            <i class="fas fa-pencil-alt"></i> {{__('paysubscriptions::global.edit')}}
-                        </a>
     
                         <button type="submit" class="btn btn-danger" title="{{__('paysubscriptions::global.delete')}}" onclick="return confirm(&quot;{{__('paysubscriptions::global.confirm_delete')}}&quot;)">
                             <i class="fas fa-trash"></i> {{__('paysubscriptions::global.delete')}}
