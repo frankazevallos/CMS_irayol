@@ -18,10 +18,10 @@
                     <a href="{{ route('subscriptions.create') }}" class="btn btn-success" title="{{__('paysubscriptions::global.new')}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('paysubscriptions::global.create')}}</a>
                 </div>
             </div>
-            <div class="card-body p-0">
+            <div class="card-body">
                 @if (count($subscriptions) > 0)
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover data-table-subscription">
                         <thead>
                             <tr>
                                 <th>{{__('paysubscriptions::global.name')}}</th>
@@ -33,7 +33,7 @@
                                 <th>{{__('paysubscriptions::global.action')}}</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        {{--<tbody>
                             @foreach ($subscriptions as $subscription)
                             <tr>
                                 <td><a href="{{ route('users.show', $subscription->user->id ) }}">{{$subscription->user->name}}</a></td>
@@ -61,7 +61,7 @@
                                 </td>
                             </tr>
                             @endforeach
-                        </tbody>
+                        </tbody>--}}
                     </table>
                 </div>
                 @else
@@ -72,3 +72,6 @@
     </div>
 </div>
 @endsection
+@push('js')
+    <script src="{{asset('modules/paysubscriptions/js/main.js')}}"></script>
+@endpush

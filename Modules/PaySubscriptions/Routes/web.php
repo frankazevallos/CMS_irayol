@@ -11,11 +11,19 @@
 |
 */
 use Illuminate\Support\Facades\Route;
+use Modules\PaySubscriptions\Http\Controllers\PackagesController;
+use Modules\PaySubscriptions\Http\Controllers\SubscriptionsController;
 
 Route::group(['prefix' => 'paysubscriptions', 'middleware' => ['auth']], function () {
     Route::get('/', 'PaySubscriptionsController@index')->name('paysubscriptions.index');
+
+    // Packages
     Route::resource('packages', 'PackagesController');
+    Route::get('ajaxindex/packages', [PackagesController::class, 'ajaxIndex'])->name('packages.ajaxindex');
+
+    // Subscriptions
     Route::resource('subscriptions', 'SubscriptionsController');
     Route::post('subscriptions/getuser', 'SubscriptionsController@getUser')->name('subscriptions.getuser');
     Route::post('subscriptions/getpackage', 'SubscriptionsController@getPackage')->name('subscriptions.getpackage');
+    Route::get('ajaxindex/subscriptions', [SubscriptionsController::class, 'ajaxIndex'])->name('subscriptions.ajaxindex');
 });

@@ -21,6 +21,7 @@ $(document).ready(function () {
 
     $('#user_id').select2({
         theme: 'bootstrap4',
+        minimumInputLength: 2,
         ajax: {
             url: '/paysubscriptions/subscriptions/getuser',
             dataType: 'json',
@@ -45,8 +46,6 @@ $(document).ready(function () {
             cache: true
         },
     });
-
-
 
     $('#package_id').select2({
         theme: 'bootstrap4',
@@ -105,5 +104,37 @@ $(document).ready(function () {
         date: moment($('#end_date').val()),
         format: date_format,
         icons: icons,
+    });
+
+    // Datatable
+    var table = $('.data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: "/paysubscriptions/ajaxindex/packages",
+        columns: [
+            { data: "name", name : 'name' },
+            { data: "interval", name : 'interval' },
+            { data: "interval_count", name : 'interval_count' },
+            { data: "trial_days", name : 'trial_days' },
+            { data: "price", name : 'price' },
+            { data: 'action', name: 'action', orderable: false, searchable: false },
+        ],
+    });
+
+    var table = $('.data-table-subscription').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: "/paysubscriptions/ajaxindex/subscriptions",
+        columns: [
+            { data: "user" },
+            { data: "package" },
+            { data: "status" },
+            { data: "start_date" },
+            { data: "trial_end_date" },
+            { data: "end_date" },
+            { data: 'action', orderable: false, searchable: false },
+        ],
     });
 });

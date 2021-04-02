@@ -2,10 +2,11 @@
 
 namespace Modules\PaySubscriptions\Http\Controllers;
 
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Yajra\DataTables\DataTables;
 use Illuminate\Routing\Controller;
 use Modules\PaySubscriptions\Entities\Package;
 use Modules\PaySubscriptions\Entities\Subscription;
@@ -151,6 +152,30 @@ class SubscriptionsController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
+    }
+
+    public function ajaxIndex(Request $request){
+        $data = Subscription::select('id', 'user_id', 'package_id', 'status', 'start_date', 'end_date', 'trial_end_date');
+
+        return Datatables::of($data)
+        ->addColumn('user', function($data){
+            $user = '<a href=" '. route('users.show', $data->user->id) . ' ">' .$data->user->name . '</a>';
+            return $user;
+        })
+        ->addColumn('package', function($data){
+            $package = '<a href=" '. route('packages.show', $data->package->id) . ' ">' .$data->package->name . '</a>';
+            return $package;
+        })
+        ->addColumn('trial_end_date', function($data){
+            $trial_end_date = $data->trial_end_date ? $data->trial_end_date : __('paysubscriptions::global.no_trial_period');
+            return $trial_end_date;
+        })
+        ->addColumn('status', function($data){
+            $status = __('paysubscriptions::global.' . $data->status);
+            return $status;
+        })
+        ->addColumn('action', 'paysubscriptions::subscriptions.actions' ) //add view actions
+        ->rawColumns(['user', 'package', 'status', 'trial_end_date', 'action'])->make(true);
     }
 
     public function getUser(Request $request) {        

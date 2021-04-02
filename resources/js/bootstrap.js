@@ -11,6 +11,15 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
+    
+    require('select2');
+    const Swal = window.Swal = require('sweetalert2');
+    require ('admin-lte/build/js/AdminLTE');
+    require('summernote/dist/summernote-bs4');
+    require('datatables.net');
+    require('datatables.net-bs4');
+    require('datatables.net-buttons-bs4');
+    require('datatables.net-responsive-bs4');
 
     window.moment = require('moment');
     window.datetimepicker = require('tempusdominus-bootstrap-4');
@@ -18,10 +27,7 @@ try {
 
 } catch (e) {}
 
-import 'select2';
-const Swal = window.Swal = require('sweetalert2');
-import 'admin-lte/build/js/AdminLTE';
-import 'summernote/dist/summernote-bs4';
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

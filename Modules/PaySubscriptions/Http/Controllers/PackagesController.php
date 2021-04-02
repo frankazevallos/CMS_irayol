@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\PaySubscriptions\Entities\Package;
 use Modules\PaySubscriptions\Http\Requests\PackageRequest;
+use Yajra\DataTables\DataTables;
 
 class PackagesController extends Controller
 {
@@ -35,7 +36,7 @@ class PackagesController extends Controller
      * @return Response
      */
     public function store(PackageRequest $request)
-    {        
+    {
         try {
             $package = new Package($request->all());
             $package->user_id = auth()->user()->id;
@@ -60,7 +61,6 @@ class PackagesController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
-        
     }
 
     /**
@@ -123,5 +123,21 @@ class PackagesController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
+    }
+
+    public function ajaxIndex(Request $request){
+        $data = Package::select('id', 'name', 'interval', 'interval_count', 'trial_days', 'price');
+
+        return Datatables::of($data)
+        ->addColumn('interval', function($data){
+            $interval = __('paysubscriptions::global.interval.'. $data->interval);
+            return $interval;
+        })
+        ->addColumn('price', function($data){
+            $price = '$' . number_format($data->price, 2);
+            return $price;
+        })
+        ->addColumn('action', 'paysubscriptions::packages.actions' ) //add view actions
+        ->rawColumns(['interval', 'price', 'action'])->make(true);
     }
 }
