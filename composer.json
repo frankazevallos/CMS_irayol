@@ -24,7 +24,8 @@
         "nesbot/carbon": "^2.46",
         "nwidart/laravel-menus": "^7.0",
         "nwidart/laravel-modules": "^5.0",
-        "spatie/laravel-permission": "^3.18"
+        "spatie/laravel-permission": "^3.18",
+        "yajra/laravel-datatables-oracle": "^9.17"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
