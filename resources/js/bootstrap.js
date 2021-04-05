@@ -20,6 +20,7 @@ try {
     require('datatables.net-bs4');
     require('datatables.net-buttons-bs4');
     require('datatables.net-responsive-bs4');
+    require('daterangepicker');
 
     window.moment = require('moment');
     window.datetimepicker = require('tempusdominus-bootstrap-4');

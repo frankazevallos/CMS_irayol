@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\DataTables\DataTables;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Modules\PaySubscriptions\Entities\Package;
 use Modules\PaySubscriptions\Entities\Subscription;
 use Modules\PaySubscriptions\Http\Requests\SubscriptionRequest;
@@ -20,8 +21,9 @@ class SubscriptionsController extends Controller
      */
     public function index()
     {
-        $subscriptions = Subscription::paginate();
-        return view('paysubscriptions::subscriptions.index', compact('subscriptions'));
+        $subscriptions = Subscription::count();
+        $total_subscripciones = Subscription::sum('package_price');
+        return view('paysubscriptions::subscriptions.index', compact('subscriptions', 'total_subscripciones'));
     }
 
     /**
@@ -82,9 +84,9 @@ class SubscriptionsController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show(Subscription $subscription)
     {
-        return view('paysubscriptions::subscriptions.show');
+        return view('paysubscriptions::subscriptions.show', compact('subscription'));
     }
 
     /**
@@ -202,4 +204,16 @@ class SubscriptionsController extends Controller
         }
         return response()->json($packages);
     }
+
+    public function getSubscriptionAnalytics(Request $request){
+        
+        $start_date = Carbon::parse($request->from)->toDateTimeString();
+        $end_date = Carbon::parse($request->end)->toDateTimeString();
+
+        $data['subscriptions'] = Subscription::whereBetween('created_at',[$start_date, $end_date])->count();
+
+        $data['total_subscripciones'] = Subscription::whereBetween('created_at',[$start_date, $end_date])->sum('package_price');
+
+        return response()->json(['status' => 'success', 'message' =>  $data]);
+    } 
 }

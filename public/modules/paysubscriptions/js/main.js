@@ -21,7 +21,7 @@ $(document).ready(function () {
 
     $('#user_id').select2({
         theme: 'bootstrap4',
-        minimumInputLength: 2,
+        //minimumInputLength: 2,
         ajax: {
             url: '/paysubscriptions/subscriptions/getuser',
             dataType: 'json',
@@ -107,7 +107,7 @@ $(document).ready(function () {
     });
 
     // Datatable
-    var table = $('.data-table').DataTable({
+    $('.data-table').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -122,7 +122,7 @@ $(document).ready(function () {
         ],
     });
 
-    var table = $('.data-table-subscription').DataTable({
+    $('.data-table-subscription').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -137,4 +137,41 @@ $(document).ready(function () {
             { data: 'action', orderable: false, searchable: false },
         ],
     });
+
+    moment.locale('es');
+    let start = moment().subtract(29, 'days');
+    let end = moment();
+
+    function cb(start, end) {        
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+           'Hoy': [moment(), moment()],
+           'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Los últimos 7 días': [moment().subtract(6, 'days'), moment()],
+           'Los últimos 30 días': [moment().subtract(29, 'days'), moment()],
+           'Este mes': [moment().startOf('month'), moment().endOf('month')],
+           'El mes pasado': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+    }, function(start, end){
+        $.ajax({
+            url: "/paysubscriptions/getsubscriptionanalytics/subscriptions",
+            type: "POST",
+            data: {from: start.format('YYYY-MM-DD'), to: end.format('YYYY-MM-DD')},
+            dataType: "json",
+            success: function (data) {
+                $(".subscriptions").html(data.message.subscriptions);
+                $(".total_subscripciones").html("$" + Number(data.message.total_subscripciones).toFixed(2));
+            },
+            error: function (data) {
+                console.log("Error:", data);
+            },
+        });
+    });
+
+    cb(start, end);
 });

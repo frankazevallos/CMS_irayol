@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header clearfix">
         <div class="float-left">
-            {{ __('paysubscriptions::global.subscription') . ' '. $subscription->name}}
+            {{ __('paysubscriptions::global.subscription')}}
         </div>
         <div class="btn-group-sm float-right" role="group">
             <form method="POST" action="{!! route('subscriptions.destroy', $subscription->id) !!}" accept-charset="UTF-8">
