@@ -166,6 +166,7 @@ $(document).ready(function () {
             success: function (data) {
                 $(".subscriptions").html(data.message.subscriptions);
                 $(".total_subscripciones").html("$" + Number(data.message.total_subscripciones).toFixed(2));
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             },
             error: function (data) {
                 console.log("Error:", data);
