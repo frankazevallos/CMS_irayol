@@ -27,4 +27,8 @@ Route::group(['prefix' => 'paysubscriptions', 'middleware' => ['auth']], functio
     Route::post('subscriptions/getpackage', 'SubscriptionsController@getPackage')->name('subscriptions.getpackage');
     Route::get('ajaxindex/subscriptions', [SubscriptionsController::class, 'ajaxIndex'])->name('subscriptions.ajaxindex');
     Route::post('getsubscriptionanalytics/subscriptions', [SubscriptionsController::class, 'getSubscriptionAnalytics'])->name('subscriptions.getsubscriptionanalytics');
+
+    // Pay Settings
+    Route::get('paypal-payment-form', 'PaySettingController@index')->name('paypal-payment-form');
+    Route::get('paypal-payment-form-submit', 'PaySettingController@payment')->name('paypal-payment-form-submit');
 });
