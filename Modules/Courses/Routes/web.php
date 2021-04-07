@@ -22,6 +22,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['setTheme']], function () {
     Route::get('/course/series', 'CoursesController@all')->name('course.all');
     Route::get('/course/{slug}', 'CoursesController@course')->name('course.view');
-    Route::get('/course/{slug}/learn/lecture/{id}', 'CoursesController@play')->name('course.play')->middleware('auth');
-    Route::post('/class/viewed', 'ClassesController@viewed')->name('class.viewed')->middleware('auth');
+    Route::get('/course/{slug}/learn/lecture/{id}', 'CoursesController@play')->name('course.play')->middleware('auth', 'billing');
+    Route::post('/class/viewed', 'ClassesController@viewed')->name('class.viewed')->middleware('auth', 'billing');
 });

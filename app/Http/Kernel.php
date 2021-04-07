@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'setTheme' => \App\Http\Middleware\SetTheme::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+
+        'billing' => \Modules\PaySubscriptions\Http\Middleware\Billing::class
     ];
 }

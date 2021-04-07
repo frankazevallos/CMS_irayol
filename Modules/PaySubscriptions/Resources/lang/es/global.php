@@ -70,5 +70,6 @@ return [
     'no_trial_period' => 'Sin período de prueba',
     'paid_via' => 'Pagado a través de',
     'offline' => 'Fuera de linea',
-    'total_subscripciones' => 'Total en suscripciones'
+    'total_subscripciones' => 'Total en suscripciones',
+    'payment_gateway' => 'Pasarela de pago'
 ];
