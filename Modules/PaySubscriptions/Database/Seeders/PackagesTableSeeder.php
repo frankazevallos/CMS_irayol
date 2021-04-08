@@ -5,7 +5,7 @@ namespace Modules\PaySubscriptions\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class PaySubscriptionsDatabaseSeeder extends Seeder
+class PackagesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,9 +16,6 @@ class PaySubscriptionsDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call([
-            PackagesTableSeeder::class
-        ]);
-
+        \Modules\PaySubscriptions\Entities\Package::factory(5)->create();
     }
 }

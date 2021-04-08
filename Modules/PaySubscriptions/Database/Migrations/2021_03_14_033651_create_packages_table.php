@@ -18,7 +18,7 @@ class CreatePackagesTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('name');
             $table->text('description');
-            $table->enum('interval', ['days', 'months', 'years'])->default('months');
+            $table->enum('interval', ['days', 'weeks', 'months', 'years'])->default('months');
             $table->integer('interval_count')->default(1);
             $table->integer('trial_days')->default(0);
             $table->decimal('price', 22, 4);
