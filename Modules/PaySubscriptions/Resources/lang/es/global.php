@@ -30,6 +30,7 @@ return [
         'title' => 'Intervalo de precios',
         'interval_count' => 'Intervalo',
         'days' => 'Diario',
+        'weeks' => 'Semanal',
         'months' => 'Mensual',
         'years' => 'Anual',
     ],

@@ -3,9 +3,12 @@
 namespace Modules\PaySubscriptions\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Package extends Model
 {
+    use HasFactory;
+
     protected $table = 'packages';
 
     protected $fillable = [
@@ -24,4 +27,9 @@ class Package extends Model
         'custom_link',
         'custom_link_text',
     ];
+
+    protected static function newFactory()
+    {
+        return \Modules\PaySubscriptions\Database\Factories\PackageFactory::new();
+    }
 }

@@ -2,12 +2,15 @@
 
 namespace Modules\PaySubscriptions\Entities;
 
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subscription extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'package_id',
@@ -34,11 +37,9 @@ class Subscription extends Model
     public function subscribed($user_id)
     {
         $subscription_end = $this->where('user_id', $user_id)->latest('end_date')->first();
-
         if (is_null($subscription_end)) {
             return false;
         }
-
         return Carbon::parse($subscription_end->end_date)->isFuture();
     }
 
@@ -48,7 +49,6 @@ class Subscription extends Model
         if (is_null($subscription_trial)) {
             return false;
         }
-
         return Carbon::parse($subscription_trial->trial_end_date)->isFuture();
     }
 }

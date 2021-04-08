@@ -16,7 +16,7 @@ class PackageRequest extends FormRequest
         return [
             'name' => 'required|string|min:1|max:255',
             'description' => 'required|string|min:1',
-            'interval' => 'required|in:days,months,years',
+            'interval' => 'required|in:days,weeks,months,years',
             'interval_count' => 'required|integer',
             'trial_days' => 'required|integer',
             'price' => 'required|numeric',
