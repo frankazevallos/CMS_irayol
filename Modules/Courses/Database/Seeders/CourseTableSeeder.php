@@ -17,6 +17,6 @@ class CourseTableSeeder extends Seeder
         Model::unguard();
 
         \Modules\Courses\Entities\Course::factory(5)->create();
-        // $this->call("OthersTableSeeder");
+
     }
 }

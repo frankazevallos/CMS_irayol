@@ -3,6 +3,7 @@
 namespace Modules\Courses\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Permission;
 
@@ -40,9 +41,11 @@ class PermissionTableSeeder extends Seeder
             'class.delete',
         ];
 
-
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
+
+        $role = Role::where('name', 'admin')->first();
+        $role->givePermissionTo($permission);
     }
 }
