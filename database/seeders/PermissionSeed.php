@@ -87,7 +87,6 @@ class PermissionSeed extends Seeder
             'users.delete',
         ];
 
-
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }

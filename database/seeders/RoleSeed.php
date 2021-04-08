@@ -19,12 +19,12 @@ class RoleSeed extends Seeder
            'subscriber',
         ];
 
-
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }
 
         $role = Role::create(['name' => 'admin']);
+        
         $role->givePermissionTo([
             // Role Permision
             'role.index',
