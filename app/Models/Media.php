@@ -30,19 +30,14 @@ class Media extends Model
 
         if(in_array($this->extension, $image)){
             return $this->path;
-
         } elseif (in_array($this->extension, $text)) {
             return asset('manager/extension/txt.png');
-            
         } elseif ($this->extension == 'pdf') {
             return asset('manager/extension/pdf.png');
-
         } elseif (in_array($this->extension, $video)) {
             return asset('manager/extension/mp4.png');
-
         } elseif (in_array($this->extension, $audio)) {
             return asset('manager/extension/mp3.png');
-
         } else {
             return asset('manager/extension/other.png');
         }
