@@ -62,7 +62,7 @@ return [
     'image' => 'Imagen',
     'video' => 'Vídeo',
 
-    'pay' => 'Pagado',
+    'pay' => 'Pro',
     'free' => 'Gratuito',
 
     'is_active' => 'Estado de la clase',
@@ -91,4 +91,7 @@ return [
     'go_to_course' => 'Ir al curso',
     'not_viewed' => 'No visto',
     'is_viewed' => 'Visto',
+    'play' => 'Reproducir',
+    'viewed' => 'Visto',
+    'no_viewed' => 'No visto'
 ];

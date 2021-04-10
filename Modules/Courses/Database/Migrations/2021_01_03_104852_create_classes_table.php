@@ -17,7 +17,7 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->bigInteger('section_id')->unsigned();
             $table->string('title');
-            $table->string('note');
+            $table->longText('note');
             $table->string('media_type')->nullable()->default('vimeo')->comment('vimeo, youtube');
             $table->string('url')->nullable();
             $table->integer('order')->default(0);

@@ -15,7 +15,7 @@ class CreateClassRequest extends FormRequest
     {
         return [
             'title_class' => 'required|string|min:1|max:255',
-            'note' => 'required|string|min:1|max:255',
+            'note' => 'required|string|min:1',
             'media_type' => 'required',
             'url' => 'required|string|min:1|max:255',
             'duration' => 'required',

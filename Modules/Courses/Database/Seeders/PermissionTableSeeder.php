@@ -46,6 +46,6 @@ class PermissionTableSeeder extends Seeder
         }
 
         $role = Role::where('name', 'admin')->first();
-        $role->givePermissionTo($permission);
+        $role->givePermissionTo($permissions);
     }
 }

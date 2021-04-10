@@ -49,7 +49,7 @@
                                             <button type="submit" class="btn btn-danger btn-sm" title="Delete Page" onclick="return confirm(&quot;Click Ok to delete Course.&quot;)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                            <a href="{{ route('course.view', $course->slug) }}" class="btn btn-success btn-sm" title="Edit Page">
+                                            <a href="{{ route('course.view', $course->slug) }}" target="_blank" class="btn btn-success btn-sm" title="Edit Page">
                                                 <i class="fas fa-play"></i>
                                             </a>
                                         </div>

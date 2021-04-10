@@ -35,16 +35,20 @@
                             <div class="card-body">
                                 <ul class="list-group">
                                     @foreach($section->classes as $class)
-                                        <li class="list-group-item">
-                                            <div class="d-flex justify-content-between">
-                                                {{$class->title}}
-                                                @if ($class->access == 'free')
-                                                    <a href="{{route('course.play', [$course->slug, $class->id])}}" class="btn btn-success btn-sm"><i class="fas fa-play"></i></a>
-                                                @else
-                                                    <a href="#!" class="btn btn-primary btn-sm disable"><i class="fas fa-lock"></i></a>
-                                                @endif
+                                        <a href="{{route('course.play', [$course->slug, $class->id])}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{$class->title}}</h5>
+                                                <p class="text-success"><i class="fas fa-play-circle"></i> {{__('courses::global.play')}}</p>
                                             </div>
-                                        </li>
+
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <p class="mb-1">{{__('courses::global.duration'). ': ' . $class->duration}}</p>
+                                                <p>
+                                                    <small class="text-info"><i class="fas fa-{{$class->access == 'free' ? 'unlock' : 'lock'}}" ></i> {{  __('courses::global.' . $class->access) }} </small>
+                                                    <small class="ml-2"><i class="fas fa-{{ $class->checkUserViewed() ? 'eye' : 'eye-slash' }}"></i> {{ $class->checkUserViewed() ? __('courses::global.viewed') : __('courses::global.no_viewed') }}</small>
+                                                </p>
+                                            </div>
+                                        </a>
                                     @endforeach
                                   </ul>
                             </div>

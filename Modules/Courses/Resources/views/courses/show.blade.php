@@ -160,7 +160,7 @@
 
                         <div class="form-group">
                             <label for="note">Nota</label>
-                            <textarea class="form-control" name="note" id="note" cols="30" rows="5"></textarea>
+                            <textarea class="form-control summernote" name="note" id="note" cols="30" rows="5"></textarea>
                         </div>
 
                         <div class="form-group float-right">
