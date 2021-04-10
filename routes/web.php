@@ -53,7 +53,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('setting', \App\Http\Controllers\SettingsController::class);
 
     // Media
-    Route::resource('/media', \App\Http\Controllers\MediaController::class, ['only' => ['index', 'store', 'destroy']]);
+    Route::resource('media', \App\Http\Controllers\MediaController::class);
+    Route::get('ajaxindex/media', [\App\Http\Controllers\MediaController::class, 'ajaxIndex'])->name('ajaxindex.media');
+
 
     // Theme
     Route::resource('themes', \App\Http\Controllers\ThemeController::class)->middleware('setTheme');

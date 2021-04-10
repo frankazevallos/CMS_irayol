@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea id="summernote" name="content" hidden></textarea>
+                    <textarea class="summernote" id="summernote" name="content" hidden></textarea>
                 </div>
             </div>
             <div class="col-md-4">

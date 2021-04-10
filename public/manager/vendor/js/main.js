@@ -119883,6 +119883,20 @@ module.exports = __webpack_require__(/*! /Users/user/Sites/irayol/resources/sass
 /***/ })
 
 /******/ });
+/* **** FILE MANAGER **** */
+
+$('#upload_files').click(function() {
+    $('#files').click();
+});
+
+$('.custom-file-input').on('change', function() {
+    var fileName = $(this).val().split('\\').pop();
+    $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+});
+
+
+/* **** FILE MANAGER **** */
+
 //Close alert
 window.setTimeout(function () {
     $(".alert-remove").fadeTo(500, 0).slideUp(500, function () {
@@ -119993,15 +120007,6 @@ if ($(window).width() < 992) {
     });
 }
 
-$('#upload_files').click(function() {
-    $('#input_file').click();
-});
-
-$('.custom-file-input').on('change', function() {
-    var fileName = $(this).val().split('\\').pop();
-    $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
-});
-
 /* **** CREATE AND EDIT BLOG **** */
 $('#published_at').datetimepicker({
     date: moment($('#published_at').val()),
@@ -120020,11 +120025,10 @@ const FMButton = function (context) {
     return button.render();
 };
 
-$("#summernote").summernote({
+$(".summernote").summernote({
     height: 650,
     dialogsInBody: true,
     codemirror: {
-        // codemirror options
         theme: "monokai",
     },
     callbacks: {
@@ -120111,7 +120115,7 @@ $(document).on("submit", "form#update-menu-item", function (event) {
 });
 
 function delete_menu_item(row_id) {
-    
+
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

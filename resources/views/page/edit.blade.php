@@ -44,7 +44,7 @@
 				</div>
 
                 <div class="form-group">
-                    <textarea id="summernote" name="content" hidden>{{ $page->content }}</textarea>
+                    <textarea id="summernote" class="summernote" name="content" hidden>{{ $page->content }}</textarea>
                 </div>
             </div>
             <div class="col-md-4">

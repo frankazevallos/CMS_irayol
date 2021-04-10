@@ -18,7 +18,7 @@
 					</div>
                 </div>
                 <div class="form-group">
-                    <textarea id="summernote" class="form-control" rows="20" name="content">Hello, World!</textarea>
+                    <textarea id="summernote" class="form-control summernote" rows="20" name="content">Hello, World!</textarea>
                 </div>
             </div>
             <div class="col-md-4">
