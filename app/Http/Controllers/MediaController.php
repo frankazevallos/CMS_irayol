@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Media;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use File;
+use Illuminate\Support\Facades\File;
 
 class MediaController extends Controller
 {
@@ -42,44 +41,40 @@ class MediaController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        if ($request->hasFile('media')) {
-            //check if isset media
-            $destinationPath = storage_path() . '/app/public/uploads/'; //chmod 0777
-            $files = $request->file('media');
+        try {
+            if ($request->ajax()) {
+                $files = $request->file('files');
 
-            foreach ($files as $file) {
-                $filename = $file->getClientOriginalName();
-                $extension = $file->getClientOriginalExtension();
-                $reName = uniqid(rand(15, 20)) . '.' . $extension;
+                $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d'); //chmod 0777
+                
+                $data = [];
 
-                //check if exists
-                if (File::exists($destinationPath . "/" . $reName)) {
-                    $request->session()->flash('warning', 'Your file is already uploaded!');
-                } else {
-                    $medias = $reName;
-                    $images[] = $medias;
-                    $author[] = $request->author;
-                    $exten[] = $extension;
+                foreach ($files as $file) {
+                    $filename = $file->getClientOriginalName();
+                    $extension = $file->getClientOriginalExtension();
 
-                    $media = new Media();
-                    for ($i = 0; $i < count($images); $i++) {
-                        $media->user_id = Auth::id();
-                        $media->file = $images[$i];
-                        $media->path = "/storage/uploads/" . $images[$i];
-                        $media->extension = $exten[$i];
-                        $media->save();
-                    }
-                    $file->move($destinationPath, $medias); //save to path
+                    $dataMedia = Media::create([
+                        'user_id' => auth()->user()->id,
+                        'file' => $filename,
+                        'path' => "/storage" .  $destinationPath . '/' . $filename,
+                        'extension' => $extension,
+                    ]);
+
+                    $data[] = $dataMedia->path;
+
+                    $file->storeAs($destinationPath, $filename, 'public'); //save to path          
                 }
+
+                return response()->json(['status' => 'success', 'message' =>  $data]);
             }
-            return response()->json(['uploaded' => storage_path() . '/app/public/uploads/' . $reName]);
-        } else {
-            return response()->json(['code' => '401', 'message' => 'Error!']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
+       
     }
 
     /**
@@ -120,7 +115,7 @@ class MediaController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -140,6 +135,13 @@ class MediaController extends Controller
             }
         } catch (\Exception $e){
             return redirect()->back('media.index')->with('danger', "Error: ". $e->getMessage());
+        }
+    }
+
+    public function ajaxIndex (Request $request){
+        if ($request->ajax()) {
+            $medias = Media::orderBy("created_at", 'desc')->paginate(18);
+            return view('media.items', compact('medias'));
         }
     }
 }
