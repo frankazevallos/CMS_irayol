@@ -139,9 +139,22 @@ class MediaController extends Controller
     }
 
     public function ajaxIndex (Request $request){
-        if ($request->ajax()) {
-            $medias = Media::orderBy("created_at", 'desc')->paginate(18);
-            return view('media.items', compact('medias'));
+        try {
+            if ($request->ajax()) {
+
+                $query = str_replace(" ", "%", $request->get('query'));
+
+                if($query != '') {
+                    $medias = Media::where('file', 'like', '%'.$query.'%')->orderBy("created_at", 'desc')->paginate(18);
+                } else {
+                    $medias = Media::orderBy("created_at", 'desc')->paginate(18);
+                }
+
+                return view('media.items', compact('medias'))->render();
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
+        
     }
 }

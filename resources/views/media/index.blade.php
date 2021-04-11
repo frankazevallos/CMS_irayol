@@ -23,9 +23,9 @@
 
                             <div class="col-md-12">
                                 <div class="input-group">
-                                    <input class="form-control" type="text" placeholder="{{__('global.search')}}">
+                                    <input class="form-control" id="searchFiles" type="text" placeholder="{{__('global.search')}}">
                                     <div class="input-group-append">
-                                        <button class="btn btn-secondary my-2 my-sm-0"><i class="fas fa-times-circle"></i></button>
+                                        <button class="btn btn-secondary my-2 my-sm-0" id="clearSearchFiles" disabled><i class="fas fa-times-circle"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +94,8 @@
         });
 
         // Ajax Paginate
+        
+        /*
         function getData(page){
             if(!page) page=1;
 
@@ -108,7 +110,55 @@
             e.preventDefault(); 
             var page = $(this).attr('href').split('page=')[1];
             getData(page);
+        }); */
+
+        // Paginate and search ajax
+
+        $('#clearSearchFiles').click(function(){
+            $('#searchFiles').val('');
+            getData();
         });
+
+        function getData(page, query){
+
+            if (!page && !query) {
+                page = 1;
+                query = ' ';
+            }
+
+            $.ajax({
+                url:"ajaxindex/media?page="+page+"&query="+query,
+                success: function(data)
+                {
+                    $('#medias').html('');
+                    $('#medias').html(data);
+                }
+            })
+        }
+
+        getData();
+
+        $(document).on('keyup', '#searchFiles', function(){
+            let query = $('#searchFiles').val();
+            let page = $('#hidden_page').val();
+
+            if(query.length > 0){
+                $("#clearSearchFiles").attr("disabled", false);
+            }
+
+            getData(page, query);
+        });
+
+        $(document).on('click', '.pagination a', function(event){
+            event.preventDefault();
+            let page = $(this).attr('href').split('page=')[1];
+            let query = $('#searchFiles').val();
+
+            $('li').removeClass('active');
+            $(this).parent().addClass('active');
+            getData(page, query);
+        });
+
     });
 </script>
 @endpush
