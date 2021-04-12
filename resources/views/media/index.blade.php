@@ -34,9 +34,10 @@
                 </div>
             </div>
         </div>
+        {{-- Show media.items.blade.php --}}
         <div id="medias"></div>
     </div>
-
+    @include('media.edit')
 @endsection
 @push('js')
 <script type="text/javascript">
@@ -56,6 +57,7 @@
             }
         });
 
+        // ****** Store media ******
         $('#submit').click(function(){
 
             let form_data = new FormData();
@@ -67,7 +69,6 @@
                 form_data.append("files[]", document.getElementById('files').files[index]);
             }
 
-            // AJAX request
             $.ajax({
                 url: '/media', 
                 type: 'post',
@@ -93,27 +94,22 @@
             });
         });
 
-        // Ajax Paginate
-        
-        /*
-        function getData(page){
-            if(!page) page=1;
+        // ****** Show media media ******
+        $("body").on("click", "#showMedia", function () {
+            let media_id = $(this).data("id");
+            $.get("/media/" + media_id + "/edit", function (response) {
+                $("#editMediaModal").modal("show");
 
-            $.get('ajaxindex/media?page=' + page, function(data){
-                $('#medias').html(data)
+                console.log(response.message);
+     
+                $('#mediaModalImage').attr('src', response.message.path);
+                $("#mediaCcreatedAt").text(moment(response.message.created_at).format("YYYY-MM-DD HH:mm:ss"));
+                $("#mediaPath").text(response.message.path);
+                $("#titleFile").val(response.message.file);
             });
-        }
+        });
 
-        getData();
-
-        $(document).on('click', '.pagination a', function(e){
-            e.preventDefault(); 
-            var page = $(this).attr('href').split('page=')[1];
-            getData(page);
-        }); */
-
-        // Paginate and search ajax
-
+        // ****** Paginate and search ajax ******
         $('#clearSearchFiles').click(function(){
             $('#searchFiles').val('');
             getData();

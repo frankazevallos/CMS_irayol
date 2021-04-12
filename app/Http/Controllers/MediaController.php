@@ -64,7 +64,7 @@ class MediaController extends Controller
                         'extension' => $extension,
                     ]);
 
-                    $data[] = $dataMedia->path;
+                    $data[] = $dataMedia->getFile();
 
                     $file->storeAs($destinationPath, $filename, 'public'); //save to path          
                 }
@@ -83,9 +83,13 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Media $media)
     {
-        //
+        try {
+            return response()->json(['status' => 'success', 'message' =>  $media]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -96,7 +100,13 @@ class MediaController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $media = Media::findOrFail($id);
+            $media['path'] = $media->getFile();
+            return response()->json(['status' => 'success', 'message' =>  $media]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 
     /**

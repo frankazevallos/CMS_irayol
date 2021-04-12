@@ -44,6 +44,7 @@ return [
 	'create' => 'Nuevo',
 	'save' => 'Guardar',
 	'cancel' => 'Cancelar',
+	'close' => 'Cerrar', 
 	'edit' => 'Editar',
 	'view' => 'Ver',
 	'update' => 'Actualizar',
@@ -55,6 +56,7 @@ return [
 	'upload' => 'Subir',
 	'return_back' => 'Volver atrás',
 	'number_of_items' => 'Numero de resultados',
+	'route' => 'Ruta',
 
 	'app_no_entries_in_table' => 'No entries in table',
 	'custom_controller_index' => 'Custom controller index.',
