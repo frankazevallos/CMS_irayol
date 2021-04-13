@@ -110,6 +110,7 @@ class MediaController extends Controller
                 $media['size'] = $media->formatSizeUnits(filesize($destinationPath));
             }
 
+            $media['filePath'] = $media->path;
             $media['path'] = $media->getFile();
 
             return response()->json(['status' => 'success', 'message' =>  $media]);

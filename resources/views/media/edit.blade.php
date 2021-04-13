@@ -27,7 +27,9 @@
                             <hr>
 
                             <strong>{{__('global.route')}}</strong>
-                            <p class="text-muted" id="mediaPath"></p>
+                            <p class="text-muted" id="mediaPath">
+                                <a id="linkMedia" href=""></a>
+                            </p>
                             <hr>
 
                             <strong>{{__('global.size')}}</strong>

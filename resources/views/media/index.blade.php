@@ -113,11 +113,11 @@
 			        cache: false,
                     data: {file},
                     success: function(response){
-                        console.log(response.message);
                         $('#titleFile').addClass('is-valid');
                     },
                     error: function (response) {
                         console.log("Error:", response.message);
+                        $('#titleFile').addClass('is-invalid');
                     },
                 });
             }
@@ -133,7 +133,8 @@
 
                 $('#mediaModalImage').attr('src', response.message.path);
                 $("#mediaCreatedAt").text(moment(response.message.created_at).format("YYYY-MM-DD HH:mm:ss"));
-                $("#mediaPath").text(response.message.path);
+                $("#linkMedia").attr({"href" : response.message.filePath, "title" : response.message.file, "target" : "_blank"});
+                $("#linkMedia").text(response.message.filePath);
                 $("#mediaSize").text(response.message.size);
                 $("#titleFile").val(response.message.file);
                 $("#deleteMedia").data('id', response.message.id)
