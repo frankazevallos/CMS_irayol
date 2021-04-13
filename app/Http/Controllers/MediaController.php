@@ -60,11 +60,11 @@ class MediaController extends Controller
                     $dataMedia = Media::create([
                         'user_id' => auth()->user()->id,
                         'file' => $filename,
-                        'path' => "/storage" .  $destinationPath . '/' . $filename,
+                        'path' => $destinationPath . '/' . $filename,
                         'extension' => $extension,
                     ]);
-
-                    $data[] = $dataMedia->getFile();
+                    
+                    $data[] = array('id' => $dataMedia->id, 'path' => $dataMedia->getFile());
 
                     $file->storeAs($destinationPath, $filename, 'public'); //save to path          
                 }
@@ -83,9 +83,10 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Media $media)
+    public function show($id)
     {
         try {
+            $media = Media::findOrFail($id);
             return response()->json(['status' => 'success', 'message' =>  $media]);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
@@ -101,8 +102,16 @@ class MediaController extends Controller
     public function edit($id)
     {
         try {
+            
             $media = Media::findOrFail($id);
+            $destinationPath = storage_path() . '/app/public/' . $media->path;
+
+            if (file_exists($destinationPath)) {
+                $media['size'] = $media->formatSizeUnits(filesize($destinationPath));
+            }
+
             $media['path'] = $media->getFile();
+
             return response()->json(['status' => 'success', 'message' =>  $media]);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
@@ -118,7 +127,13 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $media = Media::findOrFail($id);
+            $media->update($request->all());
+            return response()->json(['status' => 'success', 'message' =>  $media]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -128,23 +143,20 @@ class MediaController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
-    {
-        try{
+    {   
+        try {
             $media = Media::find($id);
-            $name = $media->file;
-            $destinationPath = storage_path() . '/app/public/uploads/';
+            $destinationPath = storage_path() . '/app/public/' . $media->path;
 
-            if (file_exists($destinationPath . $name)) {
-                File::delete($destinationPath . $name);
+            if (file_exists($destinationPath)) {
+                File::delete($destinationPath);
             }
 
-            $delete = $media->delete();
+            $media->delete();
 
-            if ($delete) {
-                return redirect()->back()->with('warning', __('global.successfully_destroy'));
-            }
-        } catch (\Exception $e){
-            return redirect()->back('media.index')->with('danger', "Error: ". $e->getMessage());
+            return response()->json(['status' => 'success', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
     }
 

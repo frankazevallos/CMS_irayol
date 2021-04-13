@@ -57,6 +57,7 @@ return [
 	'return_back' => 'Volver atrás',
 	'number_of_items' => 'Numero de resultados',
 	'route' => 'Ruta',
+	'size' => 'Tamaño en disco',
 
 	'app_no_entries_in_table' => 'No entries in table',
 	'custom_controller_index' => 'Custom controller index.',

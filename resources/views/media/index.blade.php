@@ -71,17 +71,23 @@
 
             $.ajax({
                 url: '/media', 
-                type: 'post',
+                type: 'POST',
                 data: form_data,
                 dataType: 'json',
                 contentType: false,
                 processData: false,
                 success: function (response) {
                     for(let index = 0; index < response.message.length; index++) {
-                        let src = response.message[index];
+                        
+                        let src = response.message[index].path;
+                        let mediaId = response.message[index].id;
                         $('.ajaxMediaShow').prepend(`
-                            <div class="col-md-2 mt-3 show-image">
-                                <div class="card-body img-card-background loading filter image" style="background-image: url('${src}'); "></div>
+                            <div class="col-md-2 mt-3" id="card_media_${mediaId}">
+                                <div class="card-body img-card-background loading filter image" style="background-image: url('${src}'); ">
+                                    <div class="card-tools">
+                                        <a href="javascript:void(0)" id="showMedia" data-id="${mediaId}" class="btn btn-tool"><i class="fas fa-eye"></i></a>
+                                    </div>
+                                </div>
                             </div>`
                         );
                     }
@@ -93,6 +99,29 @@
                 },
             });
         });
+        
+        // ****** Edit media media ******
+        $("body").on("click", "#btnUpdateMedia" , function() {
+            var media_id = $(this).data('id');
+
+            var file = $('#titleFile').val();
+
+            if(file != ''){
+                $.ajax({
+                    url: 'media/' + media_id,
+                    type: "PATCH",
+			        cache: false,
+                    data: {file},
+                    success: function(response){
+                        console.log(response.message);
+                        $('#titleFile').addClass('is-valid');
+                    },
+                    error: function (response) {
+                        console.log("Error:", response.message);
+                    },
+                });
+            }
+        });
 
         // ****** Show media media ******
         $("body").on("click", "#showMedia", function () {
@@ -101,12 +130,34 @@
                 $("#editMediaModal").modal("show");
 
                 console.log(response.message);
-     
+
                 $('#mediaModalImage').attr('src', response.message.path);
-                $("#mediaCcreatedAt").text(moment(response.message.created_at).format("YYYY-MM-DD HH:mm:ss"));
+                $("#mediaCreatedAt").text(moment(response.message.created_at).format("YYYY-MM-DD HH:mm:ss"));
                 $("#mediaPath").text(response.message.path);
+                $("#mediaSize").text(response.message.size);
                 $("#titleFile").val(response.message.file);
+                $("#deleteMedia").data('id', response.message.id)
+                $("#btnUpdateMedia").data('id', response.message.id)
             });
+        });
+
+        // ****** Delete media media ******
+        $("body").on("click", "#deleteMedia", function () {
+            let media_id = $(this).data("id");
+            if (confirm('¿Estas seguro de querer borrar este registro?')) {
+                $.ajax({
+                    url: "/media/" + media_id,
+                    type: "DELETE",
+                    success: function (response) {
+                        console.log(response);
+                        $("#editMediaModal").modal("toggle");
+                        $("#card_media_" + media_id).remove();
+                    },
+                    error: function (response) {
+                        console.log("Error:", response);
+                    },
+                });
+            };
         });
 
         // ****** Paginate and search ajax ******
