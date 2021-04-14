@@ -126,7 +126,7 @@ class PagesController extends Controller
             $page->keywordseo = $request->keywordseo;
             $save = $page->save();
             if ($save) {
-                return redirect()->route('page.index')->with('success', __('global.successfully_updated'));
+                return redirect()->route('pages.index')->with('success', __('global.successfully_updated'));
             }
         } else {
             return redirect()->route('route.edit', $id)->withErrors($validator)->withInput();
@@ -137,15 +137,18 @@ class PagesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        $page = Page::find($id);
-        $delete = $page->delete();
-        if ($delete) {
-            return redirect()->action('HomeController@page')->with('warning', __('global.successfully_destroy'));
+        try {
+            $page = Page::find($id);
+            $page->delete();
+            return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
+        
     }
 
     public function mainPage($id){
@@ -166,7 +169,7 @@ class PagesController extends Controller
 
         return Datatables::of($data)
         ->addColumn('author', function($data){
-            $user = $data->user->name;
+            $user = '<a href=" '. route('users.show', $data->user->id) . ' ">' .$data->user->name . '</a>';
             return $user;
         })
         ->addColumn('updated_at', function($data){
@@ -177,7 +180,7 @@ class PagesController extends Controller
             $isMainPage = $data->id == setting('main_page') ? __('global.yes') : __('global.no');
             $btnMainPage = $data->id == setting('main_page') ? 'success' : 'primary';
             $iconMainPage = $data->id == setting('main_page') ? '<i class="far fa-check-circle"></i> ' : '<i class="fas fa-minus-circle"></i> ';
-            
+
             $main_page = '<a class="btn btn-sm btn-'. $btnMainPage .'" href="javascript:void(0)" id="setMainPage" data-id="'. $data->id .'">'. $iconMainPage . $isMainPage .'</a>';
             return $main_page;
         })
