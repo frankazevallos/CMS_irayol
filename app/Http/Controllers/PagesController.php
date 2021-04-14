@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class PagesController extends Controller
 {
@@ -28,23 +29,9 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->search;
-        $users = User::all()->pluck('name', 'id');
-
-        if (!empty($request->number)) {
-            $number = $request->number;
-        } else {
-            $number = 10;
-        }
-
-        if (!empty($search)) {
-            $allpage = Page::where('title', 'LIKE', '%' . $search . '%')->paginate($number);            
-        } else {
-            $allpage = Page::paginate($number);
-        }
-        return view('page.index', compact('allpage', 'users'));
+        return view('page.index');
     }
 
     /**
@@ -161,16 +148,40 @@ class PagesController extends Controller
         }
     }
 
-    public function active(Request $request){
+    public function mainPage($id){
         try {
-            if ($request->main_page == setting('main_page')) {
+            if ($id == setting('main_page')) {
                 setting(['main_page' => ''])->save();
             } else {
-                setting(['main_page' => $request->main_page])->save();
+                setting(['main_page' => $id])->save();
             }
-            return redirect()->back()->with('success', __('global.successfully_updated'));
-        } catch (\Exception $e) {
-            return redirect()->route('addons.index')->with('danger', "Error: ". $e->getMessage());
+            return response()->json(['status' => 'success', 'message' =>  __('global.successfully_updated')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
+    }
+
+    public function ajaxIndex(){
+        $data = Page::select('id', 'slug', 'user_id', 'title', 'updated_at');
+
+        return Datatables::of($data)
+        ->addColumn('author', function($data){
+            $user = $data->user->name;
+            return $user;
+        })
+        ->addColumn('updated_at', function($data){
+            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            return $updated_at;
+        })
+        ->addColumn('status', function($data){
+            $isMainPage = $data->id == setting('main_page') ? __('global.yes') : __('global.no');
+            $btnMainPage = $data->id == setting('main_page') ? 'success' : 'primary';
+            $iconMainPage = $data->id == setting('main_page') ? '<i class="far fa-check-circle"></i> ' : '<i class="fas fa-minus-circle"></i> ';
+            
+            $main_page = '<a class="btn btn-sm btn-'. $btnMainPage .'" href="javascript:void(0)" id="setMainPage" data-id="'. $data->id .'">'. $iconMainPage . $isMainPage .'</a>';
+            return $main_page;
+        })
+        ->addColumn('action', 'page.actions' ) //add view actions
+        ->rawColumns(['author', 'updated_at', 'status', 'action'])->make(true);
     }
 }

@@ -54,8 +54,8 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleSelect2">{{__('global.users.title')}}</label>
-                            <select class="form-control" id="user_id" name="user_id">
+                            <label for="user_id">{{__('global.users.title')}}</label>
+                            <select class="form-control select2" id="user_id" name="user_id">
                                 @foreach ($users as $key => $user)
                                     <option value="{{$key}}" {{$key == $page->user_id ? 'selected' : ''}}>{{$user}}</option>
                                 @endforeach

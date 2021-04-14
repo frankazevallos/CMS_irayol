@@ -59,6 +59,10 @@ return [
 	'route' => 'Ruta',
 	'size' => 'Tamaño en disco',
 
+	'seo_title' => 'Titulo para SEO',
+	'seo_description' => 'Descripciòn para SEO',
+	'seo_keyword' => 'Palabras para SEO',
+
 	'app_no_entries_in_table' => 'No entries in table',
 	'custom_controller_index' => 'Custom controller index.',
 	'app_logout' => 'Logout',
@@ -72,7 +76,7 @@ return [
 
 	// Admin Home
 	'home' => 'Inicio',
-	'pages' => 'Paginas',
+	'pages' => 'Páginas',
 	'blogs' => 'Entradas',
 	'media' => 'Multimedia',
 	'categories' => 'Categorías',
@@ -168,4 +172,5 @@ return [
 
 	'successfully_added_theme' => 'El modulo :theme fue agregado con éxito.',
 	'successfully_destroy_theme' => 'El modulo :theme fue eliminado con éxito.',
+	'main_page' => 'Página principal',
 ];

@@ -29,7 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Page
     Route::resource('/page', \App\Http\Controllers\PagesController::class, ['except' => ['show']]);
-    Route::post('/page/active', [App\Http\Controllers\PagesController::class, 'active'])->name('page.active');
+    Route::post('/mainpage/{id}', [App\Http\Controllers\PagesController::class, 'mainPage'])->name('page.mainpage');
+    Route::get('ajaxindex/page', [App\Http\Controllers\PagesController::class, 'ajaxIndex'])->name('page.ajaxindex');
 
     // Menu
     Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu.index');
