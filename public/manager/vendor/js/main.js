@@ -100237,7 +100237,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v10.15.7
+* sweetalert2 v10.16.0
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -101865,16 +101865,18 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
   }; // Restore previous active (focused) element
 
 
-  var restoreActiveElement = function restoreActiveElement() {
+  var restoreActiveElement = function restoreActiveElement(returnFocus) {
     return new Promise(function (resolve) {
+      if (!returnFocus) {
+        return resolve();
+      }
+
       var x = window.scrollX;
       var y = window.scrollY;
       globalState.restoreFocusTimeout = setTimeout(function () {
         focusPreviousActiveElement();
         resolve();
       }, RESTORE_FOCUS_TIMEOUT); // issues/900
-
-      /* istanbul ignore if */
 
       if (typeof x !== 'undefined' && typeof y !== 'undefined') {
         // IE doesn't have scrollX/scrollY support
@@ -102024,6 +102026,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     focusConfirm: true,
     focusDeny: false,
     focusCancel: false,
+    returnFocus: true,
     showCloseButton: false,
     closeButtonHtml: '&times;',
     closeButtonAriaLabel: 'Close this dialog',
@@ -102068,7 +102071,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     didDestroy: undefined,
     scrollbarPadding: true
   };
-  var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'willClose'];
+  var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'returnFocus', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'willClose'];
   var deprecatedParams = {
     animation: 'showClass" and "hideClass',
     onBeforeOpen: 'willOpen',
@@ -102078,7 +102081,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     onAfterClose: 'didClose',
     onDestroy: 'didDestroy'
   };
-  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusDeny', 'focusCancel', 'heightAuto', 'keydownListenerCapture'];
+  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusDeny', 'focusCancel', 'returnFocus', 'heightAuto', 'keydownListenerCapture'];
   /**
    * Is valid parameter
    * @param {String} paramName
@@ -102408,11 +102411,11 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
    * Instance method to close sweetAlert
    */
 
-  function removePopupAndResetState(instance, container, isToast$$1, didClose) {
-    if (isToast$$1) {
+  function removePopupAndResetState(instance, container, returnFocus, didClose) {
+    if (isToast()) {
       triggerDidCloseAndDispose(instance, didClose);
     } else {
-      restoreActiveElement().then(function () {
+      restoreActiveElement(returnFocus).then(function () {
         return triggerDidCloseAndDispose(instance, didClose);
       });
       globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
@@ -102492,10 +102495,10 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     runDidClose(popup, willClose, onClose);
 
     if (animationIsSupported) {
-      animatePopup(instance, popup, container, didClose || onAfterClose);
+      animatePopup(instance, popup, container, innerParams.returnFocus, didClose || onAfterClose);
     } else {
       // Otherwise, remove immediately
-      removePopupAndResetState(instance, container, isToast(), didClose || onAfterClose);
+      removePopupAndResetState(instance, container, innerParams.returnFocus, didClose || onAfterClose);
     }
   };
 
@@ -102507,8 +102510,8 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     }
   };
 
-  var animatePopup = function animatePopup(instance, popup, container, didClose) {
-    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, isToast(), didClose);
+  var animatePopup = function animatePopup(instance, popup, container, returnFocus, didClose) {
+    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, returnFocus, didClose);
     popup.addEventListener(animationEndEvent, function (e) {
       if (e.target === popup) {
         globalState.swalCloseEventFinishedCallback();
@@ -103870,7 +103873,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '10.15.7';
+  SweetAlert.version = '10.16.0';
 
   var Swal = SweetAlert;
   Swal["default"] = Swal;
@@ -119883,20 +119886,6 @@ module.exports = __webpack_require__(/*! /Users/user/Sites/irayol/resources/sass
 /***/ })
 
 /******/ });
-/* **** FILE MANAGER **** */
-
-$('#upload_files').click(function() {
-    $('#files').click();
-});
-
-$('.custom-file-input').on('change', function() {
-    var fileName = $(this).val().split('\\').pop();
-    $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
-});
-
-
-/* **** FILE MANAGER **** */
-
 //Close alert
 window.setTimeout(function () {
     $(".alert-remove").fadeTo(500, 0).slideUp(500, function () {
@@ -120158,3 +120147,213 @@ function delete_menu_item(row_id) {
         }
     );
 }
+/* **** FILE MANAGER **** */
+$('.custom-file-input').on('change', function() {
+    var fileName = $(this).val().split('\\').pop();
+    $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
+});
+
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $("body").on("change", "#files", function(){
+        let mediaCount = document.getElementById('files').files.length
+        $("#file_count").text(mediaCount);
+        if(mediaCount > 0){
+            $("#submit").attr("disabled", false);
+        }
+    });
+
+    // ****** Store media ******
+    $('#submit').click(function(){
+
+        let form_data = new FormData();
+
+        // Read selected files
+        let totalfiles = document.getElementById('files').files.length;
+        
+        for (let index = 0; index < totalfiles; index++) {
+            form_data.append("files[]", document.getElementById('files').files[index]);
+        }
+
+        $.ajax({
+            url: '/media', 
+            type: 'POST',
+            data: form_data,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                for(let index = 0; index < response.message.length; index++) {
+                    
+                    let src = response.message[index].path;
+                    let mediaId = response.message[index].id;
+                    $('.ajaxMediaShow').prepend(`
+                        <div class="col-md-2 mt-3" id="card_media_${mediaId}">
+                            <div class="card-body img-card-background loading filter image" style="background-image: url('${src}'); ">
+                                <div class="card-tools">
+                                    <a href="javascript:void(0)" id="showMedia" data-id="${mediaId}" class="btn btn-tool"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>`
+                    );
+                }
+                $("#file_count").text(0);
+                $("#submit").attr("disabled", true);
+            },
+            error: function (response) {
+                console.log("Error:", response.message);
+            },
+        });
+    });
+    
+    // ****** Edit media media ******
+    $("body").on("click", "#btnUpdateMedia" , function() {
+        var media_id = $(this).data('id');
+
+        var file = $('#titleFile').val();
+
+        if(file != ''){
+            $.ajax({
+                url: 'media/' + media_id,
+                type: "PATCH",
+                cache: false,
+                data: {file},
+                success: function(response){
+                    $('#titleFile').addClass('is-valid');
+                },
+                error: function (response) {
+                    console.log("Error:", response.message);
+                    $('#titleFile').addClass('is-invalid');
+                },
+            });
+        }
+    });
+
+    // ****** Show media media ******
+    $("body").on("click", "#showMedia", function () {
+        let media_id = $(this).data("id");
+        $.get("/media/" + media_id + "/edit", function (response) {
+            $("#editMediaModal").modal("show");
+
+            $('#mediaModalImage').attr('src', response.message.path);
+            $("#mediaCreatedAt").text(moment(response.message.created_at).format("YYYY-MM-DD HH:mm:ss"));
+            $("#linkMedia").attr({"href" : response.message.filePath, "title" : response.message.file, "target" : "_blank"});
+            $("#linkMedia").text(response.message.filePath);
+            $("#mediaSize").text(response.message.size);
+            $("#titleFile").val(response.message.file);
+            $("#deleteMedia").data('id', response.message.id)
+            $("#btnUpdateMedia").data('id', response.message.id)
+        });
+    });
+
+    // ****** Delete media media ******
+    $("body").on("click", "#deleteMedia", function () {
+        let media_id = $(this).data("id");
+        if (confirm('¿Estas seguro de querer borrar este registro?')) {
+            $.ajax({
+                url: "/media/" + media_id,
+                type: "DELETE",
+                success: function (response) {
+                    console.log(response);
+                    $("#editMediaModal").modal("toggle");
+                    $("#card_media_" + media_id).remove();
+                },
+                error: function (response) {
+                    console.log("Error:", response);
+                },
+            });
+        };
+    });
+
+    // ****** Paginate and search ajax ******
+    $('#clearSearchFiles').click(function(){
+        $('#searchFiles').val('');
+        getData();
+    });
+
+    function getData(page, query){
+
+        if (!page && !query) {
+            page = 1;
+            query = ' ';
+        }
+
+        $.ajax({
+            url:"ajaxindex/media?page="+page+"&query="+query,
+            success: function(data)
+            {
+                $('#medias').html('');
+                $('#medias').html(data);
+            }
+        })
+    }
+
+    getData();
+
+    $(document).on('keyup', '#searchFiles', function(){
+        let query = $('#searchFiles').val();
+        let page = $('#hidden_page').val();
+
+        if(query.length > 0){
+            $("#clearSearchFiles").attr("disabled", false);
+        }
+
+        getData(page, query);
+    });
+
+    $(document).on('click', '.pagination a', function(event){
+        event.preventDefault();
+        let page = $(this).attr('href').split('page=')[1];
+        let query = $('#searchFiles').val();
+
+        $('li').removeClass('active');
+        $(this).parent().addClass('active');
+        getData(page, query);
+    });
+
+});
+/* **** FILE MANAGER **** */
+let dataPages = $('.data-table-page').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: true,
+    ajax: "/ajaxindex/page",
+    columns: [
+        { data: "title", name : 'title' },
+        { data: "author", name : 'author', orderable: false, searchable: false },
+        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
+        { data: "status", name: "status", orderable: false, searchable: false},
+        { data: 'action', name: 'action', orderable: false, searchable: false },
+    ],
+});
+
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $("body").on("click", "#setMainPage" , function() {
+        var page_id = $(this).data('id');
+
+        $.ajax({
+            url: 'mainpage/' + page_id,
+            type: "POST",
+            cache: false,
+            success: function(response){
+                dataPages.ajax.reload();
+                console.log(response)
+            },
+            error: function (response) {
+                console.log("Error:", response.message);
+            },
+        });
+
+    });
+});
