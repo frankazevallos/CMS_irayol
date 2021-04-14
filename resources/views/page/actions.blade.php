@@ -4,18 +4,14 @@
     </a>
   
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-        <form method="POST" action="{{ route('page.destroy', $id) }}" accept-charset="UTF-8">
-            @method('DELETE')
-            @csrf
+        <form name="editPageForm" id="editPageForm-{{$id}}">
                 <a href="{{ route('page.show', $slug) }}" target="_blank" class="dropdown-item" title="{{__('global.view')}}">
                     <i class="far fa-eye" aria-hidden="true"></i> {{__('global.view')}}
                 </a>
-                <a href="{{ route('page.edit', $id) }}" class="dropdown-item" title="{{__('global.edit')}}">
+                <a href="{{ route('pages.edit', $id) }}" class="dropdown-item" title="{{__('global.edit')}}">
                     <i class="fas fa-pencil-alt"></i> {{__('global.edit')}}
                 </a>
-                <button type="submit" class="dropdown-item" title="{{__('global.delete')}}" onclick="return confirm(&quot; {{__('paysubscriptions::global.confirm_delete')}} &quot;)">
-                    <i class="fas fa-trash"></i> {{__('global.delete')}}
-                </button>
+                <a class="dropdown-item" href="javascript:void(0)" id="deletePage" data-id="{{$id}}"><i class="fas fa-trash"></i> {{__('global.delete')}}</a>
         </form>
     </div>
 </div>
