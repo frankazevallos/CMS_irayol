@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @push('title', 'Edit Page')
 @section('content')
-    <form action="{{route('page.update', $page->id) }}" method="POST">
+    <form action="{{route('pages.update', $page->id) }}" method="POST">
         @method('PUT')
         @csrf
         <div class="row">
@@ -67,7 +67,7 @@
 					<a href="#" class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 						SEO <i class="float-right fa fa-circle" aria-hidden="true" style="margin-top: 2px;"></i>
 					</a>
-					<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
 							<div class="form-group">
 								<label for="title">{{__('global.seo_title')}}</label>
@@ -94,7 +94,7 @@
 						<input type="submit" name="submit" value="{{__('global.save')}}" class="btn btn-primary btn-block" />
 					</div>
 					<div class="col-6 mt-3">
-						<a class="btn btn-secondary btn-block" href="{{route('page.index')}}">{{__('global.cancel')}}</a>
+						<a class="btn btn-secondary btn-block" href="{{route('pages.index')}}">{{__('global.cancel')}}</a>
 					</div>
 				</div>
             </div>
