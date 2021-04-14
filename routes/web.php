@@ -28,7 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('/blog', \App\Http\Controllers\BlogsController::class, ['except' => ['show']]);
 
     // Page
-    Route::resource('/page', \App\Http\Controllers\PagesController::class, ['except' => ['show']]);
+    Route::resource('/pages', \App\Http\Controllers\PagesController::class, ['except' => ['show']]);
     Route::post('/mainpage/{id}', [App\Http\Controllers\PagesController::class, 'mainPage'])->name('page.mainpage');
     Route::get('ajaxindex/page', [App\Http\Controllers\PagesController::class, 'ajaxIndex'])->name('page.ajaxindex');
 

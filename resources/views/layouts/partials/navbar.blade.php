@@ -74,10 +74,10 @@
                 
                 @can('page.index')
 				<li class="nav-item has-treeview">
-					<a href="#" class="nav-link {{ request()->routeIs('page.index', 'page.create')  ? 'active' : ''}}"><i class="nav-icon far fa-file-alt"></i><p>{{ __('global.pages') }}<i class="fas fa-angle-left right"></i></p></a>
+					<a href="#" class="nav-link {{ request()->routeIs('pages.index', 'pages.create')  ? 'active' : ''}}"><i class="nav-icon far fa-file-alt"></i><p>{{ __('global.pages') }}<i class="fas fa-angle-left right"></i></p></a>
 					<ul class="nav nav-treeview">
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('page.index') ? 'active' : ''}}" href="{{ route('page.index') }}"><i class="far fa-circle nav-icon"></i> {{ __('global.list_page') }}</a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('page.create') ? 'active' : ''}}" href="{{ route('page.create') }}"><i class="far fa-circle nav-icon"></i> {{ __('global.create') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('pages.index') ? 'active' : ''}}" href="{{ route('pages.index') }}"><i class="far fa-circle nav-icon"></i> {{ __('global.list_page') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('pages.create') ? 'active' : ''}}" href="{{ route('pages.create') }}"><i class="far fa-circle nav-icon"></i> {{ __('global.create') }}</a></li>
                     </ul>                    
                 </li>
                 @endcan

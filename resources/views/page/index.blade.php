@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6">
                 <div class="btn-group btn-group-sm float-right" role="group">
-                    <a href="{{ route('page.create') }}" class="btn btn-success" title="Create New Setting"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
+                    <a href="{{ route('pages.create') }}" class="btn btn-success" title="Create New Setting"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
                 </div>
             </div>
         </div>
