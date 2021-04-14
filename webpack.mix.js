@@ -16,6 +16,8 @@ mix.js('resources/js/app.js', 'public/manager/vendor/js/init.js')
     .combine([
     	'public/manager/vendor/js/init.js',
       	'public/manager/js/custom-script.js',
+		'public/manager/js/file-manager.js',
+		'public/manager/js/pages.js',
 	], 'public/manager/vendor/js/main.js')
   .combine([
 		'public/manager/vendor/css/init.css',
