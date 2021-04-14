@@ -1,12 +1,3 @@
-/* **** FILE MANAGER **** */
-$('.custom-file-input').on('change', function() {
-    var fileName = $(this).val().split('\\').pop();
-    $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
-});
-
-
-/* **** FILE MANAGER **** */
-
 //Close alert
 window.setTimeout(function () {
     $(".alert-remove").fadeTo(500, 0).slideUp(500, function () {
