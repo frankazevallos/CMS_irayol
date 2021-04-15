@@ -74,20 +74,6 @@ $(document).ready(function () {
         }
     });
 
-    const icons = {
-        time: 'fas fa-clock',
-        date: 'fas fa-calendar',
-        up: 'fas fa-arrow-up',
-        down: 'fas fa-arrow-down',
-        previous: 'fas fa-arrow-circle-left',
-        next: 'fas fa-arrow-circle-right',
-        today: 'far fa-calendar-check-o',
-        clear: 'fas fa-trash',
-        close: 'far fa-times'
-    }
-
-    const date_format = 'YYYY-MM-DD HH:mm';
-
     $('#start_date').datetimepicker({
         date: moment($('#start_date').val()),
         format: date_format,
@@ -142,7 +128,7 @@ $(document).ready(function () {
     let start = moment().subtract(29, 'days');
     let end = moment();
 
-    function cb(start, end) {        
+    function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
 

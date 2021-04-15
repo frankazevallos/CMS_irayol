@@ -11,19 +11,22 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');
-    
-    require('select2');
+
     const Swal = window.Swal = require('sweetalert2');
-    require ('admin-lte/build/js/AdminLTE');
-    require('summernote/dist/summernote-bs4');
+    require ('../assets/AdminLTE-3.1.0/build/js/AdminLTE');
+    require('../assets/AdminLTE-3.1.0/plugins/select2/js/select2.full');
+    require('../assets/AdminLTE-3.1.0/plugins/summernote/summernote-bs4')
+
     require('datatables.net');
     require('datatables.net-bs4');
     require('datatables.net-buttons-bs4');
     require('datatables.net-responsive-bs4');
-    require('daterangepicker');
 
     window.moment = require('moment');
-    window.datetimepicker = require('tempusdominus-bootstrap-4');
+    window.moment.locale('es');
+
+    window.datetimepicker = require('../assets/AdminLTE-3.1.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4');
+    require('../assets/AdminLTE-3.1.0/plugins/daterangepicker/daterangepicker')
     window.nestable = require('jquery-nestable');
 
 } catch (e) {}

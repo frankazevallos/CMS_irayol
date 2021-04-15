@@ -1,3 +1,19 @@
+/* OPEN GLOBAL CONST */
+const icons = {
+    time: 'fas fa-clock',
+    date: 'fas fa-calendar',
+    up: 'fas fa-arrow-up',
+    down: 'fas fa-arrow-down',
+    previous: 'fas fa-arrow-circle-left',
+    next: 'fas fa-arrow-circle-right',
+    today: 'far fa-calendar-check-o',
+    clear: 'fas fa-trash',
+    close: 'far fa-times'
+}
+
+const date_format = 'YYYY-MM-DD HH:mm';
+/* CLOSE GLOBAL CONST */
+
 //Close alert
 window.setTimeout(function () {
     $(".alert-remove").fadeTo(500, 0).slideUp(500, function () {
@@ -8,6 +24,7 @@ window.setTimeout(function () {
 $(document).ready(function () {
     $('.select2').select2({
         theme: 'bootstrap4',
+        tags: true,
     });
 });
 
@@ -111,7 +128,8 @@ if ($(window).width() < 992) {
 /* **** CREATE AND EDIT BLOG **** */
 $('#published_at').datetimepicker({
     date: moment($('#published_at').val()),
-    format: 'YYYY-MM-DD HH:mm'
+    format: date_format,
+    icons: icons,
 });
 
 const FMButton = function (context) {
