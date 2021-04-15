@@ -84,10 +84,10 @@
 
                 @can('blog.index')
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ request()->routeIs('blog.index', 'blog.create') ? 'active' : ''}}"><i class="nav-icon fas fa-file-alt"></i> <p> {{ __('global.blogs') }} <i class="fas fa-angle-left right"></i></p></a>
+                    <a href="#" class="nav-link {{ request()->routeIs('blogs.index', 'blogs.create') ? 'active' : ''}}"><i class="nav-icon fas fa-file-alt"></i> <p> {{ __('global.blogs') }} <i class="fas fa-angle-left right"></i></p></a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog.index') ? 'active' : ''}}" href="{{ route('blog.index') }}"><i class="far fa-circle nav-icon"></i> {{__('global.list_blogs')}}</a></li>
-                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('blog.create') ? 'active' : ''}}" href="{{ route('blog.create') }}"><i class="far fa-circle nav-icon"></i> {{ __('global.create') }}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('blogs.index') ? 'active' : ''}}" href="{{ route('blogs.index') }}"><i class="far fa-circle nav-icon"></i> {{__('global.list_blogs')}}</a></li>
+                        <li class="nav-item"><a class="nav-link {{ request()->routeIs('blogs.create') ? 'active' : ''}}" href="{{ route('blogs.create') }}"><i class="far fa-circle nav-icon"></i> {{ __('global.create') }}</a></li>
                     </ul>
                 </li>
                 @endcan

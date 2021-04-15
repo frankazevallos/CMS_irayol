@@ -2,7 +2,7 @@
 @push('title', 'Add Blog')
 @section('content')
 
-	<form action="{{route('blog.store')}}" method="POST" class="">
+	<form action="{{route('blogs.store')}}" method="POST" class="">
         <div class="row">
             <div class="col-md-8">
 				<div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -101,7 +101,7 @@
 					<div class="col-6 mt-3">
 						<input type="submit" name="submit" value="Save" class="btn btn-primary btn-block" />					</div>
 					<div class="col-6 mt-3">
-						<a class="btn btn-secondary btn-block" href="{{route('blog.index')}}">Cancel</a>
+						<a class="btn btn-secondary btn-block" href="{{route('blogs.index')}}">Cancel</a>
 					</div>
 				</div>
             </div>

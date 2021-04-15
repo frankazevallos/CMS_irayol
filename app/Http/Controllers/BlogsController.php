@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class BlogsController extends Controller
 {
@@ -29,31 +30,11 @@ class BlogsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->search;
-        $users = User::all()->pluck('name', 'id');
-
-        if (!empty($request->number)) {
-            $number = $request->number;
-        } else {
-            $number = 10;
-        }
-
-        if (!empty($search)) {
-            $allblog = Blog::where('title', 'LIKE', '%' . $search . '%')->paginate($number);
-        } else {
-            $allblog = Blog::paginate($number);
-        }
-
-        return view('blog.index', compact('allblog', 'users'));
+        return view('blog.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $media = Media::all();
@@ -61,12 +42,6 @@ class BlogsController extends Controller
         return view('blog.create', compact('media', 'categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validator = Validator::make(request()->all(), [
@@ -161,7 +136,7 @@ class BlogsController extends Controller
             $blog->categories()->sync($request->category);
 
             if ($save) {
-                return redirect()->route('blog.index')->with('success', __('global.successfully_updated'));
+                return redirect()->route('blogs.index')->with('success', __('global.successfully_updated'));
             }
         } else {
             return redirect()->route('blog.edit', $id)->withErrors($validator)->withInput();
@@ -176,10 +151,35 @@ class BlogsController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Blog::find($id);
-        $delete = $blog->delete();
-        if ($delete) {
-            return redirect()->route('blog.index')->with('warning', __('global.successfully_destroy'));
+        try {
+            $blog = Blog::find($id);
+            $blog->delete();
+            return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
+    }
+
+    public function ajaxIndex (){
+        $data = Blog::select('id', 'slug', 'user_id', 'title', 'updated_at');
+
+        return Datatables::of($data)
+        ->addColumn('author', function($data){
+            $user = '<a href=" '. route('users.show', $data->user->id) . ' ">' .$data->user->name . '</a>';
+            return $user;
+        })
+        ->addColumn('updated_at', function($data){
+            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            return $updated_at;
+        })
+        ->addColumn('category', function($data){
+            $cat = [];
+            foreach ($data->categories as $category) {
+                $cat = '<a href=" '. route('category.show', $category->id) . ' ">' .$category->name . '</a>';
+            }
+            return $cat;
+        })
+        ->addColumn('action', 'blog.actions' ) //add view actions
+        ->rawColumns(['author', 'updated_at', 'category', 'action'])->make(true);
     }
 }

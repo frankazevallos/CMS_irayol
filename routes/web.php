@@ -25,7 +25,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home'); //main dashboard
 
     // Blog
-    Route::resource('/blog', \App\Http\Controllers\BlogsController::class, ['except' => ['show']]);
+    Route::resource('/blogs', \App\Http\Controllers\BlogsController::class, ['except' => ['show']]);
+    Route::get('ajaxindex/blog', [App\Http\Controllers\BlogsController::class, 'ajaxIndex'])->name('blog.ajaxindex');
 
     // Page
     Route::resource('/pages', \App\Http\Controllers\PagesController::class, ['except' => ['show']]);

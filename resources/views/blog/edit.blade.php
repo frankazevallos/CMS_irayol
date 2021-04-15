@@ -2,7 +2,7 @@
 @push('title', 'Edit Blog')
 @section('content')
 
-    <form action="{{ route('blog.update', $blog->id ) }}" method="POST" class="">
+    <form action="{{ route('blogs.update', $blog->id ) }}" method="POST" class="">
         <div class="row">
             <div class="col-md-8">
 
@@ -48,8 +48,8 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="exampleSelect2">{{__('global.visibility')}}</label>
-                            <select class="custom-select" id="visibility" name="visibility">
+                            <label for="visibility">{{__('global.visibility')}}</label>
+                            <select class="custom-select select2" id="visibility" name="visibility">
                                 <option selected="" disabled>Open this select visibility</option>
                                 @foreach ($data = array('published' => 'Published', 'draft' => 'Draft', 'pending_review' => 'Pending Review'); as $key => $visibility)
                                     <option value="{{$key}}" {{ $blog->visibility == $key ? 'selected' : '' }}>{{$visibility}}</option>
@@ -57,8 +57,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleSelect2">{{__('global.users.title')}}</label>
-                            <select class="form-control" id="user_id" name="user_id">
+                            <label for="user_id">{{__('global.users.title')}}</label>
+                            <select class="form-control select2" id="user_id" name="user_id">
                                 @foreach ($users as $key => $user)
                                     <option value="{{$key}}" {{$key == $blog->user_id ? 'selected' : ''}}>{{$user}}</option>
                                 @endforeach
@@ -76,13 +76,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleSelect2">{{__('global.categories')}}</label>
-                            <select multiple="" class="form-control select2" id="category" name="category[]">
+                            <label for="category">{{__('global.categories')}}</label>
+                            <select multiple="multiple" class="form-control select2" id="category" name="category[]" >
                                 @foreach ($categories as $key => $category)
                                     <option value="{{$key}}" {{ collect(old('category', $blog->categories->pluck('id')))->contains($key) ? 'selected' : '' }}>{{$category}}</option>
                                 @endforeach
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label class="control-label">{{__('global.main_image')}}</label>
                             <div class="form-group">
@@ -104,7 +105,7 @@
 						SEO <i class="float-right fa fa-circle" aria-hidden="true" style="margin-top: 2px;"></i>
 					</a>
 
-					<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
 							<div class="form-group">
 								<label for="title">{{__('global.seo_title')}}</label>
@@ -131,7 +132,7 @@
 						<input type="submit" name="submit" value="{{__('global.save')}}" class="btn btn-primary btn-block" />
 					</div>
 					<div class="col-6 mt-3">
-						<a class="btn btn-secondary btn-block" href="{{route('blog.index')}}">{{__('global.cancel')}}</a>
+						<a class="btn btn-secondary btn-block" href="{{route('blogs.index')}}">{{__('global.cancel')}}</a>
 					</div>
 				</div>
             </div>
@@ -204,4 +205,3 @@
 </div>
 <!--Main Image Modal-->
 @endsection
-

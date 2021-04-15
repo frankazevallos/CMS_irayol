@@ -10,57 +10,25 @@
             </div>
             <div class="col-md-6">
                 <div class="btn-group btn-group-sm float-right" role="group">
-                    <a href="#item" class="btn btn-primary btn-sm" data-toggle="collapse"><i class="fa fa-filter" aria-hidden="true"></i> {{__('global.number_of_items')}}</a>
-                    <a href="#search" class="btn btn-primary btn-sm" data-toggle="collapse"><i class="fa fa-search" aria-hidden="true"></i> {{__('global.search')}}</a>
-                    <a class="btn btn-success btn-sm" href="{{ route('blog.create') }}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
+                    <a class="btn btn-success btn-sm" href="{{ route('blogs.create') }}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="card-body">
-        <div id="item" class="collapse">
-            <form method="get" action="{{route('blog.index')}}">
-                <div class="form-group">
-                    <label for="edit_page_per_page">{{__('global.number_of_items')}}</label>
-                    <div class="input-group mb-3">
-                        <input min="1" max="999" class="form-control" name="number" id="number" maxlength="3" placeholder="10" type="number" />
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">{{__('global.apply')}}</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-		</div>
 
-        <!--Search-->
-        <div id="search" class="collapse">
-            <form method="get" action="{{route('blog.index')}}">
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <input class="form-control" name="search" id="search" placeholder="{{__('global.search')}}" type="text" value="{{ !empty(Request::get('search')) ?  Request::get('search') : '' }}" />
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">{{__('global.apply')}}</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!--Search-->
-
-        @if(count($allblog) > 0)
-        <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover data-table-blog">
                 <thead>
                     <tr>
                         <th>{{__('global.title')}}</th>
                         <th>{{__('global.author')}}</th>
                         <th>{{__('global.categories')}}</th>
                         <th>{{__('global.update_at')}}</th>
-                        <th colspan="3">{{__('global.action')}}</th>
+                        <th>{{__('global.action')}}</th>
                     </tr>
                 </thead>
-                <tbody>
+                {{--<tbody>
                     @foreach($allblog as $blog)
                     <tr>
                         <td>{{ $blog->title }}</td>
@@ -90,17 +58,9 @@
 						</td>
                     </tr>
                     @endforeach
-                </tbody>
+                </tbody>--}}
             </table>
-        </div>
-        @elseif(count($allblog) < 1))
-        	<div class="alert alert-warning" role="alert">Sorry, we can't find your blog. <a href="{{ route('blog.index') }}">Reset search.</a></div>
-        @else
-        	<div class="alert alert-warning" role="alert">Empty blog! Please click Add Blog to add blog.</div>
-        @endif
-    </div>
-    <div class="card-footer">
-        {!! $allblog->appends(request()->input())->links() !!}
+     
     </div>
 </div>
 @endsection
