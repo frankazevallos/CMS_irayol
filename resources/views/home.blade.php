@@ -1,12 +1,12 @@
-@extends('layouts.app') 
-@push('title', 'Welcome to dashboard!') 
+@extends('layouts.app')
+@push('title', 'Welcome to dashboard!')
 @section('content')
 
-    <div class="row">        
+    <div class="row">
         <div class="col-12 col-sm-6 col-md">
-            <a href="{{route('page.index')}}">
-                <div class="info-box mb-3 shadow">                
-                    <span class="info-box-icon bg-danger elevation-1"><i class="far fa-file-alt"></i></span>            
+            <a href="{{route('pages.index')}}">
+                <div class="info-box mb-3 shadow">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="far fa-file-alt"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">{{ __('global.pages') }} </span>
                         <span class="info-box-number">{{$pages}}</span>
@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-12 col-sm-6 col-md">
-            <a href="{{route('blog.index')}}">    
+            <a href="{{route('blogs.index')}}">
                 <div class="info-box mb-3 shadow">
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-alt"></i></span>
                     <div class="info-box-content">
