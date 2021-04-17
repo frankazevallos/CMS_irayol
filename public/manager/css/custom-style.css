@@ -22,7 +22,7 @@
     cursor: pointer;
 }
 .selected {
-    border: #e95420 5px solid;
+    border: #ffc107 6px solid;
 }
 
 .img-card-background {
