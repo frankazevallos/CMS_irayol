@@ -173,4 +173,7 @@ return [
 	'successfully_added_theme' => 'El modulo :theme fue agregado con éxito.',
 	'successfully_destroy_theme' => 'El modulo :theme fue eliminado con éxito.',
 	'main_page' => 'Página principal',
+	'insert' => 'Insertar',
+	'select_file' => 'Seleccione un archivo',
+	'select_img' => 'Seleccione una imagen',
 ];
