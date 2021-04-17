@@ -65,12 +65,10 @@ class BlogsController extends Controller
             $blog->categories()->attach($request->category);
 
             if ($save) {
-                return redirect()->action('HomeController@blog')->with('success', __('global.successfully_added'));
+                return redirect()->back()->with('success', __('global.successfully_added'));
             }
         } else {
-            return redirect()->route('blog.create')
-                ->withErrors($validator)
-                ->withInput();
+            return redirect()->route('blogs.create')->withErrors($validator)->withInput();
         }
     }
 
@@ -139,7 +137,7 @@ class BlogsController extends Controller
                 return redirect()->route('blogs.index')->with('success', __('global.successfully_updated'));
             }
         } else {
-            return redirect()->route('blog.edit', $id)->withErrors($validator)->withInput();
+            return redirect()->route('blogs.edit', $id)->withErrors($validator)->withInput();
         }
     }
 
@@ -161,7 +159,7 @@ class BlogsController extends Controller
     }
 
     public function ajaxIndex (){
-        $data = Blog::select('id', 'slug', 'user_id', 'title', 'updated_at');
+        $data = Blog::select('id', 'slug', 'user_id', 'title', 'updated_at')->orderBy("created_at", 'desc');
 
         return Datatables::of($data)
         ->addColumn('author', function($data){

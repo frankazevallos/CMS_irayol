@@ -71,5 +71,29 @@ class Media extends Model
         }
 
         return $bytes;
-}
+    }
+
+    public function getMediaAjax($query){
+        
+        $query = str_replace(" ", "%", $query);
+
+        if($query != '') {
+            $medias = $this->where('file', 'like', '%' . $query . '%')->orderBy("created_at", 'desc')->paginate(18);
+        } else {
+            $medias = $this->orderBy("created_at", 'desc')->paginate(18);
+        }
+        return $medias;
+    }
+
+    public function getMediaAjaxType($query, $type){
+        
+        $query = str_replace(" ", "%", $query);
+
+        if($query != '') {
+            $medias = $this->where('file', 'like', '%' . $query . '%')->whereIn('extension', $type)->orderBy("created_at", 'desc')->paginate(18);
+        } else {
+            $medias = $this->whereIn('extension', $type)->orderBy("created_at", 'desc')->paginate(18);
+        }
+        return $medias;
+    }
 }

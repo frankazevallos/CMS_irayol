@@ -165,19 +165,27 @@ class MediaController extends Controller
         try {
             if ($request->ajax()) {
 
-                $query = str_replace(" ", "%", $request->get('query'));
-
-                if($query != '') {
-                    $medias = Media::where('file', 'like', '%'.$query.'%')->orderBy("created_at", 'desc')->paginate(18);
-                } else {
-                    $medias = Media::orderBy("created_at", 'desc')->paginate(18);
-                }
-
+                $media = new Media();
+                $medias = $media->getMediaAjax($request->get('query'), " ");
                 return view('media.items', compact('medias'))->render();
             }
         } catch (\Throwable $th) {
             return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
-        
+    }
+
+    public function getMediaModal(Request $request){
+        try {
+            if ($request->ajax()) {
+                $image = ['gif', 'png', 'jpg', 'jpeg', 'raw', 'webp',];
+
+                $media = new Media();
+                $medias = $media->getMediaAjaxType($request->get('query'), $image);
+
+                return view('media.modal-insert', compact('medias'))->render();
+            }
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 }

@@ -165,7 +165,7 @@ class PagesController extends Controller
     }
 
     public function ajaxIndex(){
-        $data = Page::select('id', 'slug', 'user_id', 'title', 'updated_at');
+        $data = Page::select('id', 'slug', 'user_id', 'title', 'updated_at')->orderBy("created_at", 'desc');
 
         return Datatables::of($data)
         ->addColumn('author', function($data){
