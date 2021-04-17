@@ -8,6 +8,9 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
+        <!-- baseRoute -->
+        <meta name="current-route" content="{{ url()->current() }}" />
+
         <title>@stack('title')</title>
 
         <!-- Styles -->
@@ -29,6 +32,7 @@
                     </div>
                 </div>
             </div>
+            @include('layouts.partials.select-file-modal')
         </div>
 
         <!-- Main Footer -->

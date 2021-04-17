@@ -94,7 +94,7 @@
 						<input type="submit" name="submit" value="{{__('global.save')}}" class="btn btn-primary btn-block" />
 					</div>
 					<div class="col-6 mt-3">
-						<a class="btn btn-secondary btn-block" href="{{route('page.index')}}">{{__('global.cancel')}}</a>
+						<a class="btn btn-secondary btn-block" href="{{route('pages.index')}}">{{__('global.cancel')}}</a>
 					</div>
 				</div>
             </div>

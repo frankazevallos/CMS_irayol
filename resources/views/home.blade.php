@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Welcome to dashboard!')
+@push('title', __('global.welcome'))
 @section('content')
 
     <div class="row">

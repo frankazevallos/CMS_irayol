@@ -1,7 +1,6 @@
 @extends('layouts.app')
-@push('title', 'Media')
+@push('title', __('global.media'))
 @section('content')
-    {{-- @livewire('media') --}}
     <div class="card">
         <div class="card-header container-fluid">
             <div class="row">
