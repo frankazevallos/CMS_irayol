@@ -19,6 +19,7 @@ mix.js('resources/js/app.js', 'public/manager/vendor/js/init.js')
 		'public/manager/js/file-manager.js',
 		'public/manager/js/pages.js',
 		'public/manager/js/blogs.js',
+		'public/manager/js/select-file.js',
 	], 'public/manager/vendor/js/main.js')
   .combine([
 		'public/manager/vendor/css/init.css',
