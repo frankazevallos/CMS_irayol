@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Media
     Route::resource('media', \App\Http\Controllers\MediaController::class);
     Route::get('ajaxindex/media', [\App\Http\Controllers\MediaController::class, 'ajaxIndex'])->name('ajaxindex.media');
+    Route::get('getmediamodal/media', [\App\Http\Controllers\MediaController::class, 'getMediaModal'])->name('getmediamodal.media');
 
 
     // Theme
