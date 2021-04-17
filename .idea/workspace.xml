@@ -2,24 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9768ea41-b439-4136-a366-05266a5c5e69" name="Default Changelist" comment="Cambio de ruta de page a pages">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/js/app.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/manager/js/custom-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/js/custom-script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manager/vendor/css/init.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/css/init.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manager/vendor/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manager/vendor/js/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/js/init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manager/vendor/js/init.js.LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/js/file-manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/js/file-manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/js/fileinput.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/js/sweetalert.min.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/public/manager/vendor/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/modules/paysubscriptions/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/modules/paysubscriptions/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendor/livewire/livewire.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendor/livewire/livewire.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/vendor/livewire/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/es/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/es/global.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/blog/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/blog/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/blog/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/blog/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/partials/select-file-modal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/partials/select-file-modal.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/partials/select-img-file.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -207,7 +201,7 @@
       <workItem from="1618424689778" duration="3574000" />
       <workItem from="1618455660216" duration="7321000" />
       <workItem from="1618464294272" duration="86000" />
-      <workItem from="1618464650911" duration="2784000" />
+      <workItem from="1618464650911" duration="3678000" />
     </task>
     <servers />
   </component>
