@@ -135,16 +135,18 @@ $(document).ready(function(){
         }
 
         $.ajax({
-            url:"ajaxindex/media?page="+page+"&query="+query,
-            success: function(data)
-            {
+            url:"/ajaxindex/media?page="+page+"&query="+query,
+            success: function(response){
                 $('#medias').html('');
-                $('#medias').html(data);
+                $('#medias').html(response);
             }
         })
     }
 
-    getData();
+    var url = new URL($('meta[name="current-route"]').attr("content"));
+    if (url.pathname == '/media') {
+        getData();
+    }
 
     $(document).on('keyup', '#searchFiles', function(){
         let query = $('#searchFiles').val();

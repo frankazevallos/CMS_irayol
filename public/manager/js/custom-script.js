@@ -28,64 +28,6 @@ $(document).ready(function () {
     });
 });
 
-/* User clicks the "Insert to post" button */
-$("#InsertPhoto").click(function () {
-    $("#MediaModal").modal("hide"); // Close the modal
-    var insmedia = $("#InsertPhoto").data("id"); // Save the data-id value of #InsertPhoto button to variable
-    /* If variable value is not empty we pass it to tinymce function and it inserts the image to post */
-    if (insmedia != "") {
-        $('#summernote').summernote('insertImage', insmedia);
-    }
-});
-
-/* When user clicks an image in the modal, we add .selected style class to that image and remove the class from the rest of the images */
-$(".addimage").click(function () {
-    if ($(this).hasClass("selected")) {
-        $(this).removeClass("selected");
-    } else {
-        $(this).addClass("selected");
-    }
-
-    var postimageid = $(this).attr("src"); //Grab the src value of selected image to variable
-    $("#InsertPhoto").data("id", postimageid); //Save the value to data-id attribute of #InsertPhoto button
-});
-
-$("#MediaModal").on("show.bs.modal", function (event) {
-    $("img").removeClass("selected");
-    $("#InsertPhoto").data("id", ""); // Reset the data-id value of #InsertPhoto button
-});
-
-
-/* User clicks the "Insert to Main Image" button  */
-$("#MainPhoto").click(function () {
-    $("#MediaModal").modal("hide"); // Close the modal
-    var mainPic = $("#MainPhoto").data("id"); // Save the data-id value of #InsertPhoto button to variable
-    /* If variable value is not empty we pass it to tinymce function and it inserts the image to post */
-    if (mainPic != "") {
-        console.log(mainPic)
-        $('#main_image').val(mainPic);
-        $("#ImageMainSelect").attr('src', mainPic);
-    }
-});
-
-/* When user clicks an image in the modal, we add .selected style class to that image and remove the class from the rest of the images */
-$(".addMainImage").click(function () {
-    if ($(this).hasClass("selected")) {
-        $(this).removeClass("selected");
-    } else {
-        $(this).addClass("selected");
-    }
-
-    var postimageid = $(this).attr("src"); //Grab the src value of selected image to variable
-    $("#MainPhoto").data("id", postimageid); //Save the value to data-id attribute of #MainPhoto button
-});
-
-$("#MediaModal").on("show.bs.modal", function (event) {
-    $("img").removeClass("selected");
-    $("#MainPhoto").data("id", ""); // Reset the data-id value of #MainPhoto button
-});
-
-
 $(document).ready(function () {
     $(".filter-button").click(function () {
         var value = $(this).attr("data-filter");
@@ -132,43 +74,7 @@ $('#published_at').datetimepicker({
     icons: icons,
 });
 
-const FMButton = function (context) {
-    const ui = $.summernote.ui;
-    const button = ui.button({
-        contents: '<i class="note-icon-picture"></i> ',
-        tooltip: "File Manager",
-        click: function () {
-            $("#MediaModal").modal("show");
-        },
-    });
-    return button.render();
-};
 
-$(".summernote").summernote({
-    height: 650,
-    dialogsInBody: true,
-    codemirror: {
-        theme: "monokai",
-    },
-    callbacks: {
-        onInit: function () {
-            $("body > .note-popover").hide();
-        },
-    },
-    toolbar: [
-        ["style", ["style"]],
-        ["font", ["bold", "underline", "clear"]],
-        ["fontname", ["fontname"]],
-        ["color", ["color"]],
-        ["para", ["ul", "ol", "paragraph"]],
-        ["table", ["table"]],
-        ["insert", ["link", "fm-button", ["fm"], "video"]],
-        ["view", ["fullscreen", "codeview", "help"]],
-    ],
-    buttons: {
-        fm: FMButton,
-    },
-});
 
 /* ****MENU**** */
 $(document).ready(function () {
