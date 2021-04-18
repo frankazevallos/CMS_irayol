@@ -1,25 +1,25 @@
 @extends('layouts.app')
-@push('title', 'Show Category') 
+@push('title', __('global.categories')) 
 @section('content')
 <div class="card">
     <div class="card-header clearfix">
         <div class="float-left">
-            {{ isset($category->name) ? $category->name : 'Category' }}
+            {{ isset($category->name) ? $category->name : __('global.categories') }}
         </div>
         <div class="float-right">
-            <form method="POST" action="{!! route('category.destroy', $category->id) !!}" accept-charset="UTF-8">
+            <form method="POST" action="{!! route('categories.destroy', $category->id) !!}" accept-charset="UTF-8">
                 <input name="_method" value="DELETE" type="hidden">
                 {{ csrf_field() }}
                 <div class="btn-group-sm" role="group">
-                    <a href="{{ route('category.index') }}" class="btn btn-primary" title="{{__('global.return_back')}}">
+                    <a href="{{ route('categories.index') }}" class="btn btn-primary" title="{{__('global.return_back')}}">
                         <i class="fa fa-undo" aria-hidden="true"></i> {{__('global.return_back')}}
                     </a>
 
-                    <a href="{{ route('category.create') }}" class="btn btn-success" title="{{__('global.create')}}">
+                    <a href="{{ route('categories.create') }}" class="btn btn-success" title="{{__('global.create')}}">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}
                     </a>
                     
-                    <a href="{{ route('category.edit', $category->id ) }}" class="btn btn-primary" title="{{__('global.edit')}}">
+                    <a href="{{ route('categories.edit', $category->id ) }}" class="btn btn-primary" title="{{__('global.edit')}}">
                         <i class="fas fa-pencil-alt"></i> {{__('global.edit')}}
                     </a>
 
