@@ -94,7 +94,7 @@
 
                 @can('category.index')
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('category.index') ? 'active' : ''}}" href="{{ route('category.index') }}"><i class="nav-icon fa fa-tag" aria-hidden="true"></i> <p>{{ __('global.categories') }}</p></a>
+                    <a class="nav-link {{ request()->routeIs('categories.index') ? 'active' : ''}}" href="{{ route('categories.index') }}"><i class="nav-icon fa fa-tag" aria-hidden="true"></i> <p>{{ __('global.categories') }}</p></a>
                 </li>
                 @endcan
                 
