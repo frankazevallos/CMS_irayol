@@ -34,12 +34,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('ajaxindex/page', [App\Http\Controllers\PagesController::class, 'ajaxIndex'])->name('page.ajaxindex');
 
     // Menu
-    Route::get('/menu', [App\Http\Controllers\MenuController::class, 'index'])->name('menu.index');
-    Route::post('/menu', [App\Http\Controllers\MenuController::class, 'store'])->name('menu.store');
-    Route::get('/menu/edit/{id}', [App\Http\Controllers\MenuController::class, 'edit'])->name('menu.edit');
-    Route::post('/menu/{menu}', [App\Http\Controllers\MenuController::class, 'update'])->name('menu.update');
-    Route::delete('/menu/{menu}', [App\Http\Controllers\MenuController::class, 'destroy'])->name('menu.destroy');
-    Route::post('/menu/active/{id}', [App\Http\Controllers\MenuController::class, 'active'])->name('menu.active');
+    Route::resource('/menu', \App\Http\Controllers\MenuController::class);
+    Route::post('/mainmenu/{id}', [App\Http\Controllers\MenuController::class, 'mainMenu'])->name('menu.mainmenu');
+    Route::get('ajaxindex/menu', [App\Http\Controllers\MenuController::class, 'ajaxIndex'])->name('menu.ajaxindex');
 
     route::get('menu-item', [App\Http\Controllers\MenuItemController::class, 'menuItem'])->name('menu-item');
     route::get('search-menu-item', [App\Http\Controllers\MenuItemController::class, 'menuItemSearch'])->name('search-menu-item');
@@ -69,7 +66,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('addons/active', [App\Http\Controllers\AddonsController::class, 'active'])->name('addons.active');
 
     // Categories
-    Route::resource('category', \App\Http\Controllers\CategoriesController::class);
+    Route::resource('categories', \App\Http\Controllers\CategoriesController::class);
+    Route::get('ajaxindex/category', [App\Http\Controllers\CategoriesController::class, 'ajaxIndex'])->name('category.ajaxindex');
 
     // Users
     Route::resource('users', \App\Http\Controllers\UsersController::class);
