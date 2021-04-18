@@ -1,3 +1,9 @@
+$('#published_at').datetimepicker({
+    date: moment($('#published_at').val()),
+    format: date_format,
+    icons: icons,
+});
+
 let dataBlogs = $('.data-table-blog').DataTable({
     processing: true,
     serverSide: true,
@@ -6,8 +12,8 @@ let dataBlogs = $('.data-table-blog').DataTable({
     columns: [
         { data: "title", name : 'title' },
         { data: "author", name : 'author', orderable: false, searchable: false },
-        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
         { data: "category", name: "category", orderable: false, searchable: false},
+        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
         { data: 'action', name: 'action', orderable: false, searchable: false },
     ],
 });

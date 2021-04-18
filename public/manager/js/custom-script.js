@@ -67,15 +67,6 @@ if ($(window).width() < 992) {
     });
 }
 
-/* **** CREATE AND EDIT BLOG **** */
-$('#published_at').datetimepicker({
-    date: moment($('#published_at').val()),
-    format: date_format,
-    icons: icons,
-});
-
-
-
 /* ****MENU**** */
 $(document).ready(function () {
     $("li .dd-item").each(function (list) {
