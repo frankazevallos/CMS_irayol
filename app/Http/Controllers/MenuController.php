@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Blog;
-use App\Models\Category;
 use App\Models\Menu;
-use App\Models\MenuItem;
 use App\Models\Page;
+use App\Models\Category;
+use App\Models\MenuItem;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
-
 
 class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-        return view('menu.index', compact('menus'));
+        return view('menu.index');
     }
 
     public function store(Request $request){
@@ -60,23 +60,50 @@ class MenuController extends Controller
         return redirect()->back()->with('success', __('global.successfully_updated'));
     }
 
-    public function destroy(Menu $menu){
-
+    public function destroy($id){
+        try {
+            $menu = Menu::find($id);
+            $menu->delete();
+            return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
+        }
     }
 
-    public function active(Request $request)
+    public function mainMenu($id)
     {
         try {
-            if ($request->main_menu == setting('main_menu')) {
+            if ($id == setting('main_menu')) {
                 setting(['main_menu' => ''])->save();
             } else {
-                setting(['main_menu' => $request->main_menu])->save();
+                setting(['main_menu' => $id])->save();
             }
             
-            return redirect()->back()->with('success', __('global.successfully_updated'));
-        } catch (\Exception $e) {
-            return redirect()->route('addons.index')->with('danger', "Error: ". $e->getMessage());
+            return response()->json(['status' => 'success', 'message' =>  __('global.successfully_updated')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
+    }
+
+    public function ajaxIndex(Request $request)
+    {
+        $data = Menu::select('id', 'title', 'updated_at')->orderBy("updated_at", 'desc');
+
+        return Datatables::of($data)
+        ->addColumn('updated_at', function($data){
+            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            return $updated_at;
+        })
+        ->addColumn('status', function($data){
+            $isMainMenu = $data->id == setting('main_menu') ? __('global.yes') : __('global.no');
+            $btnMainMenu = $data->id == setting('main_menu') ? 'success' : 'primary';
+            $iconMainMenu = $data->id == setting('main_menu') ? '<i class="far fa-check-circle"></i> ' : '<i class="fas fa-minus-circle"></i> ';
+
+            $main_menu = '<a class="btn btn-sm btn-'. $btnMainMenu .'" href="javascript:void(0)" id="setMainMenu" data-id="'. $data->id .'">'. $iconMainMenu . $isMainMenu .'</a>';
+            return $main_menu;
+        })
+        ->addColumn('action', 'menu.actions' )
+        ->rawColumns(['title', 'status', 'updated_at', 'action'])->make(true);
     }
 
 }

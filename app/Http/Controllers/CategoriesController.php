@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoriesFormRequest;
-use App\Models\Category;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class CategoriesController extends Controller
 {
@@ -25,23 +25,9 @@ class CategoriesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->search;
-
-        if (!empty($request->number)) {
-            $number = $request->number;
-        } else {
-            $number = 10;
-        }
-
-        if (!empty($search)) {
-            $categories = Category::where('name', 'LIKE', '%' . $search . '%')->paginate($number);
-        } else {
-            $categories = Category::paginate($number);
-        }
-
-        return view('categories.index', compact('categories'));
+        return view('categories.index');
     }
 
     /**
@@ -70,7 +56,7 @@ class CategoriesController extends Controller
                 'description' => $request->description,
                 'is_active' => $request->is_active,
             ]);
-            return redirect()->route('category.index')->with('success', __('global.successfully_added'));
+            return redirect()->route('categories.index')->with('success', __('global.successfully_added'));
         } catch (\Exception $e) {
             return redirect()->back()->with('danger', "Error: " . $e->getMessage());
         }
@@ -123,9 +109,9 @@ class CategoriesController extends Controller
                 'is_active' => $request->is_active,
             ]);
 
-            return redirect()->route('category.index')->with('success', __('global.successfully_updated'));
+            return redirect()->route('categories.index')->with('success', __('global.successfully_updated'));
         } catch (\Exception $e) {
-            return redirect()->route('addons.index')->with('danger', "Error: ". $e->getMessage());
+            return redirect()->route('categories.index')->with('danger', "Error: ". $e->getMessage());
         }
     }
 
@@ -142,12 +128,25 @@ class CategoriesController extends Controller
             $category = Category::findOrFail($id);
             $category->delete();
 
-            return redirect()->route('category.index')->with('warning', __('global.successfully_destroy'));
-        } catch (\Exception $e) {
-            return redirect()->route('addons.index')->with('danger', "Error: ". $e->getMessage());
+            return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
     }
 
+    public function ajaxIndex(){
+        $data = Category::select('id', 'name', 'is_active', 'updated_at')->orderBy("updated_at", 'desc');
 
-
+        return Datatables::of($data)
+        ->addColumn('is_active', function($data){
+            $is_active = $data->is_active ? __('global.active') : __('global.inactive');
+            return $is_active;
+        })
+        ->addColumn('updated_at', function($data){
+            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            return $updated_at;
+        })
+        ->addColumn('action', 'categories.actions' )
+        ->rawColumns(['is_active', 'updated_at', 'action'])->make(true);
+    }
 }
