@@ -1,6 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Menu')
-
+@push('title', __('global.menus'))
 @section('content')
     <div class="row">
         <div class="col-4">
