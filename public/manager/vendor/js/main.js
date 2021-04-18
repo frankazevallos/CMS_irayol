@@ -120089,15 +120089,6 @@ if ($(window).width() < 992) {
     });
 }
 
-/* **** CREATE AND EDIT BLOG **** */
-$('#published_at').datetimepicker({
-    date: moment($('#published_at').val()),
-    format: date_format,
-    icons: icons,
-});
-
-
-
 /* ****MENU**** */
 $(document).ready(function () {
     $("li .dd-item").each(function (list) {
@@ -120439,6 +120430,12 @@ $(document).ready(function(){
 
     });
 });
+$('#published_at').datetimepicker({
+    date: moment($('#published_at').val()),
+    format: date_format,
+    icons: icons,
+});
+
 let dataBlogs = $('.data-table-blog').DataTable({
     processing: true,
     serverSide: true,
@@ -120447,8 +120444,8 @@ let dataBlogs = $('.data-table-blog').DataTable({
     columns: [
         { data: "title", name : 'title' },
         { data: "author", name : 'author', orderable: false, searchable: false },
-        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
         { data: "category", name: "category", orderable: false, searchable: false},
+        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
         { data: 'action', name: 'action', orderable: false, searchable: false },
     ],
 });
@@ -120470,6 +120467,105 @@ $(document).ready(function(){
                 type: 'DELETE',
                 success: function (response) {
                     dataBlogs.ajax.reload();
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log("Error:", response);
+                },
+            });
+        };
+
+    });
+});
+let dataCategory = $('.data-table-category').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: true,
+    ajax: `/ajaxindex/category`,
+    columns: [
+        { data: "name", name : 'name' },
+        { data: "is_active", name : 'is_active', orderable: false, searchable: false},
+        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
+        { data: 'action', name: 'action', orderable: false, searchable: false },
+    ],
+});
+
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ****** Delete category ******
+    $('body').on("click", "#deleteCategory", function () {
+        let category_id = $(this).data("id");
+
+        if (confirm('¿Estas seguro de querer borrar este registro?')) {
+            $.ajax({
+                url: `/categories/${category_id}`,
+                type: 'DELETE',
+                success: function (response) {
+                    dataCategory.ajax.reload();
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log("Error:", response);
+                },
+            });
+        };
+
+    });
+});
+let dataMenu = $('.data-table-menu').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: true,
+    ajax: `/ajaxindex/menu`,
+    columns: [
+        { data: "title", name : 'title' },
+        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
+        { data: "status", name: "status", orderable: false, searchable: false},
+        { data: 'action', name: 'action', orderable: false, searchable: false },
+    ],
+});
+
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ****** Set main page ******
+    $(`body`).on("click", "#setMainMenu" , function() {
+        var menu_id = $(this).data('id');
+
+        $.ajax({
+            url: `mainmenu/${menu_id}`,
+            type: "POST",
+            cache: false,
+            success: function(response){
+                dataMenu.ajax.reload();
+                console.log(response)
+            },
+            error: function (response) {
+                console.log("Error:", response.message);
+            },
+        });
+
+    });
+
+    // ****** Delete page ******
+    $('body').on("click", "#deleteMenu", function () {
+        let menu_id = $(this).data("id");
+
+        if (confirm('¿Estas seguro de querer borrar este registro?')) {
+            $.ajax({
+                url: `/menu/${menu_id}`,
+                type: 'DELETE',
+                success: function (response) {
+                    dataMenu.ajax.reload();
                     console.log(response);
                 },
                 error: function (response) {
