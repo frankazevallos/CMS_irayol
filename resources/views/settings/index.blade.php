@@ -11,7 +11,7 @@
                 <div class="col-md-4">
                     <div class="btn-group btn-group-sm float-right" role="group">
                         <a href="{{ route('setting.create') }}" class="btn btn-success" title="Create New Setting">
-                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            <i class="fas fa-plus" aria-hidden="true"></i> {{__('global.create')}}
                         </a>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                 <h4>No Settings Available.</h4>
             </div>
         @else
-        <div class="panel-body panel-body-with-table">
+        <div class="card-body panel-body-with-table">
             <div class="table-responsive">
 
                 <table class="table table-striped ">
@@ -45,7 +45,7 @@
                                 <input name="_method" value="DELETE" type="hidden">
                                 {{ csrf_field() }}
 
-                                    <div class="btn-group btn-group-xs float-right" role="group">
+                                    <div class="btn-group-xs float-right" role="group">
                                         <a href="{{ route('setting.show', $setting->id ) }}" class="btn btn-info btn-sm" title="Show Users">
                                             <i class="far fa-eye" aria-hidden="true"></i>
                                         </a>

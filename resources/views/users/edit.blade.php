@@ -9,7 +9,7 @@
             <div class="float-left">
                 {{ !empty($users->name) ? $users->name : 'Users' }}
             </div>
-            <div class="btn-group btn-group-sm float-right" role="group">
+            <div class="btn-group-sm float-right" role="group">
 
                 <a href="{{ route('users.index') }}" class="btn btn-primary" title="Show All Users">
                     <i class="fa fa-undo" aria-hidden="true"></i>
