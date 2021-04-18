@@ -148,7 +148,6 @@ class PagesController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
-        
     }
 
     public function mainPage($id){

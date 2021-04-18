@@ -173,7 +173,7 @@ class BlogsController extends Controller
         ->addColumn('category', function($data){
             $cat = [];
             foreach ($data->categories as $category) {
-                $cat = '<a href=" '. route('category.show', $category->id) . ' ">' .$category->name . '</a>';
+                $cat = '<a href=" '. route('categories.show', $category->id) . ' ">' .$category->name . '</a>';
             }
             return $cat;
         })
