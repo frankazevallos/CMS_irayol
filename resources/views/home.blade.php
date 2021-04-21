@@ -40,7 +40,7 @@
         </div>
 
         <div class="col-12 col-sm-6 col-md">
-            <a href="{{route('category.index')}}">
+            <a href="{{route('categories.index')}}">
                 <div class="info-box mb-3 shadow">
                     <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-tag"></i></span>
                     <div class="info-box-content">
