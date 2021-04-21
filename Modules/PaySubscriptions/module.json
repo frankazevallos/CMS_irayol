@@ -8,7 +8,7 @@
     "providers": [
         "Modules\\PaySubscriptions\\Providers\\PaySubscriptionsServiceProvider"
     ],
-    "aliases": {},
+    "aliases": [],
     "files": [],
     "requires": []
 }
