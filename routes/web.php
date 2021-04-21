@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Change languaje
     Route::get('lang/{lang}', [App\Http\Controllers\HomeController::class, 'swap'])->name('lang.swap');
@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Setting
     Route::resource('setting', \App\Http\Controllers\SettingsController::class);
+    Route::get('ajaxindex/setting',[App\Http\Controllers\SettingsController::class, 'ajaxIndex'])->name('setting.ajaxIndex');
 
     // Media
     Route::resource('media', \App\Http\Controllers\MediaController::class);
@@ -71,7 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Users
     Route::resource('users', \App\Http\Controllers\UsersController::class);
-    Route::post('users_mass_destroy', [App\Http\Controllers\UsersController::class, 'massDestroy'])->name('users.mass_destroy');
+    Route::get('ajaxindex/users',[App\Http\Controllers\UsersController::class, 'ajaxIndex'])->name('users.ajaxIndex');
 
     // Profile
     Route::get('/profile', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile.index');
