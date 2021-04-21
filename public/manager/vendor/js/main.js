@@ -120034,6 +120034,7 @@ const icons = {
 }
 
 const date_format = 'YYYY-MM-DD HH:mm';
+
 /* CLOSE GLOBAL CONST */
 
 //Close alert
@@ -120065,9 +120066,7 @@ $(document).ready(function () {
         $(this).removeClass("active");
     }
     $(this).addClass("active");
-});
 
-$(document).ready(function () {
     var url = window.location;
     $('ul.nav a[href="' + url + '"]')
         .parent()
@@ -120075,6 +120074,8 @@ $(document).ready(function () {
     $("ul.nav a").filter(function () {
         return this.href == url;
     }).parent().addClass("active");
+
+    $('.datatable').dataTable();
 });
 
 $(document).on('click', '.dropdown-menu', ($event) => $event.stopPropagation());
@@ -120225,13 +120226,13 @@ $(document).ready(function(){
 
         // Read selected files
         let totalfiles = document.getElementById('files').files.length;
-        
+
         for (let index = 0; index < totalfiles; index++) {
             form_data.append("files[]", document.getElementById('files').files[index]);
         }
 
         $.ajax({
-            url: '/media', 
+            url: '/media',
             type: 'POST',
             data: form_data,
             dataType: 'json',
@@ -120239,7 +120240,7 @@ $(document).ready(function(){
             processData: false,
             success: function (response) {
                 for(let index = 0; index < response.message.length; index++) {
-                    
+
                     let src = response.message[index].path;
                     let mediaId = response.message[index].id;
                     $('.ajaxMediaShow').prepend(`
@@ -120260,12 +120261,11 @@ $(document).ready(function(){
             },
         });
     });
-    
+
     // ****** Edit media media ******
     $("body").on("click", "#btnUpdateMedia" , function() {
-        var media_id = $(this).data('id');
-
-        var file = $('#titleFile').val();
+        let media_id = $(this).data('id');
+        let file = $('#titleFile').val();
 
         if(file != ''){
             $.ajax({
@@ -120284,7 +120284,7 @@ $(document).ready(function(){
         }
     });
 
-    // ****** Show media media ******
+    // ****** Show media ******
     $("body").on("click", "#showMedia", function () {
         let media_id = $(this).data("id");
         $.get("/media/" + media_id + "/edit", function (response) {
@@ -120370,6 +120370,7 @@ $(document).ready(function(){
 
 });
 /* **** FILE MANAGER **** */
+
 let dataPages = $('.data-table-page').DataTable({
     processing: true,
     serverSide: true,
@@ -120442,12 +120443,23 @@ let dataBlogs = $('.data-table-blog').DataTable({
     responsive: true,
     ajax: `/ajaxindex/blog`,
     columns: [
-        { data: "title", name : 'title' },
-        { data: "author", name : 'author', orderable: false, searchable: false },
-        { data: "category", name: "category", orderable: false, searchable: false},
-        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
-        { data: 'action', name: 'action', orderable: false, searchable: false },
+        { data: "title", },
+        { data: "author", orderable: false, searchable: false },
+        { data: "categories[].name", fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                if (oData.categories.length > 0) {
+                    let cat = ""
+                    for (let index = 0; index < oData.categories.length; index++) {
+                        let element = oData.categories[index];
+                        cat +=  "<a class='badge badge-pill badge-primary mr-2' href='/categories/"+element.id+"'>"+element.name+"</a>"
+                    }
+                    $(nTd).html(cat);
+                }
+            },  orderable: false, searchable: false
+        },
+        { data: "updated_at", orderable: false, searchable: false },
+        { data: 'action', orderable: false, searchable: false },
     ],
+    deferRender: true,
 });
 
 $(document).ready(function(){
@@ -120477,6 +120489,7 @@ $(document).ready(function(){
 
     });
 });
+
 let dataCategory = $('.data-table-category').DataTable({
     processing: true,
     serverSide: true,
@@ -120538,9 +120551,8 @@ $(document).ready(function(){
     });
 
     // ****** Set main page ******
-    $(`body`).on("click", "#setMainMenu" , function() {
-        var menu_id = $(this).data('id');
-
+    $(`body`).on("click", "#setMainMenu", function() {
+        let menu_id = $(this).data('id');
         $.ajax({
             url: `mainmenu/${menu_id}`,
             type: "POST",
@@ -120553,7 +120565,62 @@ $(document).ready(function(){
                 console.log("Error:", response.message);
             },
         });
+    });
 
+    // ****** Create menu ******
+    $("body").on("click", "#btnCreateMenu", function(){
+        let title = $('#titleMenuCreate').val();
+        if (title !== '') {
+            $.ajax({
+                url: '/menu',
+                type: 'POST',
+                data: {title},
+                cache: false,
+                success: function(response){
+                    dataMenu.ajax.reload();
+                    $('#titleMenuCreate').addClass('is-valid');
+                },
+                error: function(response){
+                    console.log("Error:", response.message);
+                    $('#titleMenuCreate').addClass('is-invalid');
+                }
+            });
+        }
+    });
+
+    // ****** Edit menu ******
+    $("body").on("click", "#editMenu", function () {
+        let menu_id = $(this).data("id");
+        $.get("/menu/" + menu_id + "/edit", function (response) {
+            $("#editMediaModal").modal("show");
+            $("#titleMenuEdit").val(response.message.title);
+            $("#btnUpdateMenu").data('id', response.message.id)
+        });
+    });
+
+
+    // ****** Update menu ******
+    $("body").on("click", "#btnUpdateMenu", function (){
+        let menu_id = $(this).data('id');
+        let title = $('#titleMenuEdit').val();
+
+        if(title !== ''){
+            $.ajax({
+                url: '/menu/' + menu_id,
+                type: "PATCH",
+                cache: false,
+                data: {title},
+                success: function(response){
+                    console.log(response.message);
+                    dataMenu.ajax.reload();
+                    $('#titleMenuEdit').addClass('is-valid');
+                },
+                error: function (response) {
+                    console.log("Error:", response.message);
+                    $('#titleMenuEdit').addClass('is-invalid');
+                },
+            });
+        }
     });
 
     // ****** Delete page ******
@@ -120572,10 +120639,125 @@ $(document).ready(function(){
                     console.log("Error:", response);
                 },
             });
+        }
+
+    });
+});
+
+let dataUsers = $('.data-table-users').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: true,
+    ajax: `/ajaxindex/users`,
+    columns: [
+        { data: "email" },
+        { data: "email_verified_at" },
+        { data: "name" },
+        { data: "roles[].name", fnCreatedCell: function (nTd, sData, oData, iRow, iCol){
+                if (oData.roles.length > 0) {
+                    let rol = ""
+                    for (let index = 0; index < oData.roles.length; index++) {
+                        let element = oData.roles[index];
+                        rol +=  '<span class="badge badge-pill badge-primary mr-2">'+element.name+'</span>'
+                    }
+                    $(nTd).html(rol);
+                }
+            }, orderable: false, searchable: false
+        },
+        { data: "updated_at", orderable: false, searchable: false },
+        { data: 'action', orderable: false, searchable: false },
+    ],
+});
+
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ****** Delete category ******
+    $('body').on("click", "#deleteUser", function () {
+        let user_id = $(this).data("id");
+
+        if (confirm('¿Estas seguro de querer borrar este registro?')) {
+            $.ajax({
+                url: `/users/${user_id}`,
+                type: 'DELETE',
+                success: function (response) {
+                    dataUsers.ajax.reload();
+                    console.log(response);
+                },
+                error: function (response) {
+                    console.log("Error:", response);
+                },
+            });
         };
 
     });
 });
+
+let dataSetting = $('.data-table-setting').DataTable({
+    processing: true,
+    serverSide: true,
+    responsive: true,
+    ajax: `/ajaxindex/setting`,
+    columns: [
+        { data: "key" },
+        { data: "value" },
+        { data: "updated_at", orderable: false, searchable: false },
+        { data: 'action', orderable: false, searchable: false },
+    ],
+});
+
+$(document).ready(function(){
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ****** Edit menu ******
+    $("body").on("click", "#editSetting", function () {
+        let setting_id = $(this).data("id");
+        $.get("/setting/" + setting_id + "/edit", function (response) {
+            $("#editSettingModal").modal("show");
+            $("#key").val(response.message.key);
+            $("#value").val(response.message.value);
+            $("#btnUpdateSetting").data('id', response.message.id)
+        });
+    });
+
+
+    // ****** Update menu ******
+    $("body").on("click", "#btnUpdateSetting", function (){
+        let setting_id = $(this).data('id');
+        let key = $('#key').val();
+        let value = $('#value').val();
+
+        if(value !== ''){
+            $.ajax({
+                url: '/setting/' + setting_id,
+                type: "PATCH",
+                cache: false,
+                data: {key, value},
+                success: function(response){
+                    console.log(response.message);
+                    dataSetting.ajax.reload();
+                    $('#key').addClass('is-valid');
+                    $('#value').addClass('is-valid');
+                },
+                error: function (response) {
+                    console.log("Error:", response.message);
+                    $('#key').addClass('is-invalid');
+                    $('#value').addClass('is-invalid');
+                },
+            });
+        }
+    });
+
+});
+
 /* OPEN INSERT FILE IN SUMMERNOTE */
 const FMButton = function (context) {
     const ui = $.summernote.ui;

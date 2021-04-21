@@ -21,6 +21,8 @@ mix.js('resources/js/app.js', 'public/manager/vendor/js/init.js')
 		'public/manager/js/blogs.js',
 		'public/manager/js/categories.js',
 		'public/manager/js/menu.js',
+        'public/manager/js/users.js',
+        'public/manager/js/settings.js',
 		'public/manager/js/select-file.js',
 	], 'public/manager/vendor/js/main.js')
   .combine([
