@@ -143,7 +143,7 @@ class CategoriesController extends Controller
             return $is_active;
         })
         ->addColumn('updated_at', function($data){
-            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            $updated_at = $data->updated_at->format('Y/m/d');
             return $updated_at;
         })
         ->addColumn('action', 'categories.actions' )

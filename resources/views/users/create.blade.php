@@ -1,10 +1,10 @@
 @extends('layouts.app')
-@push('title', 'Create User')
+@push('title', __('global.users.title'))
 @section('content')
     <div class="card mt-3">
 
         <div class="card-header clearfix">
-            
+
             <span class="float-left">
                 Create New Users
             </span>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="card-body">
-        
+
             @if ($errors->any())
                 <ul class="alert alert-danger">
                     @foreach ($errors->all() as $error)
@@ -29,7 +29,7 @@
 
             <form method="POST" action="{{ route('users.store') }}" accept-charset="UTF-8" id="create_users_form" name="create_users_form" class="form-horizontal">
                 {{ csrf_field() }}
-                
+
                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                     <label for="name" class="control-label">{{ __('Name') }}</label>
                     <input class="form-control" name="name" type="text" id="name" value="{{ old('name')}}" minlength="1" maxlength="255" required="true" placeholder="Enter name here...">

@@ -1,8 +1,8 @@
 <div class="dropdown">
-    <a class="btn btn-info" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-ellipsis-v"></i>
     </a>
-  
+
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
         <form name="editPageForm" id="editBlogForm-{{$id}}">
                 <a href="{{ route('blog.show', $slug) }}" target="_blank" class="dropdown-item" title="{{__('global.view')}}">

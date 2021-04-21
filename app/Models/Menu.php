@@ -8,7 +8,9 @@ class Menu extends Model
 {
     protected $table='menu';
     
-    protected $fillable = [];
+    protected $fillable = [
+        'title',
+    ];
 
     public function menu_items()
     {

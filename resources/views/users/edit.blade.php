@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@push('title', 'Edit User')
+@push('title', __('global.users.title'))
 @section('content')
 
     <div class="card mt-3">
-  
+
         <div class="card-header clearfix">
 
             <div class="float-left">

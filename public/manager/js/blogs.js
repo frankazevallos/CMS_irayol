@@ -10,12 +10,23 @@ let dataBlogs = $('.data-table-blog').DataTable({
     responsive: true,
     ajax: `/ajaxindex/blog`,
     columns: [
-        { data: "title", name : 'title' },
-        { data: "author", name : 'author', orderable: false, searchable: false },
-        { data: "category", name: "category", orderable: false, searchable: false},
-        { data: "updated_at", name : 'updated_at', orderable: false, searchable: false },
-        { data: 'action', name: 'action', orderable: false, searchable: false },
+        { data: "title", },
+        { data: "author", orderable: false, searchable: false },
+        { data: "categories[].name", fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                if (oData.categories.length > 0) {
+                    let cat = ""
+                    for (let index = 0; index < oData.categories.length; index++) {
+                        let element = oData.categories[index];
+                        cat +=  "<a class='badge badge-pill badge-primary mr-2' href='/categories/"+element.id+"'>"+element.name+"</a>"
+                    }
+                    $(nTd).html(cat);
+                }
+            },  orderable: false, searchable: false
+        },
+        { data: "updated_at", orderable: false, searchable: false },
+        { data: 'action', orderable: false, searchable: false },
     ],
+    deferRender: true,
 });
 
 $(document).ready(function(){

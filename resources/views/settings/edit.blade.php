@@ -1,47 +1,27 @@
-@extends('layouts.app')
-@push('title', 'Setting Edit')
-@section('content')
-
-    <div class="card mt-3">
-  
-        <div class="card-header clearfix">
-
-            <div class="float-left">
-                {{ !empty($setting->label) ? $setting->label : 'Setting' }}
-            </div>
-            <div class="btn-group btn-group-sm float-right" role="group">
-
-                <a href="{{ route('setting.index') }}" class="btn btn-primary" title="Show All Setting">
-                    <i class="fa fa-undo" aria-hidden="true"></i>
-                </a>
-
-                <a href="{{ route('setting.create') }}" class="btn btn-success" title="Create New Setting">
-                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </a>
-
-            </div>
-        </div>
-
-        <div class="card-body">
-
-            @if ($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-
-            <form method="POST" action="{{ route('setting.update', $setting->id) }}" id="edit_setting_form" name="edit_setting_form" accept-charset="UTF-8" class="form-horizontal">
-            {{ csrf_field() }}
-            <input name="_method" type="hidden" value="PUT">
-            @include ('settings.form', ['setting' => $setting,])
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Update">
+<div class="modal fade" id="editSettingModal" tabindex="-1" aria-labelledby="editSettingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="editSettingModalLabel">{{__('global.edit')}}</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group {{ $errors->has('key') ? 'has-error' : '' }}">
+                    <label for="key" class="control-label">Key</label>
+                    <input class="form-control" name="key" type="text" id="key"  minlength="1" maxlength="191" required readonly>
                 </div>
-            </form>
 
-        </div>
+                <div class="form-group {{ $errors->has('value') ? 'has-error' : '' }}">
+                    <label for="value" class="control-label">Value</label>
+                    <input class="form-control" name="value" type="text" id="value"  minlength="1" maxlength="191" required>
+                </div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" id="btnUpdateSetting" data-id="" class="btn btn-primary">{{__('global.save')}}</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">{{__('global.close')}}</button>
+			</div>
+      	</div>
     </div>
-
-@endsection
+</div>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Show User')
+@push('title', __('global.users.title'))
 @section('content')
 
 <section class="content">
@@ -68,7 +68,6 @@
                                         <tr>
                                             <th scope="col">Title</th>
                                             <th scope="col">Published Date</th>
-                                            <th colspan="3">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -77,23 +76,6 @@
                                                 <td>{{ $blog->title }}</td>
 
                                                 <td>{{ \Carbon\Carbon::parse($blog->updated_at)->diffForHumans() }}</td>
-                                                <td>
-                                                    <form method="POST" action="{!! route('blog.destroy', $blog->id) !!}" accept-charset="UTF-8">
-                                                        <input name="_method" value="DELETE" type="hidden">
-                                                        {{ csrf_field() }}
-                                                        <div class="btn-group btn-group-xs float-right" role="group">
-                                                            <a href="{{ route('blog.show', $blog->slug) }}" target="_blank" class="btn btn-info btn-sm" title="Show Users">
-                                                                <i class="far fa-eye" aria-hidden="true"></i>
-                                                            </a>
-                                                            <a href="{{ route('blog.edit', $blog->id) }}" class="btn btn-primary btn-sm" title="Edit Page">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
-                                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete Page" onclick="return confirm(&quot;Click Ok to delete Page.&quot;)">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -113,7 +95,6 @@
                                         <tr>
                                             <th scope="col">Title</th>
                                             <th scope="col">Published Date</th>
-                                            <th colspan="3">Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -121,24 +102,6 @@
                                             <tr>
                                                 <td>{{ $page->title }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($page->updated_at)->diffForHumans() }}</td>
-            
-                                                <td>
-                                                    <form method="POST" action="{!! route('pages.destroy', $page->id) !!}" accept-charset="UTF-8">
-                                                        <input name="_method" value="DELETE" type="hidden">
-                                                        {{ csrf_field() }}
-                                                        <div class="btn-group btn-group-xs float-right" role="group">
-                                                            <a href="{{ route('page.show', $page->slug) }}" target="_blank" class="btn btn-info btn-sm" title="Show Users">
-                                                                <i class="far fa-eye" aria-hidden="true"></i>
-                                                            </a>
-                                                            <a href="{{ route('pages.edit', $page->id) }}" class="btn btn-primary btn-sm" title="Edit Page">
-                                                                <i class="fas fa-pencil-alt"></i>
-                                                            </a>
-                                                            <button type="submit" class="btn btn-danger btn-sm" title="Delete Page" onclick="return confirm(&quot;Click Ok to delete Page.&quot;)">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>

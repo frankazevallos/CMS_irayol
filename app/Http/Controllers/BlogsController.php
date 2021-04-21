@@ -159,7 +159,7 @@ class BlogsController extends Controller
     }
 
     public function ajaxIndex (){
-        $data = Blog::select('id', 'slug', 'user_id', 'title', 'updated_at')->orderBy("created_at", 'desc');
+        $data = Blog::with('categories', 'user')->orderBy("created_at", 'desc');
 
         return Datatables::of($data)
         ->addColumn('author', function($data){
@@ -167,17 +167,11 @@ class BlogsController extends Controller
             return $user;
         })
         ->addColumn('updated_at', function($data){
-            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            $updated_at = $data->updated_at->format('Y/m/d');
             return $updated_at;
-        })
-        ->addColumn('category', function($data){
-            $cat = [];
-            foreach ($data->categories as $category) {
-                $cat = '<a href=" '. route('categories.show', $category->id) . ' ">' .$category->name . '</a>';
-            }
-            return $cat;
         })
         ->addColumn('action', 'blog.actions' ) //add view actions
         ->rawColumns(['author', 'updated_at', 'category', 'action'])->make(true);
     }
+
 }

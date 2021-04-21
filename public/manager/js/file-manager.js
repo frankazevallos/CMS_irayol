@@ -26,13 +26,13 @@ $(document).ready(function(){
 
         // Read selected files
         let totalfiles = document.getElementById('files').files.length;
-        
+
         for (let index = 0; index < totalfiles; index++) {
             form_data.append("files[]", document.getElementById('files').files[index]);
         }
 
         $.ajax({
-            url: '/media', 
+            url: '/media',
             type: 'POST',
             data: form_data,
             dataType: 'json',
@@ -40,7 +40,7 @@ $(document).ready(function(){
             processData: false,
             success: function (response) {
                 for(let index = 0; index < response.message.length; index++) {
-                    
+
                     let src = response.message[index].path;
                     let mediaId = response.message[index].id;
                     $('.ajaxMediaShow').prepend(`
@@ -61,12 +61,11 @@ $(document).ready(function(){
             },
         });
     });
-    
+
     // ****** Edit media media ******
     $("body").on("click", "#btnUpdateMedia" , function() {
-        var media_id = $(this).data('id');
-
-        var file = $('#titleFile').val();
+        let media_id = $(this).data('id');
+        let file = $('#titleFile').val();
 
         if(file != ''){
             $.ajax({
@@ -85,7 +84,7 @@ $(document).ready(function(){
         }
     });
 
-    // ****** Show media media ******
+    // ****** Show media ******
     $("body").on("click", "#showMedia", function () {
         let media_id = $(this).data("id");
         $.get("/media/" + media_id + "/edit", function (response) {

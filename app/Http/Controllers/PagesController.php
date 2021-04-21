@@ -164,7 +164,7 @@ class PagesController extends Controller
     }
 
     public function ajaxIndex(){
-        $data = Page::select('id', 'slug', 'user_id', 'title', 'updated_at')->orderBy("created_at", 'desc');
+        $data = Page::with('user')->orderBy("created_at", 'desc');
 
         return Datatables::of($data)
         ->addColumn('author', function($data){
@@ -172,7 +172,7 @@ class PagesController extends Controller
             return $user;
         })
         ->addColumn('updated_at', function($data){
-            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            $updated_at = $data->updated_at->format('Y/m/d');
             return $updated_at;
         })
         ->addColumn('status', function($data){

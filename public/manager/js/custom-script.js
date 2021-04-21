@@ -12,6 +12,7 @@ const icons = {
 }
 
 const date_format = 'YYYY-MM-DD HH:mm';
+
 /* CLOSE GLOBAL CONST */
 
 //Close alert
@@ -43,9 +44,7 @@ $(document).ready(function () {
         $(this).removeClass("active");
     }
     $(this).addClass("active");
-});
 
-$(document).ready(function () {
     var url = window.location;
     $('ul.nav a[href="' + url + '"]')
         .parent()
@@ -53,6 +52,8 @@ $(document).ready(function () {
     $("ul.nav a").filter(function () {
         return this.href == url;
     }).parent().addClass("active");
+
+    $('.datatable').dataTable();
 });
 
 $(document).on('click', '.dropdown-menu', ($event) => $event.stopPropagation());

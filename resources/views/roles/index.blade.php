@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="card-body table-responsive">
-            <table class="table table-bordered table-striped {{ count($roles) > 0 ? 'datatable' : '' }} dt-select">
+            <table class="table table-striped {{ count($roles) > 0 ? 'datatable' : '' }} dt-select">
                 <thead>
                     <tr>
                         <th>{{__('global.roles.fields.name')}}</th>
@@ -24,7 +24,7 @@
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
-                
+
                 <tbody>
                     @if (count($roles) > 0)
                         @foreach ($roles as $role)
@@ -56,9 +56,6 @@
                     @endif
                 </tbody>
             </table>
-        </div>
-        <div class="card-footer">
-            {{ $roles->render() }}
         </div>
     </div>
 @stop

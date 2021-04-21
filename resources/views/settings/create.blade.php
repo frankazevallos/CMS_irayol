@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@push('title', 'Setting Create')
+@push('title', __('global.settings'))
 @section('content')
 
     <div class="card mt-3">
         <div class="card-header clearfix">
             <span class="float-left">
-                Create New Setting
+                {{__('global.settings')}}
             </span>
             <div class="btn-group btn-group-sm float-right" role="group">
                 <a href="{{ route('setting.index') }}" class="btn btn-primary" title="Show All Setting">
@@ -15,7 +15,7 @@
         </div>
 
         <div class="card-body">
-        
+
             @if ($errors->any())
                 <ul class="alert alert-danger">
                     @foreach ($errors->all() as $error)

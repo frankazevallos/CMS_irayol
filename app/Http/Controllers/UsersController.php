@@ -7,12 +7,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\UpdateUsersRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Carbon\Carbon;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -151,9 +150,9 @@ class UsersController extends Controller
         try {
             $users = User::findOrFail($id);
             $users->delete();
-            return redirect()->route('users.index')->with('success', 'User was successfully deleted.');
-        } catch (Exception $exception) {
-            return back()->withInput()->with(['danger' => "Error: " . $exception->getMessage()]);
+            return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
         }
     }
 
@@ -205,5 +204,21 @@ class UsersController extends Controller
 
             return back()->withInput()->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
+    }
+
+    public function ajaxIndex(){
+        $data = User::with('roles')->orderBy("updated_at", 'desc');
+
+        return Datatables::of($data)
+        ->addColumn('email', function($data){
+            $email = '<a href="mailto:'. $data->email .'">' .$data->email . '</a>';
+            return $email;
+        })
+        ->addColumn('updated_at', function($data){
+            $updated_at = $data->updated_at->format('Y/m/d');
+            return $updated_at;
+        })
+        ->addColumn('action', 'users.actions' )
+        ->rawColumns(['email', 'roles', 'updated_at', 'action'])->make(true);
     }
 }

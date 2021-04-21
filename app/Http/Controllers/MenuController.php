@@ -11,7 +11,6 @@ use App\Models\MenuItem;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
 {
@@ -20,21 +19,25 @@ class MenuController extends Controller
         return view('menu.index');
     }
 
+    public function create()
+    {
+
+    }
+
     public function store(Request $request){
 
         $request->validate([
-            'title' => 'required|min:2|max:30'
+            'title'     => 'required|min:2|max:256',
         ]);
 
-        $menu = new Menu();
-        $menu->title = $request->title;
-        $menu->remark = $request->remark;
-        $menu->save();
+        $menu = Menu::create([
+            'title' => $request->title,
+        ]);
 
-        return redirect()->back()->with('success', __('global.successfully_added'));
+        return response()->json(['status' => 'success', 'message' =>  $menu]);
     }
 
-    public function edit($id)
+    public function show($id)
     {
         $menuId = $id;
         $menuItems          = MenuItem::with(['children'])->where('parent', null)->where('menu_id', $id)->orderBy('order', 'asc')->get();
@@ -42,22 +45,28 @@ class MenuController extends Controller
         $pages              = Page::all();
         $posts              = Blog::orderBy('id', 'desc')->get();
 
-        return view('menu.edit', compact('menuItems', 'categories', 'pages', 'posts', 'menuId'));
+        return view('menu.show', compact('menuItems', 'categories', 'pages', 'posts', 'menuId'));
     }
 
+    public function edit($id){
+        $menu = Menu::findOrFail($id);
+        return response()->json(['status' => 'success', 'message' =>  $menu]);
+    }
 
-    public function update(Request $request){
-        Validator::make($request->all(), [
-            'title'     => 'required|min:2|max:30',
-            'menu_id'   => 'required'
-        ])->validate();
+    public function update(Request $request, $id){
+        try {
+            $request->validate([
+                'title'     => 'required|min:2|max:256',
+            ]);
 
-        $menu = Menu::find($request->menu_id);
-        $menu->title = $request->title;
-        $menu->remark = $request->remark;
-        $menu->save();
+            $menu = Menu::findOrFail($id);
+            $menu->update($request->all());
+            $menu->save();
 
-        return redirect()->back()->with('success', __('global.successfully_updated'));
+            return response()->json(['status' => 'success', 'message' =>  $menu]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 
     public function destroy($id){
@@ -78,7 +87,7 @@ class MenuController extends Controller
             } else {
                 setting(['main_menu' => $id])->save();
             }
-            
+
             return response()->json(['status' => 'success', 'message' =>  __('global.successfully_updated')]);
         } catch (\Throwable $th) {
             return redirect()->back()->with('danger', "Error: " . $th->getMessage());
@@ -91,7 +100,7 @@ class MenuController extends Controller
 
         return Datatables::of($data)
         ->addColumn('updated_at', function($data){
-            $updated_at = Carbon::parse($data->updated_at)->diffForHumans();
+            $updated_at = $data->updated_at->format('Y/m/d');
             return $updated_at;
         })
         ->addColumn('status', function($data){

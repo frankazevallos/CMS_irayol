@@ -19,9 +19,8 @@ $(document).ready(function(){
     });
 
     // ****** Set main page ******
-    $(`body`).on("click", "#setMainMenu" , function() {
-        var menu_id = $(this).data('id');
-
+    $(`body`).on("click", "#setMainMenu", function() {
+        let menu_id = $(this).data('id');
         $.ajax({
             url: `mainmenu/${menu_id}`,
             type: "POST",
@@ -34,7 +33,62 @@ $(document).ready(function(){
                 console.log("Error:", response.message);
             },
         });
+    });
 
+    // ****** Create menu ******
+    $("body").on("click", "#btnCreateMenu", function(){
+        let title = $('#titleMenuCreate').val();
+        if (title !== '') {
+            $.ajax({
+                url: '/menu',
+                type: 'POST',
+                data: {title},
+                cache: false,
+                success: function(response){
+                    dataMenu.ajax.reload();
+                    $('#titleMenuCreate').addClass('is-valid');
+                },
+                error: function(response){
+                    console.log("Error:", response.message);
+                    $('#titleMenuCreate').addClass('is-invalid');
+                }
+            });
+        }
+    });
+
+    // ****** Edit menu ******
+    $("body").on("click", "#editMenu", function () {
+        let menu_id = $(this).data("id");
+        $.get("/menu/" + menu_id + "/edit", function (response) {
+            $("#editMediaModal").modal("show");
+            $("#titleMenuEdit").val(response.message.title);
+            $("#btnUpdateMenu").data('id', response.message.id)
+        });
+    });
+
+
+    // ****** Update menu ******
+    $("body").on("click", "#btnUpdateMenu", function (){
+        let menu_id = $(this).data('id');
+        let title = $('#titleMenuEdit').val();
+
+        if(title !== ''){
+            $.ajax({
+                url: '/menu/' + menu_id,
+                type: "PATCH",
+                cache: false,
+                data: {title},
+                success: function(response){
+                    console.log(response.message);
+                    dataMenu.ajax.reload();
+                    $('#titleMenuEdit').addClass('is-valid');
+                },
+                error: function (response) {
+                    console.log("Error:", response.message);
+                    $('#titleMenuEdit').addClass('is-invalid');
+                },
+            });
+        }
     });
 
     // ****** Delete page ******
@@ -53,7 +107,7 @@ $(document).ready(function(){
                     console.log("Error:", response);
                 },
             });
-        };
+        }
 
     });
 });

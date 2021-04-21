@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Exception;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use Exception;
+use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
@@ -84,7 +85,7 @@ class SettingsController extends Controller
     public function edit($id)
     {
         $setting = Setting::findOrFail($id);
-        return view('settings.edit', compact('setting'));
+        return response()->json(['status' => 'success', 'message' =>  $setting]);
     }
 
     /**
@@ -95,15 +96,16 @@ class SettingsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         try {
             $data = $this->getData($request);
             $setting = Setting::findOrFail($id);
             $setting->update($data);
-            return redirect()->route('setting.index')->with('success', __('global.successfully_updated'));
-        } catch (Exception $e) {
-            return redirect()->back()->with('danger', "Error: ". $e->getMessage());
+
+            return response()->json(['status' => 'success', 'message' =>  $setting]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
     }
 
@@ -141,6 +143,20 @@ class SettingsController extends Controller
         ];
         $data = $request->validate($rules);
         return $data;
+    }
+
+    public function ajaxIndex(){
+        $data = Setting::select('id', 'key', 'value', 'updated_at')->orderBy("updated_at", 'desc');
+
+        return Datatables::of($data)
+        ->addColumn('updated_at', function($data){
+            $updated_at = $data->updated_at->format('Y/m/d');
+            return $updated_at;
+        })
+        ->addColumn('action', function($data){
+            return '<a class="btn btn-primary btn-sm" href="javascript:void(0)" id="editSetting" data-id="'.$data->id.'" ><i class="fas fa-pencil-alt"></i>' ." " . __('global.edit') . '</a>';
+        })
+        ->rawColumns(['updated_at', 'action'])->make(true);
     }
 
 }
