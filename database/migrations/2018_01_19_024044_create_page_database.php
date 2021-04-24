@@ -16,7 +16,7 @@ class CreatePageDatabase extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->string('title')->unique();
+            $table->string('title');
             $table->longText('content')->nullable();
             $table->string('slug')->unique();
             $table->string('titleseo')->nullable();

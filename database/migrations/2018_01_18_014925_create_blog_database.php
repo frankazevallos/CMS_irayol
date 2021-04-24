@@ -14,9 +14,9 @@ class CreateBlogDatabase extends Migration
     public function up()
     {
         Schema::create('blogs', function (Blueprint $table) {
-            $table->id();  
-            $table->bigInteger('user_id')->unsigned();          
-            $table->string('title')->unique();
+            $table->id();
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('title');
             $table->longText('content')->nullable();
             $table->string('slug')->unique();
             $table->string('titleseo')->nullable();
