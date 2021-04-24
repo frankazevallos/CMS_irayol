@@ -120034,6 +120034,14 @@ const icons = {
 }
 
 const date_format = 'YYYY-MM-DD HH:mm';
+const date_format_YMD = 'YYYY-MM-DD';
+
+$('.datetimepicker').datetimepicker({
+    maxDate: new Date(),
+    date: moment($('.datetimepicker').val()),
+    format: date_format_YMD,
+    icons: icons,
+});
 
 /* CLOSE GLOBAL CONST */
 
