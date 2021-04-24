@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
-use App\Models\Media;
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
+use App\Models\Media;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
@@ -53,25 +51,23 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
-            'title' => 'required|unique:pages',
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required|unique:pages',
         ]);
-        if ($validator->passes()) {
-            $page = new Page();
-            $page->title = $request->title;
-            $page->content = $request->content;
-            $page->user_id = Auth::id();
-            $page->slug = Str::slug($request->title);
-            $page->titleseo = $request->titleseo;
-            $page->descseo = $request->descriptionseo;
-            $page->keywordseo = $request->keywordseo;
-            $save = $page->save();
-            if ($save) {
-                return redirect()->action('HomeController@page')->with('success', __('global.successfully_added'));
-            }
-        } else {
-            return redirect()->route('page.create')->withErrors($validator)->withInput();
-        }
+
+        $page = new Page();
+        $page->title = $request->title;
+        $page->content = $request->input('content');
+        $page->user_id = Auth::id();
+        $page->slug = Str::slug($request->title);
+        $page->titleseo = $request->titleseo;
+        $page->descseo = $request->descriptionseo;
+        $page->keywordseo = $request->keywordseo;
+        $page->save();
+
+        return redirect()->route('pages.index')->with('success', __('global.successfully_added'));
+
     }
 
     /**
@@ -96,9 +92,7 @@ class PagesController extends Controller
         $page = Page::find($id);
         $users = User::all()->pluck('name', 'id');
         $media = Media::all();
-        if (!$page) {
-            abort(404);
-        }
+
         return view('page.edit',compact('page', 'media', 'users'));
     }
 
@@ -111,26 +105,25 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $page = Page::find($id);
-        $validator = Validator::make(request()->all(), [
-            'title' => ['required', Rule::unique('pages')->ignore($page->id)],
-            'slug' => ['required', Rule::unique('pages')->ignore($page->id)],
+
+
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required|unique:pages',
         ]);
-        if ($validator->passes()) {
-            $page->title = $request->title;
-            $page->content = $request->content;
-            $page->user_id = $request->user_id;
-            $page->slug = Str::slug($request->slug);
-            $page->titleseo = $request->titleseo;
-            $page->descseo = $request->descriptionseo;
-            $page->keywordseo = $request->keywordseo;
-            $save = $page->save();
-            if ($save) {
-                return redirect()->route('pages.index')->with('success', __('global.successfully_updated'));
-            }
-        } else {
-            return redirect()->route('route.edit', $id)->withErrors($validator)->withInput();
-        }
+
+        $page = Page::find($id);
+        $page->title = $request->title;
+        $page->content = $request->input('content');
+        $page->user_id = $request->user_id;
+        $page->slug = Str::slug($request->slug);
+        $page->titleseo = $request->titleseo;
+        $page->descseo = $request->descriptionseo;
+        $page->keywordseo = $request->keywordseo;
+        $page->save();
+
+        return redirect()->route('pages.index')->with('success', __('global.successfully_updated'));
+
     }
 
     /**

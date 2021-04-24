@@ -44,14 +44,15 @@ class BlogsController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make(request()->all(), [
-            'title' => 'required|unique:blogs',
+
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required|unique:blogs',
         ]);
 
-        if ($validator->passes()) {
             $blog = new Blog();
             $blog->title = $request->title;
-            $blog->content = $request->content;
+            $blog->content = $request->input('content');
             $blog->user_id = Auth::id();
             $blog->slug = Str::slug($request->title);
             $blog->titleseo = $request->titleseo;
@@ -60,16 +61,13 @@ class BlogsController extends Controller
             $blog->visibility = $request->visibility;
             $blog->main_image = $request->main_image;
             $blog->published_at = Carbon::parse($request->published_at);
-            $save = $blog->save();
+            $blog->save();
 
             $blog->categories()->attach($request->category);
 
-            if ($save) {
+
                 return redirect()->back()->with('success', __('global.successfully_added'));
-            }
-        } else {
-            return redirect()->route('blogs.create')->withErrors($validator)->withInput();
-        }
+
     }
 
     /**
@@ -113,14 +111,13 @@ class BlogsController extends Controller
     {
         $blog = Blog::find($id);
 
-        $validator = Validator::make(request()->all(), [
+        $request->validate([
             'title' => ['required', Rule::unique('blogs')->ignore($blog->id)],
             'slug' => ['required', Rule::unique('blogs')->ignore($blog->id)],
         ]);
 
-        if ($validator->passes()) {
-            $blog->title = $request->title;
-            $blog->content = $request->content;
+        $blog->title = $request->title;
+            $blog->content = $request->input('content');
             $blog->user_id = $request->user_id;
             $blog->slug = Str::slug($request->slug);
             $blog->titleseo = $request->titleseo;
@@ -129,23 +126,19 @@ class BlogsController extends Controller
             $blog->visibility = $request->visibility;
             $blog->main_image = $request->main_image;
             $blog->published_at = Carbon::parse($request->published_at);
-            $save = $blog->save();
+            $blog->save();
 
             $blog->categories()->sync($request->category);
 
-            if ($save) {
-                return redirect()->route('blogs.index')->with('success', __('global.successfully_updated'));
-            }
-        } else {
-            return redirect()->route('blogs.edit', $id)->withErrors($validator)->withInput();
-        }
+            return redirect()->route('blogs.index')->with('success', __('global.successfully_updated'));
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
@@ -154,7 +147,7 @@ class BlogsController extends Controller
             $blog->delete();
             return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
         } catch (\Throwable $th) {
-            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
+            return response()->json(['status' => 'danger', 'message' => "Error: " . $th->getMessage()]);
         }
     }
 
