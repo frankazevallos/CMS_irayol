@@ -49,32 +49,15 @@ class MediaController extends Controller
             if ($request->ajax()) {
                 $files = $request->file('files');
 
-                $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d'); //chmod 0777
-                
-                $data = [];
-
-                foreach ($files as $file) {
-                    $filename = $file->getClientOriginalName();
-                    $extension = $file->getClientOriginalExtension();
-
-                    $dataMedia = Media::create([
-                        'user_id' => auth()->user()->id,
-                        'file' => $filename,
-                        'path' => $destinationPath . '/' . $filename,
-                        'extension' => $extension,
-                    ]);
-                    
-                    $data[] = array('id' => $dataMedia->id, 'path' => $dataMedia->getFile());
-
-                    $file->storeAs($destinationPath, $filename, 'public'); //save to path          
-                }
+                $media = new Media();
+                $data = $media->saveFile($files);
 
                 return response()->json(['status' => 'success', 'message' =>  $data]);
             }
         } catch (\Throwable $th) {
             return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
-       
+
     }
 
     /**
@@ -102,7 +85,7 @@ class MediaController extends Controller
     public function edit($id)
     {
         try {
-            
+
             $media = Media::findOrFail($id);
             $destinationPath = storage_path() . '/app/public/' . $media->path;
 
@@ -144,7 +127,7 @@ class MediaController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
-    {   
+    {
         try {
             $media = Media::find($id);
             $destinationPath = storage_path() . '/app/public/' . $media->path;

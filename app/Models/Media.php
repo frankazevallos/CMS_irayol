@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 class Media extends Model
 {
     use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,6 +20,34 @@ class Media extends Model
         'path',
         'extension'
     ];
+
+    /**
+     * @var array
+     */
+    public function saveFile($files){
+
+        $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d'); //chmod 0777
+
+        $data = [];
+
+        foreach ($files as $file) {
+            $filename = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+
+            $dataMedia = $this->create([
+                'user_id' => auth()->user()->id,
+                'file' => $filename,
+                'path' => $destinationPath . '/' . $filename,
+                'extension' => $extension,
+            ]);
+
+            $data[] = array('id' => $dataMedia->id, 'path' => $dataMedia->getFile());
+
+            $file->storeAs($destinationPath, $filename, 'public');
+        }
+
+        return $data;
+    }
 
     public function getFile()
     {
@@ -74,7 +103,7 @@ class Media extends Model
     }
 
     public function getMediaAjax($query){
-        
+
         $query = str_replace(" ", "%", $query);
 
         if($query != '') {
@@ -86,7 +115,7 @@ class Media extends Model
     }
 
     public function getMediaAjaxType($query, $type){
-        
+
         $query = str_replace(" ", "%", $query);
 
         if($query != '') {
