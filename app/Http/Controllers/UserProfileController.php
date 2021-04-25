@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Media;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
@@ -56,9 +58,10 @@ class UserProfileController extends Controller
      * @param  \App\Models\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserProfile $userProfile)
+    public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('profile.edit', compact('user'));
     }
 
     /**
@@ -68,9 +71,49 @@ class UserProfileController extends Controller
      * @param  \App\Models\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserProfile $userProfile)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->update([
+                'username' => $request->input('username'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+            ]);
+
+            if ($request->hasFile('avatar')) {
+                $avatar = $request->file('avatar');
+                $media = new Media();
+                $getData = $media->saveFile(array($avatar));
+                $data = $getData[0]['path'];
+            } else {
+                $data = $user->userProfile->avatar;
+            }
+
+            UserProfile::updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'mobile' => $request->input('mobile'),
+                    'gender' => $request->input('gender'),
+                    'date_of_birth' => $request->input('date_of_birth'),
+                    'url_website' => $request->input('url_website'),
+                    'url_facebook' => $request->input('url_facebook'),
+                    'url_twitter' => $request->input('url_twitter'),
+                    'url_instagram' => $request->input('url_instagram'),
+                    'url_linkedin' => $request->input('url_linkedin'),
+                    'url_github' => $request->input('url_github'),
+                    'country' => $request->input('country'),
+                    'state' => $request->input('state'),
+                    'city' => $request->input('city'),
+                    'avatar' => $data,
+                ]
+            );
+
+            return redirect()->route('profile.index')->with('success', __('global.successfully_updated'));
+        } catch (\Exception $th) {
+            return back()->withInput()->withErrors(['danger' => "Error: " . $th->getMessage()]);
+        }
+
     }
 
     /**

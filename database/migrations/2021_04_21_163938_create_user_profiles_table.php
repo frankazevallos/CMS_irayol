@@ -15,7 +15,7 @@ class CreateUserProfilesTable extends Migration
     {
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
+            $table->bigInteger('user_id')->unsigned();
             $table->string('mobile')->nullable();
             $table->string('gender')->nullable();
             $table->date('date_of_birth')->nullable();
@@ -36,6 +36,8 @@ class CreateUserProfilesTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

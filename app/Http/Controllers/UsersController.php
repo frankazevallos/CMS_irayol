@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Exception;
+use Yajra\DataTables\DataTables;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\UpdateUsersRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -29,23 +27,9 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $search = $request->search;
-
-        if (!empty($request->number)) {
-            $number = $request->number;
-        } else {
-            $number = 10;
-        }
-
-        if (!empty($search)) {
-            $usersObjects = User::where('name', 'LIKE', '%' . $search . '%')->paginate($number);
-        } else {
-            $usersObjects = User::paginate($number);
-        }
-
-        return view('users.index', compact('usersObjects'));
+        return view('users.index');
     }
 
     /**
@@ -69,7 +53,6 @@ class UsersController extends Controller
     public function store(StoreUsersRequest $request)
     {
         try {
-
             $user = new User;
             $user->name = $request->name;
             $user->email = $request->email;
@@ -79,11 +62,9 @@ class UsersController extends Controller
             $roles = $request->input('roles') ? $request->input('roles') : [];
             $user->assignRole($roles);
 
-            return redirect()->route('users.index')->with('success_message', 'Users was successfully added.');
-        } catch (Exception $exception) {
-
-            return back()->withInput()
-                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+            return redirect()->route('users.index')->with('success', __('global.successfully_updated'));
+        } catch (\Exception $th) {
+            return back()->withInput()->withErrors(['danger' => "Error: " . $th->getMessage()]);
         }
     }
 
@@ -132,9 +113,9 @@ class UsersController extends Controller
             $roles = $request->roles ? $request->roles : [];
             $user->syncRoles($roles);
 
-            return redirect()->route('users.index')->with('success_message', 'User was successfully updated.');
-        } catch (Exception $exception) {
-            return back()->withInput()->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+            return redirect()->route('users.index')->with('success', __('global.successfully_updated'));
+        } catch (\Exception $th) {
+            return back()->withInput()->withErrors(['danger' => "Error: " . $th->getMessage()]);
         }
     }
 
@@ -156,7 +137,6 @@ class UsersController extends Controller
         }
     }
 
-
     /**
      * Get the request's data from the request.
      *
@@ -173,37 +153,6 @@ class UsersController extends Controller
 
         $data = $request->validate($rules);
         return $data;
-    }
-
-    public function profile(){
-        $user = Auth::user();
-        return view('profile.index', compact('user'));
-    }
-
-    public function profileEdit(){
-        $user = Auth::user();
-        $roles = Role::get()->pluck('name', 'id');
-        return view('profile.edit', compact('user', 'roles'));
-    }
-
-    public function profileUpdate($id, UpdateUsersRequest $request){
-        try {
-            $user = User::findOrFail($id);
-            $user->name = $request->name;
-            $user->email = $request->email;
-            if (!empty($request->password)) {
-                $user->password = Hash::make($request->password);
-            }
-            $user->update();
-
-            $roles = $request->roles ? $request->roles : [];
-            $user->syncRoles($roles);
-
-            return redirect()->route('profile.index')->with('success_message', 'User was successfully updated.');
-        } catch (Exception $exception) {
-
-            return back()->withInput()->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }
     }
 
     public function ajaxIndex(){

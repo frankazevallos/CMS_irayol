@@ -75,10 +75,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('ajaxindex/users',[App\Http\Controllers\UsersController::class, 'ajaxIndex'])->name('users.ajaxIndex');
 
     // Profile
-    Route::resource('profile', [\App\Http\Controllers\UserProfileController::class]);
-    Route::get('/profile', [App\Http\Controllers\UsersController::class, 'profile'])->name('profile.index');
-    Route::get('/profile/edit', [App\Http\Controllers\UsersController::class, 'profileEdit'])->name('profile.edit');
-    Route::put('/profile/{user}', [App\Http\Controllers\UsersController::class, 'profileUpdate'])->name('profile.update');
+    Route::resource('profile', \App\Http\Controllers\UserProfileController::class);
 
     // Permissions
     Route::resource('permissions', \App\Http\Controllers\PermissionsController::class);
