@@ -63,8 +63,9 @@
                         <div class="form-group {{ $errors->has('gender') ? 'has-error' : '' }}">
                             <label for="gender">{{__('global.gender')}}</label>
                             <select class="form-control select2" name="gender" id="gender" >
+                                <option disabled {{ old('gender', optional($user->profile)->gender ? : '') == '' ? 'selected' : '' }} selected>{{__('global.select_option')}}</option>
                                 @foreach ($data = array('male' => __('global.male'), 'female' => __('global.female'), 'other' => __('global.other')); as $key => $gender)
-                                    <option value="{{$key}}" {{ $user->profile->gender == $key ? 'selected' : '' }}>{{$gender}}</option>
+                                    <option value="{{$key}}" {{ old('gender', optional($user->profile)->gender) == $key ? 'selected' : '' }}>{{$gender}}</option>
                                 @endforeach
                             </select>
                             {{ $errors->first('gender', '<p class="help-block">:message</p>') }}
