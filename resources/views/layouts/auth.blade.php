@@ -8,12 +8,16 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
+        <!-- baseRoute -->
+        <meta name="current-route" content="{{ url()->current() }}" />
+
         <title>@stack('title')</title>
         <link rel="stylesheet" href="{{asset('manager/vendor/css/main.css')}}">
     </head>
-    <body class="hold-transition login-page">    
+    <body class="hold-transition login-page">
 
         <div id="app">
+            @include('layouts.partials.alert')
             @yield('content')
         </div>
 
