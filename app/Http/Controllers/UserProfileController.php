@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Media;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class UserProfileController extends Controller
 {
@@ -58,9 +60,9 @@ class UserProfileController extends Controller
      * @param  \App\Models\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $user = User::findOrFail($id);
+        $user = auth()->user();
         return view('profile.edit', compact('user'));
     }
 
@@ -74,7 +76,7 @@ class UserProfileController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = User::with('profile')->findOrFail($id);
             $user->update([
                 'username' => $request->input('username'),
                 'name' => $request->input('name'),
@@ -82,12 +84,22 @@ class UserProfileController extends Controller
             ]);
 
             if ($request->hasFile('avatar')) {
+
+                if (File::exists(public_path() . '/storage' . $user->profile->avatar)) {
+                    File::delete(public_path() . '/storage' . $user->profile->avatar);
+                }
+
                 $avatar = $request->file('avatar');
-                $media = new Media();
-                $getData = $media->saveFile(array($avatar));
-                $data = $getData[0]['path'];
+
+                $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $filename = $avatar->getClientOriginalName();
+
+                $data = $destinationPath . '/' . $filename;
+
+                $avatar->storeAs($destinationPath, $filename, 'public');
+
             } else {
-                $data = $user->userProfile->avatar;
+                $data = $user->profile ? $user->profile->avatar : null;
             }
 
             UserProfile::updateOrCreate(
@@ -110,8 +122,8 @@ class UserProfileController extends Controller
             );
 
             return redirect()->route('profile.index')->with('success', __('global.successfully_updated'));
-        } catch (\Exception $th) {
-            return back()->withInput()->withErrors(['danger' => "Error: " . $th->getMessage()]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with(['danger', 'Error' . $th->getMessage()]);
         }
 
     }
@@ -122,8 +134,13 @@ class UserProfileController extends Controller
      * @param  \App\Models\UserProfile  $userProfile
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserProfile $userProfile)
+    public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if ($user->id == auth()->user()->id) {
+            $user->delete();
+            Auth::logout();
+        }
+        return redirect()->route('login')->with('warning', __('global.successfully_destroy'));
     }
 }
