@@ -7,14 +7,12 @@ use App\Models\User;
 use App\Models\Media;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 
 class PagesController extends Controller
 {
-    function __construct()
-    {
+    function __construct(){
         $this->middleware('permission:page.index', ['only' => ['index']]);
         $this->middleware('permission:page.create', ['only' => ['create','store']]);
         $this->middleware('permission:page.edit', ['only' => ['edit','update']]);
@@ -105,8 +103,6 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
         $request->validate([
             'title' => 'required',
             'slug' => 'required|unique:pages',
@@ -123,7 +119,6 @@ class PagesController extends Controller
         $page->save();
 
         return redirect()->route('pages.index')->with('success', __('global.successfully_updated'));
-
     }
 
     /**
