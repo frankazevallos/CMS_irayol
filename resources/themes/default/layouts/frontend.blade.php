@@ -33,7 +33,6 @@
 </head>
 
 <body>
-
     @include('partials.navbar')
 
     @yield('content')
