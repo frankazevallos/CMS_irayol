@@ -71,6 +71,7 @@ return [
     'other' => 'Otro',
     'date_of_birth' => 'Fecha de nacimiento',
     'social_networks' => 'Redes sociales',
+    'change_password' => 'Cambiar contraseña',
 
     'url_website' => 'Sitio web',
     'url_facebook' => 'Facebook',
@@ -85,6 +86,7 @@ return [
     'city' => 'Ciudad/Municipio',
 
     'avatar' => 'Imagen de perfil',
+    'delete_account' => 'Borrar cuenta',
 
 	'seo_title' => 'Titulo para SEO',
 	'seo_description' => 'Descripciòn para SEO',
