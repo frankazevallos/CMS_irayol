@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    
+
     use HasFactory, SoftDeletes;
 
 
@@ -39,7 +39,7 @@ class Category extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -49,6 +49,6 @@ class Category extends Model
 
     public function blogs()
     {
-        return $this->belongsToMany(Category::class, 'blog_categories', 'blog_id', 'category_id');
+        return $this->belongsToMany(Blog::class, 'blog_categories', 'category_id', 'blog_id');
     }
 }
