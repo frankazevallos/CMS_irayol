@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
             PageSeeder::class,
             BlogSeeder::class,
             CategorySeeder::class,
+            MenuSeeder::class,
+            ItemMenuSeeder::class,
             SettingsSeeder::class,
-            // MediaSeeder::class
         ]);
 
     }

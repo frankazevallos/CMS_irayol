@@ -32,7 +32,7 @@ class SettingsSeeder extends Seeder
             [ 'key' => 'revistafter', 'value' => '', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
             [ 'key' => 'robots', 'value' => '', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
             [ 'key' => 'main_page', 'value' => '', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            [ 'key' => 'main_menu', 'value' => '', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            [ 'key' => 'main_menu', 'value' => 1, 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
             [ 'key' => 'app_lang', 'value' => env('APP_LANG', 'es'), 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
             [ 'key' => 'currency_code', 'value' => 'USD', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),  'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ]);
