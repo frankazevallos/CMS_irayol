@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="@yield('keywordseo')">
-    <meta name="description" content="@yield('descseo')">
-    <meta name="author" content="@yield('author')">
+    <meta name="keywords" content="@stack('keywordseo')">
+    <meta name="description" content="@stack('descseo')">
+    <meta name="author" content="@stack('author')">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>Default</title>
+    <title>@stack('title')</title>
 
 
     <link href="{{ asset('themes/' . setting('theme_active') . '/css/default.css') }}" rel="stylesheet">
