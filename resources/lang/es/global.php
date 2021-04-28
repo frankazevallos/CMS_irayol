@@ -72,6 +72,9 @@ return [
     'date_of_birth' => 'Fecha de nacimiento',
     'social_networks' => 'Redes sociales',
     'change_password' => 'Cambiar contraseña',
+    'current_password' => 'Contraseña actual',
+    'new_password' => 'Nueva contraseña',
+    'new_confirm_password' => 'Confirmar nueva contraseña',
 
     'url_website' => 'Sitio web',
     'url_facebook' => 'Facebook',
@@ -86,7 +89,8 @@ return [
     'city' => 'Ciudad/Municipio',
 
     'avatar' => 'Imagen de perfil',
-    'delete_account' => 'Borrar cuenta',
+    'delete_account' => 'Borrar mi cuenta',
+    'posted_by' => 'Publicado por',
 
 	'seo_title' => 'Titulo para SEO',
 	'seo_description' => 'Descripciòn para SEO',
@@ -125,7 +129,7 @@ return [
 	'settings' => 'Configuración',
 	'themes' => 'Temas',
 	'modules' => 'Modulos',
-	'menus' => 'Menus',
+	'menus' => 'Menús',
 	'menu' => 'Menú',
 
 	// Card header
@@ -135,7 +139,7 @@ return [
 	'list_media' => 'Lista multimedia',
 	'list_themes' => 'Lista de temas',
 	'list_modules' => 'Lista de modulos',
-	'list_menus' => 'Lista de menus',
+	'list_menus' => 'Lista de menús',
 	'list_usuarios' => 'Lista de usuarios',
 
 	// Tables
@@ -169,7 +173,7 @@ return [
 	'empty_results' => 'Por favor, haga clic en Nuevo para agregar un registro.',
 
 	// Menu
-	'menu_structure' => 'Estructura del menu',
+	'menu_structure' => 'Estructura del menú',
 	'menu_indication' => 'Ponga cada artículo en el orden que prefiera. Haga clic en la flecha a la derecha del artículo para mostrar más opciones de configuración.',
 	'custom_link' => 'Enlace personalizado',
 	'subelement' => 'Subelemento',
