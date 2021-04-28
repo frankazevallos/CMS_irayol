@@ -81,8 +81,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::delete('/profile/{id}', [App\Http\Controllers\UserProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Change password
-    Route::get('change-password', 'ChangePasswordController@index');
-    Route::post('change-password', 'ChangePasswordController@store')->name('change.password');
+    Route::post('change/password', [App\Http\Controllers\UserProfileController::class, 'changePassword'])->name('change.password');
 
     // Permissions
     Route::resource('permissions', \App\Http\Controllers\PermissionsController::class);
@@ -95,6 +94,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 Route::group(['middleware' => 'setTheme'], function () {
     Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('home');
+    Route::get('/blog', [App\Http\Controllers\FrontendController::class, 'blog'])->name('blog.index');
+    Route::get('/blog/search', [App\Http\Controllers\FrontendController::class, 'search'])->name('blog.search');
     Route::get('/blog/{slug}', [App\Http\Controllers\FrontendController::class, 'showblog'])->name('blog.show'); //show the blog page
     Route::get('/page/{slug}', [App\Http\Controllers\FrontendController::class, 'showpage'])->name('page.show'); //show the page
     Route::get('/category/{slug}', [App\Http\Controllers\FrontendController::class, 'category'])->name('site.category');
