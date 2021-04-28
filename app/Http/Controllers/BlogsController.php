@@ -32,14 +32,14 @@ class BlogsController extends Controller
      */
     public function index()
     {
-        return view('blog.index');
+        return view('blogs.index');
     }
 
     public function create()
     {
         $media = Media::all();
         $categories = Category::where('is_active', 1)->get();
-        return view('blog.create', compact('media', 'categories'));
+        return view('blogs.create', compact('media', 'categories'));
     }
 
     public function store(Request $request)
@@ -97,7 +97,7 @@ class BlogsController extends Controller
         if (!$blog) {
             abort(404);
         }
-        return view('blog.edit', compact('blog','media', 'categories', 'users'));
+        return view('blogs.edit', compact('blog','media', 'categories', 'users'));
     }
 
     /**
@@ -163,7 +163,7 @@ class BlogsController extends Controller
             $updated_at = $data->updated_at->format('Y/m/d');
             return $updated_at;
         })
-        ->addColumn('action', 'blog.actions' ) //add view actions
+        ->addColumn('action', 'blogs.actions' ) //add view actions
         ->rawColumns(['author', 'updated_at', 'category', 'action'])->make(true);
     }
 
