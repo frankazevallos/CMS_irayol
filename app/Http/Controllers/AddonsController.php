@@ -9,10 +9,10 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Madnest\Madzipper\Facades\Madzipper;
 
+
 class AddonsController extends Controller
 {
-    function __construct()
-    {
+    function __construct(){
         $this->middleware('permission:addons.index', ['only' => ['index']]);
         $this->middleware('permission:addons.create', ['only' => ['create','store']]);
         $this->middleware('permission:addons.edit', ['only' => ['edit','update', 'active']]);
@@ -24,8 +24,7 @@ class AddonsController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
-    {
+    public function index(){
         $modules = Module::all();
         return view('addons.index', compact('modules'));
     }
@@ -40,7 +39,7 @@ class AddonsController extends Controller
         }
 
         $module = Module::find($module_name);
-        
+
         if($module) {
             if($module->enabled())
                 $module->disable();
@@ -77,7 +76,7 @@ class AddonsController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('addons.index')->with('danger', "Error: ". $e->getMessage());
         }
-        
+
     }
 
     /**
