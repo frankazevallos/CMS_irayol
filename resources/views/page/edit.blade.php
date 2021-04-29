@@ -14,7 +14,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">{{__('global.title')}}</span>
 								</div>
-								<input type="text" class="form-control" id="title" value="{{ $page->title }}" name="title" placeholder="Title" />
+								<input type="text" class="form-control" id="title" value="{{ $page->title }}" name="title" placeholder="{{__('global.title')}}" />
 								@if ($errors->has('title'))
 								<span class="help-block">
 									<strong>{{ $errors->first('title') }}</strong>
@@ -32,7 +32,7 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">{{__('global.url')}}</span>
 								</div>
-                        		<input type="text" class="form-control" id="slug" name="slug" value="{{ $page->slug }}" placeholder="URL" />
+                        		<input type="text" class="form-control" id="slug" name="slug" value="{{ $page->slug }}" placeholder="{{__('global.url')}}" />
 								@if ($errors->has('slug'))
 								<span class="help-block">
 									<strong>{{ $errors->first('slug') }}</strong>
