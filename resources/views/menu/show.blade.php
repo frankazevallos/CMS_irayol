@@ -15,155 +15,150 @@
     </div>
     <div class="row">
         <div class="col-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="add-new-page bg-white p-20 m-b-20">
-                        <div class="accrodion-regular">
-                            <div id="accordion3">
-                                <div class="card mb-2">
-                                    <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
-                                        {{__('global.custom_link')}}</i>
-                                    </a>
-                                    <div id="collapseSeven" class="collapse show" aria-labelledby="headingSeven" data-parent="#accordion3">
-                                        <div class="card-body">
-                                            <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="row clearfix">
-                                                <div class="col-12">
-                                                    <div class="row">
-                                                        <!-- Main Content section start -->
-                                                        <div class="col-12 col-lg-12">
-                                                            <div class="add-new-page  bg-white p-20 m-b-20">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <div class="form-group">
-                                                                            <label for="label" class="col-form-label">{{ __('global.title') }}*</label>
-                                                                            <input id="label" name="label" value="{{ old('label') }}" type="text" class="form-control" required>
-                                                                            <small id="emailHelp" class="form-text text-muted">{{__('global.required')}}</small>
-                                                                            <input name="source" type="hidden" value="custom" class="form-control" required>
-                                                                            <input type="hidden" name="menu_id" value="{{ $menuId }}">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <div class="form-group">
-                                                                            <label for="url" class="col-form-label">{{ __('global.url') }}</label>
-                                                                            <input id="url" name="url" value="{{ old('url') }}" type="text" class="form-control">
-                                                                        </div>
-                                                                    </div>
+            <div class="add-new-page p-20 m-b-20">
+                <div class="accrodion-regular">
+                    <div id="accordion3">
+                        <div class="card mb-2">
+                            <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseSeven">
+                                {{__('global.custom_link')}}</i>
+                            </a>
+                            <div id="collapseSeven" class="collapse show" aria-labelledby="headingSeven" data-parent="#accordion3">
+                                <div class="card-body">
+                                    <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row clearfix">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <!-- Main Content section start -->
+                                                <div class="col-12 col-lg-12">
+                                                    <div class="add-new-page  bg-white p-20 m-b-20">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="label" class="col-form-label">{{ __('global.title') }}*</label>
+                                                                    <input id="label" name="label" value="{{ old('label') }}" type="text" class="form-control" required>
+                                                                    <small id="emailHelp" class="form-text text-muted">{{__('global.required')}}</small>
+                                                                    <input name="source" type="hidden" value="custom" class="form-control" required>
+                                                                    <input type="hidden" name="menu_id" value="{{ $menuId }}">
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-12 m-t-20">
-                                                                        <div class="form-group form-float form-group-sm">
-                                                                            <button type="submit" name="btn" class="btn btn-primary btn-sm btn-block">
-                                                                                <i class="fa fa-plus-circle"></i> {{ __('global.add') }}
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label for="url" class="col-form-label">{{ __('global.url') }}</label>
+                                                                    <input id="url" name="url" value="{{ old('url') }}" type="text" class="form-control">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-- Main Content section end -->
+                                                        <div class="row">
+                                                            <div class="col-12 m-t-20">
+                                                                <div class="form-group form-float form-group-sm">
+                                                                    <button type="submit" name="btn" class="btn btn-primary btn-sm btn-block">
+                                                                        <i class="fa fa-plus-circle"></i> {{ __('global.add') }}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <!-- Main Content section end -->
                                             </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                {{__('global.pages')}}
+                            </a>
+                            <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion3">
+                                <div class="card-body scroll">
+                                    @if($pages->count() > 0)
+                                        @foreach ($pages as $page)
+                                            <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <input name="source" type="hidden" value="page" class="form-control" required>
+                                                <input type="hidden" name="menu_id" value="{{ $menuId }}">
+
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <input hidden name="page_url" type="text" value="/{{$page->slug}}" />
+                                                        <input hidden name="page_id" type="text" value="{{$page->id}}" />
+                                                        <input readonly type="text" class="form-control form-control-sm" value="{{$page->title}}" />
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </form>
-                                        </div>
-                                    </div>
+                                        @endforeach
+                                    @else
+                                        {{ __('no_page_available') }}
+                                    @endif
                                 </div>
-                                <div class="card mb-2">
-                                    <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                        {{__('global.pages')}} <i class="float-right fa fa-circle" aria-hidden="true" style="margin-top: 2px;"></i>
-                                    </a>
-                                    <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion3">
-                                        <div class="card-body scroll">
-                                            @if($pages->count() > 0)
-                                                @foreach ($pages as $page)
-                                                    <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input name="source" type="hidden" value="page" class="form-control" required>
-                                                        <input type="hidden" name="menu_id" value="{{ $menuId }}">
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                {{__('global.blogs')}}
+                            </a>
+                            <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion3">
+                                <div class="card-body scroll">
+                                    @if($posts->count() > 0)
+                                        @foreach ($posts as $post)
+                                            <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <input  name="source" value="post" type="hidden" class="form-control" required>
+                                                <input type="hidden" name="menu_id" value="{{ $menuId }}">
 
-                                                        <div class="form-group">
-                                                            <div class="input-group mb-3">
-                                                                <input hidden name="page_url" type="text" value="/{{$page->slug}}" />
-                                                                <input hidden name="page_id" type="text" value="{{$page->id}}" />
-                                                                <input readonly type="text" class="form-control form-control-sm" value="{{$page->title}}" />
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></button>
-                                                                </div>
-                                                            </div>
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <input hidden name="post_url" type="text" value="/{{$post->slug}}" />
+                                                        <input hidden name="post_id" type="text" value="{{$post->id}}" />
+                                                        <input readonly type="text" class="form-control form-control-sm" value="{{ Str::limit($post->title, 40) }}" />
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></button>
                                                         </div>
-
-                                                    </form>
-                                                @endforeach
-                                            @else
-                                                {{ __('no_page_available') }}
-                                            @endif
-                                        </div>
-                                    </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        @endforeach
+                                    @else
+                                        {{ __('no_page_available') }}
+                                    @endif
                                 </div>
-                                <div class="card mb-2">
-                                    <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                        {{__('global.blogs')}} <i class="float-right fa fa-circle" aria-hidden="true" style="margin-top: 2px;"></i>
-                                    </a>
-                                    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordion3">
-                                        <div class="card-body scroll">
-                                            @if($posts->count() > 0)
-                                                @foreach ($posts as $post)
-                                                    <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input  name="source" value="post" type="hidden" class="form-control" required>
-                                                        <input type="hidden" name="menu_id" value="{{ $menuId }}">
+                            </div>
+                        </div>
+                        <div class="card mb-2">
+                            <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                {{__('global.categories')}}
+                            </a>
+                            <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion3">
+                                <div class="card-body scroll">
+                                    @if($categories->count() > 0)
+                                        @foreach ($categories as $category)
+                                            <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <input  name="source" type="hidden" value="category" class="form-control" required>
+                                                <input type="hidden" name="menu_id" value="{{ $menuId }}">
 
-                                                        <div class="form-group">
-                                                            <div class="input-group mb-3">
-                                                                <input hidden name="post_url" type="text" value="/{{$post->slug}}" />
-                                                                <input hidden name="post_id" type="text" value="{{$post->id}}" />
-                                                                <input readonly type="text" class="form-control form-control-sm" value="{{ Str::limit($post->title, 40) }}" />
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></button>
-                                                                </div>
-                                                            </div>
+                                                <div class="form-group">
+                                                    <div class="input-group mb-3">
+                                                        <input hidden name="category_url" type="text" value="/{{$category->slug}}" />
+                                                        <input hidden name="category_id" type="text" value="{{$category->id}}" />
+                                                        <input readonly type="text" class="form-control form-control-sm" value="{{ Str::limit($category->name, 40) }}" />
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></button>
                                                         </div>
-                                                    </form>
-                                                @endforeach
-                                            @else
-                                                {{ __('no_page_available') }}
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-2">
-                                    <a href="#" class="card-header" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
-                                        {{__('global.categories')}} <i class="float-right fa fa-circle" aria-hidden="true" style="margin-top: 2px;"></i>
-                                    </a>
-                                    <div id="collapseTen" class="collapse" aria-labelledby="headingTen" data-parent="#accordion3">
-                                        <div class="card-body scroll">
-                                            @if($categories->count() > 0)
-                                                @foreach ($categories as $category)
-                                                    <form action="{{route('save-menu-item')}}" method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input  name="source" type="hidden" value="category" class="form-control" required>
-                                                        <input type="hidden" name="menu_id" value="{{ $menuId }}">
-
-                                                        <div class="form-group">
-                                                            <div class="input-group mb-3">
-                                                                <input hidden name="category_url" type="text" value="/{{$category->slug}}" />
-                                                                <input hidden name="category_id" type="text" value="{{$category->id}}" />
-                                                                <input readonly type="text" class="form-control form-control-sm" value="{{ Str::limit($category->name, 40) }}" />
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                @endforeach
-                                            @else
-                                                {{ __('no_category_available') }}
-                                            @endif
-                                        </div>
-                                    </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        @endforeach
+                                    @else
+                                        {{ __('no_category_available') }}
+                                    @endif
                                 </div>
                             </div>
                         </div>
