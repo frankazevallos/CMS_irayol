@@ -7,6 +7,7 @@
     <meta name="keywords" content="@stack('keywordseo')">
     <meta name="description" content="@stack('descseo')">
     <meta name="author" content="@stack('author')">
+    <meta name="title" content="@stack('titleseo')">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -19,6 +20,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link href="{{ asset('themes/' . setting('theme_active') . '/css/landing-page.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('manager/css/themes.css')}}">
 
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"/>
@@ -34,9 +36,7 @@
 
 <body>
     @include('partials.navbar')
-
     @yield('content')
-
     @include('partials.footer')
 
     <!-- Javascript -->

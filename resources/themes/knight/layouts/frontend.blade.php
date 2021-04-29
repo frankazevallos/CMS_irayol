@@ -4,21 +4,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="@yield('keywordseo')">
-    <meta name="description" content="@yield('descseo')">
-    <meta name="author" content="@yield('author')">
+    <meta name="keywords" content="@stack('keywordseo')">
+    <meta name="description" content="@stack('descseo')">
+    <meta name="author" content="@stack('author')">
+    <meta name="title" content="@stack('titleseo')">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>KNigth</title>
+    <title>@stack('title')</title>
 
 
     <link rel="stylesheet" type="text/css" href="{{ asset('themes/' . setting('theme_active') . '/css/default.css') }}">
+    <link rel="stylesheet" href="{{asset('manager/css/themes.css')}}">
     <link href="https://rsms.me/inter/inter-ui.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
