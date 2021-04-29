@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Media;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 
@@ -103,12 +104,13 @@ class PagesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $page = Page::find($id);
+
         $request->validate([
             'title' => 'required',
-            'slug' => 'required|unique:pages',
+            'slug' => ['required', Rule::unique('pages')->ignore($page->id)],
         ]);
 
-        $page = Page::find($id);
         $page->title = $request->title;
         $page->content = $request->input('content');
         $page->user_id = $request->user_id;
@@ -152,7 +154,7 @@ class PagesController extends Controller
     }
 
     public function ajaxIndex(){
-        $data = Page::with('user')->orderBy("created_at", 'desc');
+        $data = Page::with('user')->orderBy("updated_at", 'desc');
 
         return Datatables::of($data)
         ->addColumn('author', function($data){

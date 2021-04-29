@@ -65,8 +65,7 @@ class BlogsController extends Controller
 
             $blog->categories()->attach($request->category);
 
-
-                return redirect()->back()->with('success', __('global.successfully_added'));
+            return redirect()->back()->with('success', __('global.successfully_added'));
 
     }
 
@@ -112,25 +111,25 @@ class BlogsController extends Controller
         $blog = Blog::find($id);
 
         $request->validate([
-            'title' => ['required', Rule::unique('blogs')->ignore($blog->id)],
+            'title' => 'required',
             'slug' => ['required', Rule::unique('blogs')->ignore($blog->id)],
         ]);
 
         $blog->title = $request->title;
-            $blog->content = $request->input('content');
-            $blog->user_id = $request->user_id;
-            $blog->slug = Str::slug($request->slug);
-            $blog->titleseo = $request->titleseo;
-            $blog->descseo = $request->descriptionseo;
-            $blog->keywordseo = $request->keywordseo;
-            $blog->visibility = $request->visibility;
-            $blog->main_image = $request->main_image;
-            $blog->published_at = Carbon::parse($request->published_at);
-            $blog->save();
+        $blog->content = $request->input('content');
+        $blog->user_id = $request->user_id;
+        $blog->slug = Str::slug($request->slug);
+        $blog->titleseo = $request->titleseo;
+        $blog->descseo = $request->descriptionseo;
+        $blog->keywordseo = $request->keywordseo;
+        $blog->visibility = $request->visibility;
+        $blog->main_image = $request->main_image;
+        $blog->published_at = Carbon::parse($request->published_at);
+        $blog->save();
 
-            $blog->categories()->sync($request->category);
+        $blog->categories()->sync($request->category);
 
-            return redirect()->route('blogs.index')->with('success', __('global.successfully_updated'));
+        return redirect()->route('blogs.index')->with('success', __('global.successfully_updated'));
 
     }
 
@@ -152,7 +151,7 @@ class BlogsController extends Controller
     }
 
     public function ajaxIndex (){
-        $data = Blog::with('categories', 'user')->orderBy("created_at", 'desc');
+        $data = Blog::with('categories', 'user')->orderBy("updated_at", 'desc');
 
         return Datatables::of($data)
         ->addColumn('author', function($data){
