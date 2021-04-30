@@ -47,7 +47,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //change order on ajax
     route::post('change-menu-order', [App\Http\Controllers\MenuItemController::class, 'changeMenuOrder'])->name('change-menu-order');
 
-
     // Setting
     Route::resource('setting', \App\Http\Controllers\SettingsController::class);
     Route::get('ajaxindex/setting',[App\Http\Controllers\SettingsController::class, 'ajaxIndex'])->name('setting.ajaxIndex');
@@ -56,7 +55,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::resource('media', \App\Http\Controllers\MediaController::class);
     Route::get('ajaxindex/media', [\App\Http\Controllers\MediaController::class, 'ajaxIndex'])->name('ajaxindex.media');
     Route::get('getmediamodal/media', [\App\Http\Controllers\MediaController::class, 'getMediaModal'])->name('getmediamodal.media');
-
 
     // Theme
     Route::resource('themes', \App\Http\Controllers\ThemeController::class)->middleware('setTheme');
