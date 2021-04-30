@@ -15,9 +15,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{asset('manager/vendor/css/main.css')}}">
-
-        <!-- Google Font: Source Sans Pro -->
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700" rel="stylesheet">
+        
         @stack('css')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
