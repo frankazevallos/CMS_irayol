@@ -15,19 +15,6 @@
             </div>
         </div>
         <div class="card-body">
-            {{--<form method="post" action="{{route('menu.store')}}">
-                @csrf
-                <div class="form-group">
-                    <label for="title">{{__('global.title')}}</label>
-                    <div class="input-group mb-3">            
-                        <input class="form-control" name="title" id="title" value="{{old('title')}}" type="text" required />
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">{{__('global.create')}}</button>
-                        </div>
-                    </div>
-                </div>
-            </form>--}}
-
             <div class="table-responsive">
                 <table class="table table-striped data-table-menu">
                     <thead>
@@ -42,6 +29,6 @@
             </div>
         </div>
     </div>
-    @include('menu.edit')
     @include('menu.create')
+    @include('menu.edit')
 @endsection
