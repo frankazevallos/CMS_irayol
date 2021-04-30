@@ -1,12 +1,13 @@
 // -- Theme style --
-@import "../assets/AdminLTE-3.1.0/dist/css/adminlte.css";
+@import "../assets/AdminLTE-3.1.0/build/scss/adminlte";
 
 // -- Select2 --
 @import "../assets/AdminLTE-3.1.0/plugins/select2/css/select2";
 @import "../assets/AdminLTE-3.1.0/plugins/select2-bootstrap4-theme/select2-bootstrap4";
 
 @import "~flag-icon-css/sass/flag-icon";
-@import "~sweetalert2/src/sweetalert2";
+@import "../assets/AdminLTE-3.1.0/plugins/sweetalert2/sweetalert2.css";
+@import "../assets/AdminLTE-3.1.0/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.css";
 
 @import "../assets/AdminLTE-3.1.0/plugins/fontawesome-free/css/fontawesome.css";
 @import "../assets/AdminLTE-3.1.0/plugins/fontawesome-free/css/regular.css";

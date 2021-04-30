@@ -15,12 +15,13 @@ try {
     const Swal = window.Swal = require('sweetalert2');
     require ('../assets/AdminLTE-3.1.0/build/js/AdminLTE');
     require('../assets/AdminLTE-3.1.0/plugins/select2/js/select2.full');
-    require('../assets/AdminLTE-3.1.0/plugins/summernote/summernote-bs4')
+    require('../assets/AdminLTE-3.1.0/plugins/summernote/summernote-bs4');
 
-    require('datatables.net');
-    require('datatables.net-bs4');
-    require('datatables.net-buttons-bs4');
-    require('datatables.net-responsive-bs4');
+    require('../assets/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables');
+    require('../assets/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4');
+    require('../assets/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4');
+    require('../assets/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4');
+
 
     window.moment = require('moment');
     window.moment.locale('es');
