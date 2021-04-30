@@ -3,19 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="9768ea41-b439-4136-a366-05266a5c5e69" name="Default Changelist" comment="Cambio de ruta de page a pages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AddonsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AddonsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BlogsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BlogsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/default/blog/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/default/blog/search.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/default/blog/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/default/blog/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/default/layouts/frontend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/default/layouts/frontend.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/default/page/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/default/page/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/default/partials/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/default/partials/navbar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/knight/blog/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/knight/blog/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/knight/layouts/frontend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/knight/layouts/frontend.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/themes/knight/page/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/themes/knight/page/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/menu/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/page/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/page/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Http/Controllers/ClassesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Courses/Http/Controllers/ClassesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Http/Controllers/SectionsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Courses/Http/Controllers/SectionsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Http/Requests/CreateClassRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Courses/Http/Requests/CreateClassRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Resources/lang/es/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Courses/Resources/lang/es/global.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Resources/views/courses/partials/add-class-modal.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Resources/views/courses/partials/add-section-modal.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Resources/views/courses/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Courses/Resources/views/courses/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Courses/Routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Courses/Routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/js/select-file.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/js/select-file.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/vendor/css/init.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/css/init.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/vendor/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/vendor/js/init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/js/init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/manager/vendor/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/manager/vendor/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/modules/courses/js/classes.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/modules/courses/js/classes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/modules/courses/js/sections.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/modules/courses/js/sections.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/assets/AdminLTE-3.1.0/dist/css/adminlte.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/AdminLTE-3.1.0/dist/css/adminlte.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/menu/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/menu/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,6 +226,7 @@
       <workItem from="1619106293751" duration="1038000" />
       <workItem from="1619368205205" duration="319000" />
       <workItem from="1619641804950" duration="351000" />
+      <workItem from="1619814708429" duration="517000" />
     </task>
     <servers />
   </component>
