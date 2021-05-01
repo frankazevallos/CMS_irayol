@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class MediaController extends Controller
 {
@@ -48,8 +49,10 @@ class MediaController extends Controller
         try {
             if ($request->ajax()) {
                 $files = $request->file('files');
+                $image = ['gif', 'png', 'jpg', 'jpeg', 'raw', 'webp',];
 
-                $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d'); //chmod 0777
+                $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
+                $destinationThumb = '/thumbs/' . date('Y') . '/' . date('m') . '/' . date('d');
 
                 $data = [];
 
@@ -57,16 +60,32 @@ class MediaController extends Controller
                     $filename = $file->getClientOriginalName();
                     $extension = $file->getClientOriginalExtension();
 
+                    
+                    if(in_array($extension, $image)){
+                        
+                        $img = Image::make($file);
+                        $img->resize(800, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        });
+                        $img->save(public_path() . '/storage/thumbs/' . $filename, 60);
+                        
+                        $thumb = $destinationThumb . '/' . $filename;
+                    } else {
+                        $thumb = null;
+                    }
+                    
                     $dataMedia = Media::create([
                         'user_id' => auth()->user()->id,
                         'file' => $filename,
                         'path' => $destinationPath . '/' . $filename,
+                        'thumb' => $thumb,
                         'extension' => $extension,
                     ]);
 
                     $data[] = array('id' => $dataMedia->id, 'path' => $dataMedia->getFile());
-
+                    
                     $file->storeAs($destinationPath, $filename, 'public');
+
                 }
 
                 return response()->json(['status' => 'success', 'message' =>  $data]);
