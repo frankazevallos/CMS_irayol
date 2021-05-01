@@ -64,6 +64,7 @@ return [
 
     'pay' => 'Pro',
     'free' => 'Gratuito',
+    'note' => 'Apunte',
 
     'is_active' => 'Estado de la clase',
     'yes' => 'Clase activa',
@@ -82,7 +83,7 @@ return [
     'choose_file' => 'Elija un archivo',
     'upload' => 'Subir',
 
-    'successfully_added' => 'El registro fue agregado con éxito.',
+    'successfully_added' => 'El registro fue creado con éxito.',
     'successfully_updated' => 'El registro fue actualizado con éxito.',
     'successfully_destroy' => 'El registro fue eliminado con éxito.',
 
