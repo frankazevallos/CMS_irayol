@@ -2,7 +2,6 @@
 
 namespace Modules\Courses\Http\Controllers;
 
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Courses\Entities\Section;
@@ -45,19 +44,15 @@ class SectionsController extends Controller
      */
     public function store(CreateSectionRequest $request)
     {
-        try {            
-            $section = Section::updateOrCreate(
-                ['id' => $request->section_id],
-                [
-                    'course_id' => $request->course_id, 
-                    'title' => $request->title, 
-                ]
-            );
-            return response()->json(['status' => 'success', 'message' =>  $section]);
+        try {
+            $section = Section::create([
+                'course_id' => $request->course_id,
+                'title' => $request->title,
+            ]);
+            return response()->json(['status' => 'success', 'code' => 200, 'data' =>  $section, 'message' =>  __('courses::global.successfully_added')]);
         } catch (\Throwable $th) {
-            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+            return response()->json(['status' => 'danger', 'message' => "Error: " . $th->getMessage()]);
         }
-    
     }
 
     /**
@@ -77,7 +72,7 @@ class SectionsController extends Controller
      */
     public function edit($id)
     {
-        $section  = Section::where('id', $id)->first();
+        $section = Section::findOrFail($id);
         return response()->json(['status' => 'success', 'message' =>  $section]);
     }
 
@@ -89,7 +84,15 @@ class SectionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $section = Section::findOrFail($id);
+            $section->update([
+                'title' => $request->title,
+            ]);
+            return response()->json(['status' => 'success', 'code' => 200, 'data' =>  $section, 'message' =>  __('courses::global.successfully_updated')]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -98,7 +101,7 @@ class SectionsController extends Controller
      * @return Renderable
      */
     public function destroy($id)
-    {     
+    {
         try {
             Section::where('id', $id)->delete();
             return response()->json(['status' => 'warning', 'message' =>  __('courses::global.successfully_destroy')]);

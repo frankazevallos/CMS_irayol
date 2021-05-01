@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @push('title', __('courses::global.section'))
-
 @section('content')
     <div class="card">
         <div class="card-header clearfix">
@@ -10,8 +8,8 @@
             </div>
             <div class="btn-group-sm float-right" role="group">
                 <a href="{{ route('courses.index') }}" class="btn btn-primary" title="{{__('global.return_back')}}"><i class="fa fa-undo" aria-hidden="true"></i> {{__('global.return_back')}}</a>
-                <a href="javascript:void(0)" class="btn btn-success" title="{{__('courses::global.create')}}" id="new-section" data-toggle="modal"><i class="fas fa-folder" aria-hidden="true"></i> {{__('courses::global.new_section')}}</a>
-                <a href="javascript:void(0)" class="btn btn-success disable" title="{{__('courses::global.create')}}" id="new-class" data-toggle="modal"><i class="fas fa-video" aria-hidden="true"></i> {{__('courses::global.new_class')}}</a>
+                <a href="javascript:void(0)" class="btn btn-success" title="{{__('courses::global.create')}}" id="new-section"><i class="fas fa-folder" aria-hidden="true"></i> {{__('courses::global.new_section')}}</a>
+                <a href="javascript:void(0)" class="btn btn-success" title="{{__('courses::global.create')}}" id="new-class"><i class="fas fa-video"></i> {{__('courses::global.new_class')}}</a>
             </div>
         </div>
     </div>
@@ -49,15 +47,15 @@
     </div>
 
     <!-- Add classes and section modal -->
-    @include('courses::courses.partials.add-section-modal')
-    @include('courses::courses.partials.add-class-modal')
+    @include('courses::courses.partials.section-modal')
+    @include('courses::courses.partials.class-modal')
 
 @endsection
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-sortablejs@latest/jquery-sortable.js"></script>
+    <script src="{{asset('modules/courses/js/Sortable.min.js')}}"></script>
+    <script src="{{asset('modules/courses/js/jquery.validate.min.js')}}"></script>
+    <script src="{{asset('modules/courses/js/jquery-sortable.js')}}"></script>
     <script src="{{asset('modules/courses/js/main.js')}}"></script>
     <script src="{{asset('modules/courses/js/sections.js')}}"></script>
     <script src="{{asset('modules/courses/js/classes.js')}}"></script>
