@@ -45,21 +45,18 @@ class ClassesController extends Controller
      */
     public function store(CreateClassRequest $request)
     {
-        try {            
-            $class = Classe::updateOrCreate(
-                ['id' => $request->class_id],
-                [
-                    'title' => $request->title_class,
-                    'section_id' => $request->section_class_id,
-                    'is_active' => $request->is_active,
-                    'media_type' => $request->media_type,
-                    'url' => $request->url,
-                    'duration' => $request->duration,
-                    'access' => $request->access,
-                    'note' => $request->note,
-                ]
-            );
-            return response()->json(['status' => 'success', 'message' =>  $class]);
+        try {
+            $class = Classe::create([
+                'title' => $request->title_class,
+                'section_id' => $request->section_class_id,
+                'is_active' => $request->is_active,
+                'media_type' => $request->media_type,
+                'url' => $request->url,
+                'duration' => $request->duration,
+                'access' => $request->access,
+                'note' => $request->note,
+            ]);
+            return response()->json(['status' => 'success', 'code' => 200, 'data' =>  $class, 'message' =>  __('courses::global.successfully_added')]);
         } catch (\Throwable $th) {
             return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
@@ -94,7 +91,22 @@ class ClassesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $class = Classe::findOrFail($id);
+            $class->update([
+                'title' => $request->title_class,
+                'section_id' => $request->section_class_id,
+                'is_active' => $request->is_active,
+                'media_type' => $request->media_type,
+                'url' => $request->url,
+                'duration' => $request->duration,
+                'access' => $request->access,
+                'note' => $request->note,
+            ]);
+            return response()->json(['status' => 'success', 'code' => 200, 'data' => $class, 'message' =>  __('courses::global.successfully_updated')]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -111,6 +123,7 @@ class ClassesController extends Controller
             return response()->json(['status' => 'danger', 'message' => $e->getMessage()]);
         }
     }
+    
 
     public function order(Request $request)
     {
@@ -130,7 +143,7 @@ class ClassesController extends Controller
         try {
             $user_id = auth()->user()->id;
             $class = Classe::findOrFail($request->class_id);
-    
+
             if ($class) {
                 $classViewedUser = UserClase::where([['user_id', $user_id], ['class_id', $class->id]])->first();
                 if ($classViewedUser) {
@@ -143,13 +156,13 @@ class ClassesController extends Controller
                     $class_viewed_user->user_id = $user_id;
                     $class_viewed_user->class_id = $class->id;
                     $class_viewed_user->save();
-    
+
                     return response()->json(['status' => 'success', 'message' =>  __('courses::global.successfully_added')]);
-                }            
-            }  
+                }
+            }
         } catch (\Throwable $th) {
             return response()->json(['status' => 'danger', 'message' => $th->getMessage()]);
         }
-   
+
     }
 }
