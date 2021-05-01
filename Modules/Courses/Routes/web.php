@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('/courses', CoursesController::class);
-    Route::resource('/sections', SectionsController::class, ['except' => ['index', 'create', 'show', 'update']] );
+    Route::get('ajaxindex/courses', [Modules\Courses\Http\Controllers\CoursesController::class, 'ajaxIndex'])->name('courses.ajaxindex');
+
+    Route::resource('/sections', SectionsController::class, ['except' => ['index', 'create', 'show']] );
     Route::resource('/classes', ClassesController::class, ['except' => ['index']] );
     Route::post('/classes/order', 'ClassesController@order')->name('classes.order');
 });
