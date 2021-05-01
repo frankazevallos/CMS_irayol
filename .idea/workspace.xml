@@ -4,8 +4,6 @@
     <list default="true" id="9768ea41-b439-4136-a366-05266a5c5e69" name="Default Changelist" comment="Cambio de ruta de page a pages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MediaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MediaController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Media.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Media.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2018_01_26_014344_create_media_database.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2018_01_26_014344_create_media_database.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,6 +209,7 @@
       <workItem from="1619641804950" duration="351000" />
       <workItem from="1619814708429" duration="517000" />
       <workItem from="1619836152734" duration="11379000" />
+      <workItem from="1619904540770" duration="598000" />
     </task>
     <servers />
   </component>
