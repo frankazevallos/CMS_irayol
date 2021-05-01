@@ -7,6 +7,7 @@ use App\Models\Media;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Yajra\DataTables\DataTables;
 use Illuminate\Routing\Controller;
 use Modules\Courses\Entities\Classe;
 use Modules\Courses\Entities\Course;
@@ -136,10 +137,27 @@ class CoursesController extends Controller
     {
         try {
             $course->delete();
-            return redirect()->route('courses.index')->with('warning', __('courses::global.successfully_destroy'));
-        } catch (\Throwable $e) {
-            return redirect()->back()->with('danger', "Error: " . $e->getMessage());
+            return response()->json(['status' => 'warning', 'message' => __('global.successfully_destroy')]);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => 'danger', 'message' => "Error: " . $th->getMessage()]);
         }
+    }
+
+    public function ajaxIndex()
+    {
+        $data = Course::with('categories', 'user')->orderBy("updated_at", 'desc');
+
+        return Datatables::of($data)
+            ->addColumn('author', function ($data) {
+                $user = '<a href=" ' . route('users.show', $data->user->id) . ' ">' . $data->user->name . '</a>';
+                return $user;
+            })
+            ->addColumn('updated_at', function ($data) {
+                $updated_at = $data->updated_at->format('Y/m/d');
+                return $updated_at;
+            })
+            ->addColumn('action', 'courses::courses.actions') //add view actions
+            ->rawColumns(['author', 'updated_at', 'category', 'action'])->make(true);
     }
 
     public function all(){
