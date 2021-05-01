@@ -18,6 +18,7 @@ class Media extends Model
         'user_id',
         'file',
         'path',
+        'thumb',
         'extension'
     ];
 
@@ -30,7 +31,7 @@ class Media extends Model
         $compress = ['zip', 'rar'];
 
         if(in_array($this->extension, $image)){
-            return $this->path;
+            return $this->thumb;
         } elseif (in_array($this->extension, $text)) {
             return asset('manager/extension/txt.png');
         } elseif ($this->extension == 'pdf') {

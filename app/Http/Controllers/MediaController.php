@@ -52,7 +52,6 @@ class MediaController extends Controller
                 $image = ['gif', 'png', 'jpg', 'jpeg', 'raw', 'webp',];
 
                 $destinationPath = '/uploads/' . date('Y') . '/' . date('m') . '/' . date('d');
-                $destinationThumb = '/thumbs/' . date('Y') . '/' . date('m') . '/' . date('d');
 
                 $data = [];
 
@@ -60,31 +59,30 @@ class MediaController extends Controller
                     $filename = $file->getClientOriginalName();
                     $extension = $file->getClientOriginalExtension();
 
-                    
+                    $file->storeAs($destinationPath, $filename, 'public');
+
                     if(in_array($extension, $image)){
-                        
+
                         $img = Image::make($file);
-                        $img->resize(800, null, function ($constraint) {
+                        $img->resize(600, null, function ($constraint) {
                             $constraint->aspectRatio();
                         });
-                        $img->save(public_path() . '/storage/thumbs/' . $filename, 60);
-                        
-                        $thumb = $destinationThumb . '/' . $filename;
+                        $img->save(public_path() . '/storage/' . $destinationPath . '/'. 'thumb_'.$filename, 60);
+
+                        $thumb = '/storage/' . $destinationPath . '/' . 'thumb_' . $filename;
                     } else {
                         $thumb = null;
                     }
-                    
+
                     $dataMedia = Media::create([
                         'user_id' => auth()->user()->id,
                         'file' => $filename,
-                        'path' => $destinationPath . '/' . $filename,
+                        'path' => '/storage' . $destinationPath . '/' . $filename,
                         'thumb' => $thumb,
                         'extension' => $extension,
                     ]);
 
                     $data[] = array('id' => $dataMedia->id, 'path' => $dataMedia->getFile());
-                    
-                    $file->storeAs($destinationPath, $filename, 'public');
 
                 }
 
