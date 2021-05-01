@@ -1,5 +1,5 @@
 @extends('layouts.auth') 
-@push('title', 'Login') 
+@push('title', __('Login')) 
 @section('content')
 <div class="login-box">
     <a href="{{route('home')}}">

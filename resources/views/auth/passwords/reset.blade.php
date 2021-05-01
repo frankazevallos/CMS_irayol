@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@push('title', 'Reset Password') 
+@push('title', __('Reset Password')) 
 @section('content')
 <div class="container mt-5">
     <div class="row justify-content-center">

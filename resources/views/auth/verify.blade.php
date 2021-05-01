@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@push('title', 'Verify Your Email Address' }}) 
+@push('title', __('Verify Your Email Address')) 
 @section('content')
 <div class="container mt-5">
     <div class="row justify-content-center">
