@@ -6,21 +6,61 @@ $(document).ready(function () {
         },
     });
 
-    /*  When user click add section button */
-    $("#new-class").click(function () {
-        $("#btn_save").val("create-class");
+    // ****** Create class ******
+    $("body").on("click", "#new-class", function () {
         $("#classForm").trigger("reset");
-        $("#classesModal").html("Add New Class");
-        $("#classes-modal").modal("show");
+        $("#note").summernote("code", "");
+        $("#classModalLabel").html("Nueva clase");
+        $(".insertButtonClass").attr("id", "btnCreateClass");
+        $("#classesModal").modal("show");
     });
 
-    /* When click edit section */
+    // ****** Store section ******
+    $("body").on("click", "#btnCreateClass", function () {
+        $.ajax({
+            url: '/classes',
+            type: 'POST',
+            data: $("#classForm").serialize(),
+            success: function (response) {
+                console.log(response.data);
+
+                let classCreate = `<div class="list-group-item list-group-flush" data-id="${response.data.id}" id="list_class_${response.data.id}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-arrows-alt handle mr-3"></i> ${response.data.title}
+                        </div>
+                        <div>
+                            <a href="javascript:void(0)" id="edit-class" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="javascript:void(0)" id="delete-class" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>`;
+
+                $("#classForm").trigger("reset");
+                $('#classesModal').modal('toggle')
+                $("#class_loop_" + response.data.section_id).append(classCreate);
+
+                Toast.fire({ icon: response.status, title: response.message });
+            },
+            error: function (response) {
+
+                $.each(response.responseJSON.errors, function (key, value) {
+                    console.log(key);
+                    $('.' + key + '_err').text(value);
+                });
+
+                Toast.fire({ icon: 'error', title: response.responseJSON.message });
+            }
+        });
+    });
+
+    // ****** Edit class ******
     $("body").on("click", "#edit-class", function () {
         let class_id = $(this).data("id");
         $.get("/classes/" + class_id + "/edit", function (data) {
-            $("#classesModal").html("Edit Class");
-            $("#btn-save").val("edit-class");
-            $("#classes-modal").modal("show");
+            console.log(data.message);
+            $(".insertButtonClass").attr("id", "btnUpdateClass");
+            $(".insertButtonClass").data("id", data.message.id);
 
             $("#class_id").val(data.message.id);
             $("#title_class").val(data.message.title);
@@ -30,7 +70,49 @@ $(document).ready(function () {
             $("#url").val(data.message.url);
             $("#duration").val(data.message.duration);
             $("#access option[value='"+ data.message.access +"']").attr("selected",true);
-            $("#note").val(data.message.note);
+
+            $("#note").summernote("code", data.message.note);
+
+            $("#classModalLabel").html("Editar Clase");
+            $(".insertButtonClass").attr("id", "btnUpdateClass");
+            $("#classesModal").modal("show");
+        });
+    });
+
+    // ****** Update section ******
+    $("body").on("click", "#btnUpdateClass", function () {
+        let class_id = $(this).data('id');
+
+        $.ajax({
+            url: '/classes/' + class_id,
+            type: "PATCH",
+            cache: false,
+            data: $("#classForm").serialize(),
+            success: function (response) {
+                console.log(response.data);
+
+                let classCreate = `<div class="list-group-item list-group-flush" data-id="${response.data.id}" id="list_class_${response.data.id}">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-arrows-alt handle mr-3"></i> ${response.data.title}
+                        </div>
+                        <div>
+                            <a href="javascript:void(0)" id="edit-class" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="javascript:void(0)" id="delete-class" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>
+                </div>`;
+
+                $("#list_class_" + response.data.id).remove();
+                $("#class_loop_" + response.data.section_id).append(classCreate);
+
+                $("#classForm").trigger("reset");
+                $('#classesModal').modal('toggle')
+                Toast.fire({ icon: response.status, title: response.message });
+            },
+            error: function (response) {
+                console.log("Error:", response.data);
+            },
         });
     });
 
@@ -73,53 +155,6 @@ $(document).ready(function () {
         );
     });
 });
-
-if ($("#classForm").length > 0) {
-    $("#classForm").validate({
-        submitHandler: function (form) {
-            let actionType = $("#btn_save").val();
-
-            $("#btn_save").html("Enviando...");
-
-            $.ajax({
-                url: "/classes",
-                type: "POST",
-                data: $("#classForm").serialize(),
-                dataType: "json",
-                success: function (data) {
-
-                    let classCreate = `<div class="list-group-item list-group-flush" data-id="${data.message.id}" id="list_class_${data.message.id}">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <i class="fas fa-arrows-alt handle mr-3"></i> ${data.message.title}
-                            </div>
-                            <div>
-                                <a href="javascript:void(0)" id="edit-class" data-id="${data.message.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="javascript:void(0)" id="delete-class" data-id="${data.message.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                    </div>`;
-
-                    if (actionType === "create-class") {
-                        $("#class_loop_" + data.message.section_id).append(classCreate);
-                    } else {
-                        console.log(data.message);
-                        $("#list_class_" + data.message.id).remove();
-                        $("#class_loop_" + data.message.section_id).append(classCreate);
-                    }
-
-                    $("#classForm").trigger("reset");
-                    $("#classes-modal").modal("hide");
-                    $("#btn_save").html("Guardar cambios");
-                },
-                error: function (data) {
-                    console.log("Error:", data);
-                    $("#btn_save").html("Guardar cambios");
-                },
-            });
-        },
-    });
-}
 
 $('.sortabe').sortable({
     handle: '.handle',

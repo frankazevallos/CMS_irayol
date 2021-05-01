@@ -5,27 +5,101 @@ $(document).ready(function () {
         },
     });
 
-    /*  When user click add section button */
-    $("#new-section").click(function () {
-        $("#btn-save").val("create-section");
-        $("#sectionForm").trigger("reset");
-        $("#sectionModal").html("Add New Section");
-        $("#section-modal").modal("show");
+    // ****** Create section ******
+    $("body").on("click", "#new-section", function () {
+        $("#sectionModalLabel").html("Create secciòn");
+        $(".insertButtonSection").attr("id", "btnCreateSection");
+        $("#sectionModal").modal("show");
     });
 
-    /* When click edit section */
+    // ****** Store section ******
+    $("body").on("click", "#btnCreateSection", function () {
+        let course_id = $('#idCourseCreate').val();
+        let title = $('#titleSectionCreate').val();
+        if (title !== '') {
+            $.ajax({
+                url: '/sections',
+                type: 'POST',
+                data: {course_id, title},
+                success: function (response) {
+                    console.log(response);
+                    let sectionCreate = `<div class="card" id="card_section_${response.data.id}">
+                        <div class="card-header" id="section_id_${response.data.id}">
+                            <h3 class="card-title">${response.data.title}</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                <a href="javascript:void(0)" id="edit-section" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="javascript:void(0)" id="delete-section" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body" style="display: block;">
+
+                        </div>
+                    </div>`;
+
+                    $("#sectionForm").trigger("reset");
+                    $('#sectionModal').modal('toggle')
+                    $('#section-loop').append(sectionCreate);
+                    Toast.fire({ icon: response.status, title: response.message });
+                },
+                error: function (response) {
+                    console.log("Error:", response.message);
+                    Toast.fire({ icon: response.status, title: response.message });
+                }
+            });
+        }
+    });
+
+    // ****** Edit section ******
     $("body").on("click", "#edit-section", function () {
         let section_id = $(this).data("id");
         $.get("/sections/" + section_id + "/edit", function (data) {
-            $("#sectionModal").html("Edit Section");
-            $("#btn-save").val("edit-section");
-            $("#section-modal").modal("show");
-            $("#section_id").val(data.message.id);
-            $("#title").val(data.message.title);
+            $("#sectionModalLabel").html("Edit Section");
+
+            $(".insertButtonSection").attr("id", "btnUpdateSection");
+            $(".insertButtonSection").data("id", data.message.id);
+
+            $("#sectionModal").modal("show");
+            $("#titleSectionCreate").val(data.message.title);
         });
     });
 
-    //delete section
+    // ****** Update section ******
+    $("body").on("click", "#btnUpdateSection", function () {
+        let section_id = $(this).data('id');
+        let title = $('#titleSectionCreate').val();
+
+        if (title !== '') {
+            $.ajax({
+                url: '/sections/' + section_id,
+                type: "PATCH",
+                cache: false,
+                data: { title },
+                success: function (response) {
+                    console.log(response.data);
+
+                    let sectionUpdate = `<div class="card-header" id="section_id_${response.data.id}">
+                        <h3 class="card-title">${response.data.title}</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                            <a href="javascript:void(0)" id="edit-section" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
+                            <a href="javascript:void(0)" id="delete-section" data-id="${response.data.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </div>`;
+
+                    $("#sectionForm").trigger("reset");
+                    $('#sectionModal').modal('toggle')
+                    $("#section_id_" + response.data.id).replaceWith(sectionUpdate);
+                    Toast.fire({ icon: response.status, title: response.message });
+                },
+                error: function (response) {
+                    console.log("Error:", response.data);
+                },
+            });
+        }
+    });
+
+    // ****** Delete section ******
     $("body").on("click", "#delete-section", function () {
         let section_id = $(this).data("id");
 
@@ -64,59 +138,3 @@ $(document).ready(function () {
         );
     });
 });
-
-if ($("#sectionForm").length > 0) {
-    $("#sectionForm").validate({
-        submitHandler: function (form) {
-            let actionType = $("#btn-save").val();
-
-            $("#btn-save").html("Enviando...");
-
-            $.ajax({
-                data: $("#sectionForm").serialize(),
-                url: "/sections",
-                type: "POST",
-                dataType: "json",
-                success: function (data) {
-
-                    let sectionCreate = `<div class="card" id="card_section_${data.message.id}">
-                        <div class="card-header" id="section_id_${data.message.id}">
-                            <h3 class="card-title">${data.message.title}</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                                <a href="javascript:void(0)" id="edit-section" data-id="${data.message.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="javascript:void(0)" id="delete-section" data-id="${data.message.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </div>
-                        <div class="card-body" style="display: block;">
-
-                        </div>
-                    </div>`;
-
-                    let sectionUpdate = `<div class="card-header" id="section_id_${data.message.id}">
-                        <h3 class="card-title">${data.message.title}</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                            <a href="javascript:void(0)" id="edit-section" data-id="${data.message.id}" class="btn btn-tool"><i class="fas fa-pencil-alt"></i></a>
-                            <a href="javascript:void(0)" id="delete-section" data-id="${data.message.id}" class="btn btn-tool"><i class="fas fa-trash"></i></a>
-                        </div>
-                    </div>`;
-
-                    if (actionType === "create-section") {
-                        $('#section-loop').append(sectionCreate);
-                    } else {
-                        $("#section_id_" + data.message.id).replaceWith(sectionUpdate);
-                    }
-
-                    $("#sectionForm").trigger("reset");
-                    $("#section-modal").modal("hide");
-                    $("#btn-save").html("Guardar cambios");
-                },
-                error: function (data) {
-                    console.log("Error:", data);
-                    $("#btn-save").html("Guardar cambios");
-                },
-            });
-        },
-    });
-}
