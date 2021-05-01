@@ -14,7 +14,7 @@ const FMButton = function (context) {
 };
 
 $(".summernote").summernote({
-    height: 650,
+    height: 250,
     dialogsInBody: true,
     codemirror: {
         theme: "monokai",
