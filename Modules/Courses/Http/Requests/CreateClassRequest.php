@@ -14,6 +14,7 @@ class CreateClassRequest extends FormRequest
     public function rules()
     {
         return [
+            'section_class_id' => 'required',
             'title_class' => 'required|string|min:1|max:255',
             'note' => 'required|string|min:1',
             'media_type' => 'required',
