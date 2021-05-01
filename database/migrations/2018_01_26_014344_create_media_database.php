@@ -18,6 +18,7 @@ class CreateMediaDatabase extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('file');
             $table->string('path');
+            $table->string('thumb')->nullable();
             $table->string('extension');
 
             $table->foreign('user_id')->references('id')->on('users');
