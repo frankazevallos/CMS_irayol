@@ -9,6 +9,7 @@ use Intervention\Image\Facades\Image;
 
 class MediaController extends Controller
 {
+
     function __construct()
     {
         $this->middleware('permission:media.index', ['only' => ['index']]);
@@ -121,14 +122,14 @@ class MediaController extends Controller
         try {
 
             $media = Media::findOrFail($id);
-            $destinationPath = storage_path() . '/app/public/' . $media->path;
+            $destinationPath = public_path()  . $media->path;
 
             if (file_exists($destinationPath)) {
                 $media['size'] = $media->formatSizeUnits(filesize($destinationPath));
             }
 
             $media['filePath'] = $media->path;
-            $media['path'] = $media->getFile();
+            $media['path'] = $media->getFileEdit();
 
             return response()->json(['status' => 'success', 'message' =>  $media]);
         } catch (\Throwable $th) {
