@@ -129,7 +129,7 @@ class MediaController extends Controller
             }
 
             $media['filePath'] = $media->path;
-            $media['path'] = $media->getFileEdit();
+            $media['path'] = $media->getFile('path');
 
             return response()->json(['status' => 'success', 'message' =>  $media]);
         } catch (\Throwable $th) {

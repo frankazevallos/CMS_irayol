@@ -17,12 +17,12 @@ class Media extends Model
     protected $fillable = [
         'user_id',
         'file',
-        'path',
+        'path', 
         'thumb',
         'extension'
     ];
 
-    public function getFile()
+    public function getFile($type = 'thumb')
     {
         $image = ['gif', 'png', 'jpg', 'jpeg', 'raw', 'webp',];
         $text = ['docx', 'docm', 'xlsx', 'xlsm', 'pptx', 'pptm',];
@@ -31,7 +31,7 @@ class Media extends Model
         $compress = ['zip', 'rar'];
 
         if(in_array($this->extension, $image)){
-            return $this->thumb;
+            return $type == 'path' ? $this->path : $this->thumb;
         } elseif (in_array($this->extension, $text)) {
             return asset('manager/extension/txt.png');
         } elseif ($this->extension == 'pdf') {
@@ -45,28 +45,6 @@ class Media extends Model
         }
     }
 
-    public function getFileEdit()
-    {
-        $image = ['gif', 'png', 'jpg', 'jpeg', 'raw', 'webp',];
-        $text = ['docx', 'docm', 'xlsx', 'xlsm', 'pptx', 'pptm',];
-        $video = ['mp4', 'mov', 'wmv', 'flv', 'avi', 'mkv', 'webm'];
-        $audio = ['mp3', 'aac', 'ogg', 'flac', 'wav'];
-        $compress = ['zip', 'rar'];
-
-        if (in_array($this->extension, $image)) {
-            return $this->path;
-        } elseif (in_array($this->extension, $text)) {
-            return asset('manager/extension/txt.png');
-        } elseif ($this->extension == 'pdf') {
-            return asset('manager/extension/pdf.png');
-        } elseif (in_array($this->extension, $video)) {
-            return asset('manager/extension/mp4.png');
-        } elseif (in_array($this->extension, $audio)) {
-            return asset('manager/extension/mp3.png');
-        } else {
-            return asset('manager/extension/other.png');
-        }
-    }
 
     function formatSizeUnits($bytes)
     {
