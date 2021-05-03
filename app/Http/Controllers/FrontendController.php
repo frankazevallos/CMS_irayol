@@ -32,7 +32,7 @@ class FrontendController extends Controller
 
     public function blog()
     {
-        $blogs = Blog::with('categories', 'user')->orderBy("created_at", 'desc')->paginate();
+        $blogs = Blog::where('visibility', 'published')->with('categories', 'user')->orderBy("created_at", 'desc')->paginate();
         return view('blog.index', compact('blogs'));
     }
 
