@@ -84,7 +84,6 @@ class MediaController extends Controller
                     ]);
 
                     $data[] = array('id' => $dataMedia->id, 'path' => $dataMedia->getFile());
-
                 }
 
                 return response()->json(['status' => 'success', 'message' =>  $data]);
@@ -101,8 +100,7 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         try {
             $media = Media::findOrFail($id);
             return response()->json(['status' => 'success', 'message' =>  $media]);
@@ -117,8 +115,7 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         try {
 
             $media = Media::findOrFail($id);
@@ -144,8 +141,7 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         try {
             $media = Media::findOrFail($id);
             $media->update($request->all());
@@ -161,8 +157,7 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             $media = Media::find($id);
             $destinationPath = storage_path() . '/app/public/' . $media->path;
