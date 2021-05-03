@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Permissions')
+@push('title', __('global.permissions.title'))
 @section('content')
     <div class="card mt-3">
         <div class="card-header">
@@ -19,7 +19,6 @@
                     <tr>
                         <th>{{__('global.permissions.fields.name')}}</th>
                         <th>{{__('global.permissions.fields.options')}}</th>
-
                     </tr>
                 </thead>
                 
@@ -32,9 +31,9 @@
                                     <form method="POST" action="{{ route('permissions.destroy', $permission->id) }}" accept-charset="UTF-8">
                                         @method('DELETE')
                                         @csrf
-                                        <div class="btn-group btn-group-xs float-right" role="group">
+                                        <div class="btn-group-xs" role="group">
                                             <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger btn-sm" title="{{__('global.delete')}}" onclick="return confirm(&quot;Click Ok to delete Category.&quot;)">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="{{__('global.delete')}}" onclick="return confirm(&quot;{{ __('global.confirm_delete') }}&quot;)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
@@ -45,7 +44,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="3">@lang('global.app_no_entries_in_table')</td>
+                            <td>@lang('global.app_no_entries_in_table')</td>
                         </tr>
                     @endif
                 </tbody>

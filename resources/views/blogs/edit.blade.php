@@ -51,7 +51,7 @@
                             <label for="visibility">{{__('global.visibility')}}</label>
                             <select class="custom-select select2" id="visibility" name="visibility">
                                 <option selected="" disabled>Open this select visibility</option>
-                                @foreach ($data = array('published' => 'Published', 'draft' => 'Draft', 'pending_review' => 'Pending Review'); as $key => $visibility)
+                                @foreach ($data = array('published' => __('global.published'), 'draft' => __('global.draft'), 'pending_review' => __('global.pending_review')); as $key => $visibility)
                                     <option value="{{$key}}" {{ $blog->visibility == $key ? 'selected' : '' }}>{{$visibility}}</option>
                                 @endforeach
                             </select>

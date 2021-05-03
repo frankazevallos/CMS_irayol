@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Create role')
+@push('title', __('global.roles.title'))
 @section('content')
     {!! Form::open(['method' => 'POST', 'route' => ['roles.store']]) !!}
 

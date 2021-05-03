@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Create permissions')
+@push('title', __('global.permissions.title'))
 @section('content')
 
     {!! Form::open(['method' => 'POST', 'route' => ['permissions.store']]) !!}

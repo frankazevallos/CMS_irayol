@@ -15,15 +15,6 @@
         </div>
 
         <div class="card-body">
-
-            @if ($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-
             <form method="POST" action="{{ route('setting.store') }}" accept-charset="UTF-8" id="create_setting_form" name="create_setting_form" class="form-horizontal">
             {{ csrf_field() }}
             @include ('settings.form', ['setting' => null,])

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Edit role')
+@push('title', __('global.roles.title'))
 @section('content')
     
     {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update', $role->id]]) !!}

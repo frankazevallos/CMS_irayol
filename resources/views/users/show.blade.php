@@ -30,7 +30,7 @@
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
 
-                                <button type="submit" class="btn btn-danger" title="Delete Users" onclick="return confirm(&quot;Click Ok to delete Users.?&quot;)">
+                                <button type="submit" class="btn btn-danger" title="Delete Users" onclick="return confirm(&quot;{{ __('global.confirm_delete') }}&quot;)">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>

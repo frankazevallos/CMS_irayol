@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Edit Page')
+@push('title', __('global.pages'))
 @section('content')
     <form action="{{route('pages.update', $page->id) }}" method="POST">
         @method('PUT')

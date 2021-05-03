@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Addons')
+@push('title', __('global.modules'))
 @section('content')
 
     <div class="card">
@@ -8,7 +8,7 @@
                 {{__('global.modules')}}
             </div>
             <div class="btn-group btn-group-sm float-right" role="group">
-                <a href="#create" class="btn btn-success btn-sm" data-toggle="collapse"><i class="fas fa-box-open" aria-hidden="true"></i> {{__('global.create')}}</a>
+                <a href="#create" class="btn btn-success btn-sm" data-toggle="collapse"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
             </div>
         </div>
         <div class="card-body">

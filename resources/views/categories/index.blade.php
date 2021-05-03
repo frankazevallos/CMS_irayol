@@ -7,7 +7,7 @@
                 {{__('global.categories')}}
             </div>
             <div class="btn-group-sm float-right" role="group">
-                <a href="{{ route('categories.create') }}" class="btn btn-success" title="Create New Category"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
+                <a href="{{ route('categories.create') }}" class="btn btn-success" title="{{__('global.create')}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
             </div>
         </div>
         <div class="card-body">

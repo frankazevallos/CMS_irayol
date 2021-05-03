@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Add Page')
+@push('title', __('global.pages'))
 @section('content')
     <form action="{{route('pages.store')}}" method="POST" class="">
         @csrf

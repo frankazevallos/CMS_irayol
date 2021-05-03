@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'List Your Page')
+@push('title', __('global.pages'))
 
 @section('content')
 

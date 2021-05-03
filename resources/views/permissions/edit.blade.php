@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Edit permissions')
+@push('title', __('global.permissions.title'))
 @section('content')    
     {!! Form::model($permission, ['method' => 'PUT', 'route' => ['permissions.update', $permission->id]]) !!}
 

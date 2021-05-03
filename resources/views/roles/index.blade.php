@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Roles')
+@push('title', __('global.roles.title'))
 @section('content')
 
     <div class="card">
@@ -41,7 +41,7 @@
                                         @csrf
                                         <div class="btn-group btn-group-xs float-right" role="group">
                                             <a href="{{ route('roles.edit',[$role->id]) }}" class="btn btn-primary btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                            <button type="submit" class="btn btn-danger btn-sm" title="{{__('global.delete')}}" onclick="return confirm(&quot;Click Ok to delete Category.&quot;)">
+                                            <button type="submit" class="btn btn-danger btn-sm" title="{{__('global.delete')}}" onclick="return confirm(&quot;{{ __('global.confirm_delete') }}&quot;)">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
