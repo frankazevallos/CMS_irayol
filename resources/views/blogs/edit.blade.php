@@ -50,7 +50,6 @@
                         <div class="form-group">
                             <label for="visibility">{{__('global.visibility')}}</label>
                             <select class="custom-select select2" id="visibility" name="visibility">
-                                <option selected="" disabled>Open this select visibility</option>
                                 @foreach ($data = array('published' => __('global.published'), 'draft' => __('global.draft'), 'pending_review' => __('global.pending_review')); as $key => $visibility)
                                     <option value="{{$key}}" {{ $blog->visibility == $key ? 'selected' : '' }}>{{$visibility}}</option>
                                 @endforeach
@@ -102,7 +101,7 @@
                 </div>
 				<div class="card" id="accordionExample">
 					<a href="#" class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						SEO <i class="float-right fa fa-circle" aria-hidden="true" style="margin-top: 2px;"></i>
+						SEO
 					</a>
 
 					<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">

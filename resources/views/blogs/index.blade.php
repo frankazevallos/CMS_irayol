@@ -23,6 +23,7 @@
                     <th>{{__('global.title')}}</th>
                     <th>{{__('global.author')}}</th>
                     <th>{{__('global.categories')}}</th>
+                    <th>{{__('global.visibility')}}</th>
                     <th>{{__('global.update_at')}}</th>
                     <th>{{__('global.action')}}</th>
                 </tr>
