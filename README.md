@@ -1,41 +1,47 @@
+
 # IRAYOL
-IRAYOL es un CMS al estilo Wordpress con facilidad para instalar modulos, temas, configurar menus, entre otras opciones.
+
+IRAYOL is a Wordpress style CMS with easy to install modules, themes, configure menus, among other options.
 
 
-## Construido con
-* [Laravel PHP framework](https://github.com/laravel/laravel) -  PHP framework
-* [AdminLTE](https://adminlte.io/) - Frontend
 
-### Instalación
+## Related
 
-Pasos para instalar el proyecto en local
+Here are some related projects
 
-```
-git clone https://github.com/jesusave/irayol.git
-```
-```
-cd irayol
-```
-```
-composer install
-```
-```
-php artisan key:generate
-```
-```
-php artisan migrate
-```
-```
-php artisan db:seed
-```
-```
-http://127.0.0.1:8000
-```
-```
-User: admin@admin.com
-Pass: 123456
-```
+[Laravel PHP framework](https://github.com/laravel/laravel)
 
-## Autor
+[AdminLTE](https://adminlte.io/)
 
-*  [jesusave](https://github.com/jesusave)
+  
+## Installation 
+
+Install my-project with npm
+
+```bash 
+  git clone https://github.com/jesusave/irayol.git
+
+  cd irayol
+
+  composer install
+
+  php artisan key:generate
+
+  php artisan migrate --seed
+
+  http://127.0.0.1:8000
+
+  User: admin@admin.com
+  Pass: 123456
+```
+    
+## Authors
+
+- [@jesusave](https://github.com/jesusave)
+
+  
+## License
+
+[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
+
+  
