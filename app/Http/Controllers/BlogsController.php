@@ -158,12 +158,16 @@ class BlogsController extends Controller
             $user = '<a href=" '. route('users.show', $data->user->id) . ' ">' .$data->user->name . '</a>';
             return $user;
         })
+        ->addColumn('visibility', function($data){
+            $visibility = $data->visibility ? __('global.' . $data->visibility) : '';
+            return $visibility;
+        })
         ->addColumn('updated_at', function($data){
             $updated_at = $data->updated_at->format('Y/m/d');
             return $updated_at;
         })
-        ->addColumn('action', 'blogs.actions' ) //add view actions
-        ->rawColumns(['author', 'updated_at', 'category', 'action'])->make(true);
+        ->addColumn('action', 'blogs.actions')
+        ->rawColumns(['author', 'visibility', 'updated_at', 'category', 'action'])->make(true);
     }
 
 }
