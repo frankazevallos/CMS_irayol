@@ -23,6 +23,7 @@ let dataBlogs = $('.data-table-blog').DataTable({
                 }
             },  orderable: false, searchable: false
         },
+        { data: "visibility", orderable: false, searchable: false},
         { data: "updated_at", orderable: false, searchable: false },
         { data: 'action', orderable: false, searchable: false },
     ],
