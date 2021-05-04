@@ -33,10 +33,8 @@
                 @foreach($modules as $module)
                     <div class="col-md-3 mb-4">
                         <div class="card" id="addon-{{ $module->alias }}">
-                            @if(module_enabled($module->alias))<a href="/addons/{{ $module->alias }}">@endif
-
+                            @if(module_enabled($module->alias))<a href="{{ $module->alias }}">@endif
                             <div class="card-body img-card-background" style="background-image: url('{{ $module->thumbnail ? $module->thumbnail : asset('manager/images/placeholder.png') }}'); height: 200px !important;">
-
                             </div>
                             @if(module_enabled($module->alias))</a>@endif
                             <div class="card-footer">
@@ -52,8 +50,8 @@
                                     </div>
                                     <div class="col-6">
                                         <form method="POST" action="{!! route('addons.destroy', $module->name) !!}" accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
-                                            {{ csrf_field() }}
+                                            @csrf
+                                            @method('DELETE')
                 
                                             <div class="btn-group float-right" role="group">
                                                 @if(module_enabled($module->alias))
