@@ -23,6 +23,7 @@ class CreateMenuItemTable extends Migration
             $table->bigInteger('parent')->nullable()->unsigned()->default(null);
             $table->integer('order')->default(0);
             $table->string('source');
+            $table->string('icon')->nullable();
             $table->string('url')->nullable();
             $table->boolean('status')->default(0);
             $table->string('target')->default('_self');
