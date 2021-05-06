@@ -1,0 +1,14 @@
+{
+    "name": "PaySubscriptions",
+    "alias": "paysubscriptions",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\PaySubscriptions\\Providers\\PaySubscriptionsServiceProvider"
+    ],
+    "aliases": [],
+    "files": [],
+    "requires": []
+}
