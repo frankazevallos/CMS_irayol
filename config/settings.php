@@ -23,7 +23,7 @@ return [
 	| file path in JSON format. Use full path to file.
 	|
 	*/
-	'path' => storage_path().'/settings.json',
+	'path' => storage_path() . '/settings.json',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -51,7 +51,7 @@ return [
     | If you want all setting calls to go through Laravel's cache system.
     |
     */
-	'enableCache' => false,
+	'enableCache' => true,
 	// Whether to reset the cache when changing a setting.
 	'forgetCacheByWrite' => true,
 	// TTL in seconds.
@@ -68,6 +68,20 @@ return [
     |
     */
     'defaults' => [
-        'foo' => 'bar',
+		'site_name' => env('APP_NAME', 'IRAYOL'),
+		'theme_active' => env('APP_THEME', 'default'),
+		'site_logo' => null,
+		'site_url' => '/',
+		'email_address' => '',
+		'keyword_seo' => '',
+		'desc_seo' => '',
+		'favicon' => '',
+		'googleanalytic_key' => '',
+		'revistafter' => '',
+		'robots' => '',
+		'main_page' => '',
+		'main_menu' => 1,
+		'app_lang' => env('APP_LANG', 'es'),
+		'currency_code' => 'USD',
     ]
 ];
