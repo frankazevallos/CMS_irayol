@@ -34,9 +34,11 @@ return [
 	| Use full path to JSON file.
 	|
 	*/
+
 	// If set to null, the default connection will be used.
 	'connection' => null,
 	// Name of the table used.
+
 	'table' => 'settings',
 	// If you want to use custom column names in database store you could
 	// set them in this configuration
@@ -83,5 +85,17 @@ return [
 		'main_menu' => 1,
 		'app_lang' => env('APP_LANG', 'es'),
 		'currency_code' => 'USD',
+
+		'services.stripe.key'             => 'STRIPE_KEY',
+		'services.stripe.secret'          => 'STRIPE_SECRET',
+		'services.stripe.webhook.secret'  => 'STRIPE_WEBHOOK_SECRET',
+
+		'services.paypal.client_id'       => 'PAYPAL_CLIENT_ID',
+		'services.paypal.secret'          => 'PAYPAL_SECRET',
+		'services.paypal.sandbox'         => 'PAYPAL_SANDBOX',
+
+		'services.wompi.client_id'       => 'WOMPI_CLIENT_ID',
+		'services.wompi.secret'          => 'WOMPI_SECRET',
+		'services.wompi.sandbox'         => 'WOMPI_SANDBOX',
     ]
 ];
