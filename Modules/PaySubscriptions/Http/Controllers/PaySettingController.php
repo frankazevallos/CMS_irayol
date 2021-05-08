@@ -14,7 +14,7 @@ class PaySettingController extends Controller
      */
     public function index()
     {
-        return view('paysubscriptions::index');
+        return view('paysubscriptions::pay_setting.index');
     }
 
     /**
