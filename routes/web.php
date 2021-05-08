@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
+// Social Auth
+Route::get('oauth/{driver}', 'Auth\SocialAuthController@redirectToProvider')->name('social.oauth');
+Route::get('oauth/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
+
 Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // Change languaje

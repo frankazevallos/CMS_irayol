@@ -21,6 +21,11 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('language')->default('es');
+
+            $table->string('provider', 20)->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('access_token')->nullable();
+            
             $table->rememberToken();
             $table->timestamps();
             $table->timestamp('blocked_at')->nullable();
