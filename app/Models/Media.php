@@ -17,15 +17,19 @@ class Media extends Model
     protected $fillable = [
         'user_id',
         'file',
-        'path', 
+        'path',
         'thumb',
         'extension'
     ];
+    /**
+     * @var mixed
+     */
+    private $extension;
 
     public function getFile($type = 'thumb')
     {
         $image = ['gif', 'png', 'jpg', 'jpeg', 'raw', 'webp',];
-        $text = ['docx', 'docm', 'xlsx', 'xlsm', 'pptx', 'pptm',];
+        $text = ['docx', 'doc', 'xlsx', 'xlsm', 'pptx', 'pptm',];
         $video = ['mp4', 'mov', 'wmv', 'flv', 'avi', 'mkv', 'webm'];
         $audio = ['mp3', 'aac', 'ogg', 'flac', 'wav'];
         $compress = ['zip', 'rar'];
