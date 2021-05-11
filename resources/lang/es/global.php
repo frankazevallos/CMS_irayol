@@ -215,4 +215,10 @@ return [
 	'insert' => 'Insertar',
 	'select_file' => 'Seleccione un archivo',
 	'select_img' => 'Seleccione una imagen',
+	'or' => 'También',
+	'i_agree' => 'Acepto los',
+	'terms' => 'términos',
+	'i_have_an_account' => 'Ya tengo una cuenta',
+	'sign_in_using' => 'Acceder con',
+	'e-mail_or_username' => "Correo o nombre de usuario",
 ];

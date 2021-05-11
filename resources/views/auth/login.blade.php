@@ -11,17 +11,17 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group mb-3">
-                    <input id="email" type="email" placeholder="{{ __('E-Mail Address') }}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus />
+                    <input id="login" type="text" placeholder="{{ __('global.e-mail_or_username') }}" class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}" name="login" value="{{ old('username') ?: old('email') }}" required autofocus>
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
                         </div>
                     </div>
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                    @if ($errors->has('username') || $errors->has('email'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('username') ?: $errors->first('email') }}</strong>
                         </span>
-                    @enderror
+                    @endif
                 </div>
 
                 <div class="input-group mb-3">
@@ -51,32 +51,23 @@
                         <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
                     </div>
                 </div>
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-12">
-                        @if (Route::has('password.request'))
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-                    </div>
-                </div>
             </form>
-            {{--<div class="social-auth-links mb-3">
-                <p class="text-center">- OR -</p>
-                <a href="{{ route('social.oauth', 'facebook') }}" class="btn btn-primary btn-block">
-                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-                </a>
-                <a href="{{ route('social.oauth', 'twitter') }}" class="btn btn-info btn-block">
-                    <i class="fab fa-twitter mr-2"></i> Sign in using Twitter
-                </a>
-                <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-block">
-                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-                </a>
-                <a href="{{ route('social.oauth', 'github') }}" class="btn btn-default btn-block">
-                    <i class="fab fa-github mr-2"></i> Sign in using Github
-                </a>
-            </div>--}}
+            @include('auth.social-auth')
+
+            <p class="mb-1">
+                @if (Route::has('password.request'))
+                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif
+            </p>
+            <p class="mb-0">
+                @if (Route::has('register'))
+                    <a class="btn btn-link" href="{{ route('register') }}">
+                        {{ __('Register') }}
+                    </a>
+                @endif
+            </p>
         </div>
     </div>
 </div>

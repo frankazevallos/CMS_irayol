@@ -212,4 +212,10 @@ return [
 	'insert' => 'Insert',
 	'select_file' => 'Select a file',
 	'select_img' => 'Select an image',
+	'or' => 'Or',
+	'i_agree' => 'I agree to the',
+	'terms' => 'terms',
+	'i_have_an_account' => 'I already have an account',
+	'sign_in_using' => 'Sign in using',
+	'e-mail_or_username' => "E-Mail Address or Username",
 ];
