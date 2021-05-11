@@ -58,7 +58,7 @@ return [
 	'forgetCacheByWrite' => true,
 	// TTL in seconds.
 	'cacheTtl' => 15,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default Settings
@@ -70,32 +70,24 @@ return [
     |
     */
     'defaults' => [
-		'site_name' => env('APP_NAME', 'IRAYOL'),
+		'site_name' => config('app.name'),
 		'theme_active' => env('APP_THEME', 'default'),
 		'site_logo' => null,
 		'site_url' => '/',
-		'email_address' => '',
-		'keyword_seo' => '',
-		'desc_seo' => '',
-		'favicon' => '',
-		'googleanalytic_key' => '',
-		'revistafter' => '',
-		'robots' => '',
-		'main_page' => '',
 		'main_menu' => 1,
-		'app_lang' => env('APP_LANG', 'es'),
+		'app_lang' => config('app.locale'),
 		'currency_code' => 'USD',
 
-		'services.stripe.key'             => 'STRIPE_KEY',
-		'services.stripe.secret'          => 'STRIPE_SECRET',
-		'services.stripe.webhook.secret'  => 'STRIPE_WEBHOOK_SECRET',
+		'stripe_client_id' => config('services.stripe.key'),
+		'stripe_secret' => config('services.stripe.secret'),
+		'stripe_sandbox' => config('services.stripe.sandbox' ),
 
-		'services.paypal.client_id'       => 'PAYPAL_CLIENT_ID',
-		'services.paypal.secret'          => 'PAYPAL_SECRET',
-		'services.paypal.sandbox'         => 'PAYPAL_SANDBOX',
+        'paypal_client_id' => config('services.paypal.client_id'),
+        'paypal_secret' => config('services.paypal.secret'),
+		'paypal_sandbox' => config('services.paypal.sandbox' ),
 
-		'services.wompi.client_id'       => 'WOMPI_CLIENT_ID',
-		'services.wompi.secret'          => 'WOMPI_SECRET',
-		'services.wompi.sandbox'         => 'WOMPI_SANDBOX',
+		'wompi_client_id' => config('services.wompi.client_id' ),
+		'wompi_secret' => config('services.wompi.secret' ),
+		'wompi_sandbox' => config('services.wompi.sandbox'),
     ]
 ];

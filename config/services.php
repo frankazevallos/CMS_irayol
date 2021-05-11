@@ -31,13 +31,9 @@ return [
     ],
 
     'stripe' => [
-        'model'   => App\Models\User::class,
-        'key'     => env('STRIPE_KEY'),
-        'secret'  => env('STRIPE_SECRET'),
-        'webhook' => [
-            'secret'    => env('STRIPE_WEBHOOK_SECRET'),
-            'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
-        ],
+        'client_id'     => env('STRIPE_KEY'),
+        'secret'        => env('STRIPE_SECRET'),
+        'sandbox'       => env('STRIPE_SANDBOX', true),
     ],
 
     'paypal' => [

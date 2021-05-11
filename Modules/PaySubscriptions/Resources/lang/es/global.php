@@ -74,4 +74,6 @@ return [
     'total_subscripciones' => 'Total en suscripciones',
     'payment_gateway' => 'Pasarela de pago',
     'pay_setting' => 'Configuraciòn de pago',
+    'live' => 'Producción',
+    'test' => 'Prueba'
 ];

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             MenuSeeder::class,
             ItemMenuSeeder::class,
-            SettingsSeeder::class,
+            //SettingsSeeder::class,
         ]);
 
     }
