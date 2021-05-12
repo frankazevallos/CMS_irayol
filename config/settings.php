@@ -78,15 +78,15 @@ return [
 		'app_lang' => config('app.locale'),
 		'currency_code' => 'USD',
 
-		'stripe_client_id' => config('services.stripe.key'),
+		'stripe_key' => config('services.stripe.key'),
 		'stripe_secret' => config('services.stripe.secret'),
 		'stripe_sandbox' => config('services.stripe.sandbox' ),
 
-        'paypal_client_id' => config('services.paypal.client_id'),
+        'paypal_key' => config('services.paypal.client_id'),
         'paypal_secret' => config('services.paypal.secret'),
 		'paypal_sandbox' => config('services.paypal.sandbox' ),
 
-		'wompi_client_id' => config('services.wompi.client_id' ),
+		'wompi_key' => config('services.wompi.client_id' ),
 		'wompi_secret' => config('services.wompi.secret' ),
 		'wompi_sandbox' => config('services.wompi.sandbox'),
     ]

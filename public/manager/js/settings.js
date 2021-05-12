@@ -6,7 +6,6 @@ let dataSetting = $('.data-table-setting').DataTable({
     columns: [
         { data: "key" },
         { data: "value" },
-        { data: "updated_at", orderable: false, searchable: false },
         { data: 'action', orderable: false, searchable: false },
     ],
 });

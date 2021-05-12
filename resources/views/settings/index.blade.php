@@ -19,7 +19,6 @@
                         <tr>
                             <th>Key</th>
                             <th>Value</th>
-                            <th>{{__('global.update_at')}}</th>
                             <th>{{__('global.action')}}</th>
                         </tr>
                     </thead>

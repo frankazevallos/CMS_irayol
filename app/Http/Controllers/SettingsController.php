@@ -26,9 +26,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        $settings = Setting::paginate(25);
-
-        return view('settings.index', compact('settings'));
+        return view('settings.index');
     }
 
     /**
@@ -38,8 +36,6 @@ class SettingsController extends Controller
      */
     public function create()
     {
-
-
         return view('settings.create');
     }
 
@@ -146,17 +142,13 @@ class SettingsController extends Controller
     }
 
     public function ajaxIndex(){
-        $data = Setting::select('id', 'key', 'value', 'updated_at')->orderBy("updated_at", 'desc');
+        $data = Setting::select('id', 'key', 'value',)->orderBy("id", 'desc');
 
         return Datatables::of($data)
-        ->addColumn('updated_at', function($data){
-            $updated_at = $data->updated_at->format('Y/m/d');
-            return $updated_at;
-        })
         ->addColumn('action', function($data){
             return '<a class="btn btn-primary btn-sm" href="javascript:void(0)" id="editSetting" data-id="'.$data->id.'" ><i class="fas fa-pencil-alt"></i>' ." " . __('global.edit') . '</a>';
         })
-        ->rawColumns(['updated_at', 'action'])->make(true);
+        ->rawColumns(['action'])->make(true);
     }
 
 }

@@ -37,13 +37,13 @@ return [
     ],
 
     'paypal' => [
-        'client_id' => env('PAYPAL_CLIENT_ID'),
+        'client_id' => env('PAYPAL_KEY'),
         'secret'    => env('PAYPAL_SECRET'),
         'sandbox'   => env('PAYPAL_SANDBOX', true),
     ],
 
     'wompi' => [
-        'client_id' => env('WOMPI_CLIENT_ID'),
+        'client_id' => env('WOMPI_KEY'),
         'secret'    => env('WOMPI_SECRET'),
         'sandbox'   => env('WOMPI_SANDBOX', true),
     ],

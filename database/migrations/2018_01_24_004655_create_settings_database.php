@@ -17,7 +17,6 @@ class CreateSettingsDatabase extends Migration
             $table->id();
 			$table->string('key', 191)->index();
             $table->text('value', 65535)->nullable();
-            $table->timestamps();
         });
     }
 
