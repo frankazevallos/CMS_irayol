@@ -33,7 +33,25 @@ class PaySettingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            setting([
+                'stripe_key' => $request->input('stripe_key'),
+                'stripe_secret' => $request->input('stripe_secret'),
+                'stripe_sandbox' => $request->input('stripe_sandbox'),
+
+                'paypal_key' => $request->input('paypal_key'),
+                'paypal_secret' => $request->input('paypal_secret'),
+                'paypal_sandbox' => $request->input('paypal_sandbox'),
+
+                'wompi_key' => $request->input('wompi_key'),
+                'wompi_secret' => $request->input('wompi_secret'),
+                'wompi_sandbox' => $request->input('wompi_sandbox'),
+            ])->save();
+
+            return redirect()->back()->with('success', __('paysubscriptions::global.successfully_added'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('danger', "Error: " . $th->getMessage());
+        }
     }
 
     /**

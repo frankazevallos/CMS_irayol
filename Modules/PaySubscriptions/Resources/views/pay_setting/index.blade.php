@@ -2,14 +2,20 @@
 @push('title', __('paysubscriptions::global.pay_subscriptions'))
 @section('content')
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 mb-3">
         @include('paysubscriptions::partials.navbar')
     </div>
     <div class="col-md-9">
         <div class="card">
-            <div class="card-header">{{__('paysubscriptions::global.pay_setting')}}</div>
-            <div class="card-body">
-                <form action="{{route('pay-settings.store')}}" method="post">
+            <div class="card-header">
+                {{__('paysubscriptions::global.pay_setting')}}
+            </div>
+        </div>
+        <form action="{{route('pay-settings.store')}}" method="post">
+            @csrf
+            <div class="card">
+                <div class="card-header font-weight-bold text-uppercase">Stripe</div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -35,7 +41,11 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header font-weight-bold text-uppercase">Paypal</div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -61,7 +71,11 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header font-weight-bold text-uppercase">Wompi</div>
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -87,9 +101,14 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+            <div class="card bg-dark">
+                <div class="card-footer">
+                    <input class="btn btn-primary float-right" type="submit" value="{{__('global.save')}}">
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
