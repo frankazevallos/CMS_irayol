@@ -9,8 +9,9 @@
                 {{__('global.list_blogs')}}
             </div>
             <div class="col-md-6">
-                <div class="btn-group btn-group-sm float-right" role="group">
+                <div class="btn-group-sm float-right" role="group">
                     <a class="btn btn-success btn-sm" href="{{ route('blogs.create') }}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
+                    <a class="btn btn-info btn-sm" href="{{route('blog.index')}}" target="_blank"><i class="fas fa-globe-americas"></i> {{__('global.view_all_entries')}}</a>
                 </div>
             </div>
         </div>
