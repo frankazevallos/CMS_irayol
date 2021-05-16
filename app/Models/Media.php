@@ -21,10 +21,6 @@ class Media extends Model
         'thumb',
         'extension'
     ];
-    /**
-     * @var mixed
-     */
-    private $extension;
 
     public function getFile($type = 'thumb')
     {
