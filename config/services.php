@@ -30,6 +30,7 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /* Pay services */
     'currency_conversion' => [
         'base_uri' => env('CURRENCY_CONVERSION_BASE_URI'),
         'api_key' => env('CURRENCY_CONVERSION_API_KEY'),
@@ -37,32 +38,23 @@ return [
 
     'paypal' => [
         'base_uri' => env('PAYPAL_BASE_URI'),
-        'client_id' => env('PAYPAL_CLIENT_ID'),
-        'client_secret' => env('PAYPAL_CLIENT_SECRET'),
-        'class' => App\Services\PayPalService::class,
-        'plans' => [
-            'monthly' => env('PAYPAL_MONTHLY_PLAN'),
-            'yearly' => env('PAYPAL_YEARLY_PLAN'),
-        ],
+        'key' => env('PAYPAL_KEY'),
+        'secret' => env('PAYPAL_SECRET'),
     ],
 
     'stripe' => [
         'base_uri' => env('STRIPE_BASE_URI'),
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
-        'class' => App\Services\StripeService::class,
-        'plans' => [
-            'monthly' => env('STRIPE_MONTHLY_PLAN'),
-            'yearly' => env('STRIPE_YEARLY_PLAN'),
-        ],
     ],
 
     'wompi' => [
-        'client_id' => env('WOMPI_KEY'),
+        'key' => env('WOMPI_KEY'),
         'secret'    => env('WOMPI_SECRET'),
         'sandbox'   => env('WOMPI_SANDBOX', true),
     ],
 
+    /* Social login */
     'facebook' => [
         'client_id'     => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
