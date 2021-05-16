@@ -67,7 +67,7 @@
                     </table>
                 </div>
                 @else
-                    <div class="alert alert-warning m-3" role="alert">{{__('paysubscriptions::global.did_not_find_any_record')}}</div>
+                    <div class="alert alert-warning my-1" role="alert">{{__('paysubscriptions::global.did_not_find_any_record')}}</div>
                 @endif
             </div>
         </div>

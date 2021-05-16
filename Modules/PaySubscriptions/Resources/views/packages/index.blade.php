@@ -28,35 +28,9 @@
                                 <th>{{__('paysubscriptions::global.action')}}</th>
                             </tr>
                         </thead>
-                        {{-- @foreach ($packages as $package)
-                            <tr>
-                                <td>{{ $package->name }}</td>
-                                <td>{{ __('paysubscriptions::global.interval.'.$package->interval) }}</td>
-                                <td>{{ $package->interval_count }}</td>
-                                <td>{{ $package->trial_days }}</td>
-                                <td>{{ '$' . number_format($package->price, 2)  }}</td>
-                                <td>
-                                    <form method="POST" action="{{ route('packages.destroy', $package->id) }}" accept-charset="UTF-8">
-                                        @method('DELETE')
-                                        @csrf
-                                        <div class="btn-group-xs float-right" role="group">
-                                            <a href="{{ route('packages.show', $package->id) }}" class="btn btn-info btn-sm" title="{{__('paysubscriptions::global.view')}}">
-                                                <i class="far fa-eye" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="{{ route('packages.edit', $package->id) }}" class="btn btn-primary btn-sm" title="{{__('paysubscriptions::global.edit')}}">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
-                                            <button type="submit" class="btn btn-danger btn-sm" title="{{__('paysubscriptions::global.delete')}}" onclick="return confirm(&quot; {{__('paysubscriptions::global.confirm_delete')}} &quot;)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach --}}
                     </table>
                 @else
-                    <div class="alert alert-warning m-3" role="alert">{{__('paysubscriptions::global.did_not_find_any_record')}}</div>
+                    <div class="alert alert-warning my-1" role="alert">{{__('paysubscriptions::global.did_not_find_any_record')}}</div>
                 @endif
             </div>
         </div>

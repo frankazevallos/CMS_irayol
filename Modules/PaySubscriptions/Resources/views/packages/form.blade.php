@@ -46,7 +46,7 @@
 
 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
     <label for="description" class="control-label">{{__('paysubscriptions::global.description')}}</label>
-    <textarea class="form-control" name="description" id="description" cols="30" rows="3" required>{{ old('description', optional($package)->description) }}</textarea>
+    <textarea class="form-control summernote" name="description" id="description" cols="30" rows="3" required>{{ old('description', optional($package)->description) }}</textarea>
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
 
