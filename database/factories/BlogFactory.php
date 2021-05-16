@@ -26,6 +26,7 @@ class BlogFactory extends Factory
             'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'content' => $this->faker->text($maxNbChars = 500),
             'slug' => $this->faker->slug,
+            'visibility' => 'published',
             'titleseo' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'descseo' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'keywordseo' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
