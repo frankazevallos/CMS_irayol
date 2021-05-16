@@ -94,5 +94,6 @@ return [
     'is_viewed' => 'Visto',
     'play' => 'Reproducir',
     'viewed' => 'Visto',
-    'no_viewed' => 'No visto'
+    'no_viewed' => 'No visto',
+    'view_all_courses' => 'Ver todos los cursos',
 ];
