@@ -75,5 +75,6 @@ return [
     'payment_gateway' => 'Pasarela de pago',
     'pay_setting' => 'Configuración de pago',
     'live' => 'Producción',
-    'test' => 'Prueba'
+    'test' => 'Prueba',
+    'become_premium' => 'Vuélvete Premium',
 ];
