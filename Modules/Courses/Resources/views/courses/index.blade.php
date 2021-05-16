@@ -1,6 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Courses')
-
+@push('title', __('courses::global.courses'))
 @section('content')
     <div class="card">
         <div class="card-header clearfix">
@@ -9,6 +8,7 @@
             </div>
             <div class="btn-group-sm float-right" role="group">
                 <a href="{{ route('courses.create') }}" class="btn btn-success" title="Create New Category"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('courses::global.new')}}</a>
+                <a class="btn btn-info btn-sm" href="{{route('course.all')}}" target="_blank"><i class="fas fa-globe-americas"></i> {{__('courses::global.view_all_courses')}}</a>
             </div>
         </div>
         <div class="card-body">
@@ -22,40 +22,6 @@
                         <th>{{__('global.action')}}</th>
                     </tr>
                 </thead>
-                {{--<tbody>
-                    @foreach($courses as $course)
-                    <tr>
-                        <td>{{ $course->title }}</td>
-                        <td><a href="{{ route('users.show', $course->user->id ) }}">{{ $course->user->name }}</a></td>
-                        <td>{{\Carbon\Carbon::parse($course->updated_at)->diffForHumans() }}</td>
-                        <td>
-                            @foreach ($course->categories as $category)
-                            <a href="{{ route('categories.show', $category->id ) }}">{{$category->name}}</a>
-                            @endforeach
-                        </td>
-                        <td>
-                            <form method="POST" action="{!! route('courses.destroy', $course->id) !!}" accept-charset="UTF-8">
-                                <input name="_method" value="DELETE" type="hidden">
-                                {{ csrf_field() }}
-                                <div class="btn-group-xs float-right" role="group">
-                                    <a href="{{ route('courses.show', $course->id) }}" class="btn btn-info btn-sm" title="Show Users">
-                                        <i class="far fa-eye" aria-hidden="true"></i>
-                                    </a>
-                                    <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-primary btn-sm" title="Edit Page">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Page" onclick="return confirm(&quot;Click Ok to delete Course.&quot;)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                    <a href="{{ route('course.view', $course->slug) }}" target="_blank" class="btn btn-success btn-sm" title="Edit Page">
-                                        <i class="fas fa-play"></i>
-                                    </a>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>--}}
             </table>
         </div>
     </div>

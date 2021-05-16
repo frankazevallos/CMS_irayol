@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('title', 'Create Course') 
+@push('title', __('courses::global.courses')) 
 @section('content')    
     <form method="POST" action="{{ route('courses.update', $course->id) }}" accept-charset="UTF-8" id="create_category_form" name="create_category_form" class="form-horizontal">
         @csrf
@@ -78,7 +78,7 @@
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="main_image" name="image" value="{{ $course->image }}" readonly>
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#MainImageModal">{{__('courses::global.search')}}</button>
+                                        <button class="btn btn-primary insertMainImageModal" type="button">{{__('courses::global.search')}}</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,37 +120,4 @@
             </div>
         </div>
     </form>
-
-<!--Main Image Modal-->
-<div class="modal fade" id="MainImageModal" tabindex="-1" role="dialog" aria-labelledby="MainImageModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="MainImageModal">Image library</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    @foreach($medias as $media)
-                    <div class="col-md-3 mt-3">
-                        @if($media->extension == 'png' || $media->extension == 'jpg' || $media->extension == 'jpeg')
-                        <a data-toggle="modal" data-target="#{{ $media->id }}">
-                            <img class="thumbnail img-fluid rounded filter image addMainImage" alt="" data-src="{{ $media->path }}" />
-                        </a>
-                        @endif
-                    </div>
-                    <!-- col-md-2 / end -->
-                    @endforeach
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" data-id="" id="MainPhoto" type="button">Insert</button>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Main Image Modal-->
 @endsection

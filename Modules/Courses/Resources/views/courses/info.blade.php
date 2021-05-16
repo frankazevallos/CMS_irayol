@@ -1,24 +1,21 @@
 @extends('layouts.frontend')
-
+@push('title', $course->title)
 @section('content')
-<div class="container mt-3 mb-3">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        <img src="{{$course->image}}" class="img-fluid">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h2 class="card-title font-weight-bold text-center">{{$course->title}}</h2>
-                            <p class="card-text">{{$course->description}}</p>
-                            
-                        </div>
-                    </div>
+<div class="container my-3">
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{$course->image}}" class="rounded" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{$course->title}}</h5>
+                    <p class="card-text">{{$course->description}}</p>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">        
         <div class="col-md-12">
             @foreach ($sections as $section)
                 <div class="accordion mt-3" id="accordion_{{$section->id}}">
