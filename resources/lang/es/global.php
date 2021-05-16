@@ -221,4 +221,5 @@ return [
 	'i_have_an_account' => 'Ya tengo una cuenta',
 	'sign_in_using' => 'Acceder con',
 	'e-mail_or_username' => "Correo o nombre de usuario",
+	'view_all_entries' => 'Ver todas las entradas',
 ];

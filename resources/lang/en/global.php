@@ -218,4 +218,5 @@ return [
 	'i_have_an_account' => 'I already have an account',
 	'sign_in_using' => 'Sign in using',
 	'e-mail_or_username' => "E-Mail Address or Username",
+	'view_all_entries' => 'View all entries',
 ];
