@@ -12,13 +12,14 @@
 */
 use Illuminate\Support\Facades\Route;
 use Modules\PaySubscriptions\Http\Controllers\PackagesController;
+use Modules\PaySubscriptions\Http\Controllers\PaymentController;
 use Modules\PaySubscriptions\Http\Controllers\SubscriptionsController;
 
 Route::group(['prefix' => 'paysubscriptions', 'middleware' => ['auth']], function () {
     Route::get('/', 'PaySubscriptionsController@index')->name('paysubscriptions.index');
 
     // Packages
-    Route::resource('packages', PackagesController::class);
+    Route::resource('packages', 'PackagesController');
     Route::get('ajaxindex/packages', [PackagesController::class, 'ajaxIndex'])->name('packages.ajaxindex');
 
     // Subscriptions
@@ -31,3 +32,10 @@ Route::group(['prefix' => 'paysubscriptions', 'middleware' => ['auth']], functio
     // Pay Settings
     Route::resource('pay-settings', PaySettingController::class);
 });
+
+Route::get('/subscription', [SubscriptionsController::class, 'paySubscription'])->name('subscription.index');
+
+// Payment
+Route::post('/payments/pay/{id}', [PaymentController::class, 'pay'])->name('pay.subscription');
+Route::get('/payments/approval', [PaymentController::class, 'approval'])->name('approval.subscription');
+Route::get('/payments/cancelled', [PaymentController::class, 'cancelled'])->name('cancelled.subscription');
