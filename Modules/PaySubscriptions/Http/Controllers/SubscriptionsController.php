@@ -216,4 +216,9 @@ class SubscriptionsController extends Controller
 
         return response()->json(['status' => 'success', 'message' =>  $data]);
     } 
+
+    public function paySubscription(){
+        $packages = Package::paginate();
+        return view('paysubscriptions::subscriptions.info', compact('packages'));
+    }
 }

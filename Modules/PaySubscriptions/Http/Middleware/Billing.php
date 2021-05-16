@@ -5,7 +5,6 @@ namespace Modules\PaySubscriptions\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Modules\PaySubscriptions\Entities\Subscription;
-use Modules\PaySubscriptions\Entities\UserSubscription;
 
 class Billing
 {
@@ -23,7 +22,7 @@ class Billing
 
         if (!$user->can('admin')) {
             if (!$subscription->subscribed($user->id) && !$subscription->onTrial($user->id)) {
-                dd('No tienes una suscripcion');
+                return redirect()->route('subscription.index');
             }
         }
 
