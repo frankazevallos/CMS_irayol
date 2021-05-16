@@ -1,7 +1,7 @@
 @extends('layouts.frontend')
 @push('title', __('global.blogs'))
 @section('content')
-<div class="container pt-5 pb-5">
+<div class="container my-5">
 
     @if (count($blogs) > 0)
         <form class="form-inline" action="{{route('blog.search')}}" method="get">
@@ -13,7 +13,7 @@
             @foreach ($blogs as $blog)
                 <div class="col mt-4">
                     <div class="card h-100">
-                        <a href="{{route('blog.show', $blog->slug)}}"><img src="{{$blog->main_image ? $blog->main_image : asset('manager/images/placeholder-image.jpg')}}" class="card-img-top"></a>
+                        <a href="{{route('blog.show', $blog->slug)}}"><img src="{{$blog->main_image ?: asset('manager/images/placeholder-image.jpg')}}" class="card-img-top"></a>
                         <div class="card-body">
                             <h5 class="card-title"><a href="{{route('blog.show', $blog->slug)}}">{{$blog->title}}</a></h5>
                             @if (strlen($blog->content) > 150)

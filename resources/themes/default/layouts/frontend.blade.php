@@ -18,7 +18,6 @@
     <link href="{{ asset('themes/' . setting('theme_active') . '/css/default.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link href="{{ asset('themes/' . setting('theme_active') . '/css/landing-page.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('manager/css/themes.css')}}">
 
@@ -42,7 +41,6 @@
     <!-- Javascript -->
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="{{ asset('themes/' . setting('theme_active') . '/js/app.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
     <script src="{{ asset('themes/' . setting('theme_active') . '/js/custom.js') }}" type="text/javascript"></script>
     @stack('js')
 </body>
