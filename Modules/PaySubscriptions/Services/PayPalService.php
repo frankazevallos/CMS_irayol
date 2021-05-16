@@ -20,8 +20,8 @@ class PayPalService
     public function __construct()
     {
         $this->baseUri = config('services.paypal.base_uri');
-        $this->clientId = config('services.paypal.client_id');
-        $this->clientSecret = config('services.paypal.client_secret');
+        $this->clientId = setting('paypal_key');
+        $this->clientSecret = setting('paypal_secret');
         $this->plans = config('services.paypal.plans');
     }
 
