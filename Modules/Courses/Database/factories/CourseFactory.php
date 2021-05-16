@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Courses\Database\factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CourseFactory extends Factory
@@ -20,7 +21,7 @@ class CourseFactory extends Factory
     public function definition()
     {
         return [
-            'instructor_id' => 1,
+            'instructor_id' => User::all()->random()->id,
             'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
             'slug' => $this->faker->slug,
             'description' => $this->faker->text($maxNbChars = 500),

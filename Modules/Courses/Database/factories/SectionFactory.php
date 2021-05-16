@@ -2,6 +2,7 @@
 namespace Modules\Courses\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Courses\Entities\Course;
 
 class SectionFactory extends Factory
 {
@@ -20,7 +21,8 @@ class SectionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'course_id' => Course::all()->random()->id,
+            'title' => $this->faker->sentence($nbWords = 2, $variableNbWords = true),
         ];
     }
 }

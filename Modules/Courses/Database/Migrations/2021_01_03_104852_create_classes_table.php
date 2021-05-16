@@ -18,11 +18,11 @@ class CreateClassesTable extends Migration
             $table->bigInteger('section_id')->unsigned();
             $table->string('title');
             $table->longText('note');
-            $table->string('media_type')->nullable()->default('vimeo')->comment('vimeo, youtube');
-            $table->string('url')->nullable();
+            $table->string('media_type')->default('vimeo')->comment('vimeo, youtube');
+            $table->string('url');
             $table->integer('order')->default(0);
-            $table->string('duration')->nullable();
-            $table->string('access')->nullable()->default('pay')->comment('free, pay');
+            $table->string('duration');
+            $table->string('access')->default('pay')->comment('free, pay');
             $table->boolean('is_active');
             $table->timestamps();
 

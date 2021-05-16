@@ -18,7 +18,9 @@ class CoursesDatabaseSeeder extends Seeder
 
         $this->call([
             CourseTableSeeder::class,
-            PermissionTableSeeder::class
+            PermissionTableSeeder::class,
+            SectionTableSeeder::class,
+            ClasseTableSeedTableSeeder::class
         ]);
     }
 }

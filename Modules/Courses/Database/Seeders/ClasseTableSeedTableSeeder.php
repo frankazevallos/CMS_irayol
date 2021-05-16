@@ -5,7 +5,7 @@ namespace Modules\Courses\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class SectionTableSeeder extends Seeder
+class ClasseTableSeedTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class SectionTableSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-
-        \Modules\Courses\Entities\Section::factory(5)->create();
+        
+        \Modules\Courses\Entities\Classe::factory(50)->create();
     }
 }
