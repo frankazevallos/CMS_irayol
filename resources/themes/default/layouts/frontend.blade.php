@@ -12,7 +12,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>@stack('title')</title>
+    <title>@stack('title', setting('site_name'))</title>
 
 
     <link href="{{ asset('themes/' . setting('theme_active') . '/css/default.css') }}" rel="stylesheet">
@@ -33,9 +33,11 @@
 
 </head>
 
-<body>
-    @include('partials.navbar')
-    @yield('content')
+<body class="d-flex flex-column" style="min-height: 100vh">
+    <main class="flex-fill">
+        @include('partials.navbar')
+        @yield('content')
+    </main>
     @include('partials.footer')
 
     <!-- Javascript -->
