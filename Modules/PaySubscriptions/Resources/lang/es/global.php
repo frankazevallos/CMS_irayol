@@ -77,4 +77,6 @@ return [
     'live' => 'Producción',
     'test' => 'Prueba',
     'become_premium' => 'Vuélvete Premium',
+    'invest_in_yourself' => 'Invierte en ti mismo',
+    'with_any_subscription' => 'Con cualquier suscripción tienes acceso a todo nuestro contenido y a los repositorios privados.'
 ];
