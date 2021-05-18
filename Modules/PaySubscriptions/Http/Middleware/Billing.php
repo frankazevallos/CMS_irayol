@@ -22,7 +22,7 @@ class Billing
 
         if (!$user->can('admin')) {
             if (!$subscription->subscribed($user->id) && !$subscription->onTrial($user->id)) {
-                return redirect()->route('subscription.index');
+                return redirect()->route('all.packages');
             }
         }
 
