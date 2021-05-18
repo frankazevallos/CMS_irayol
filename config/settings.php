@@ -77,6 +77,8 @@ return [
 		'main_menu' => 1,
 		'app_lang' => config('app.locale'),
 		'currency_code' => env('CURRENCY_CODE', 'USD'),
+		'social_auth' => 'false',
+		'paymentPlatforms' => ['paypal', 'stripe', 'wompi',],
 
 		'stripe_key' => config('services.stripe.key'),
 		'stripe_secret' => config('services.stripe.secret'),
