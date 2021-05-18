@@ -33,9 +33,13 @@ Route::group(['prefix' => 'paysubscriptions', 'middleware' => ['auth']], functio
     Route::resource('pay-settings', PaySettingController::class);
 });
 
-Route::get('/subscription', [SubscriptionsController::class, 'paySubscription'])->name('subscription.index');
-
-// Payment
-Route::post('/payments/pay/{id}', [PaymentController::class, 'pay'])->name('pay.subscription');
-Route::get('/payments/approval', [PaymentController::class, 'approval'])->name('approval.subscription');
-Route::get('/payments/cancelled', [PaymentController::class, 'cancelled'])->name('cancelled.subscription');
+Route::group(['middleware' => ['auth']], function(){
+    // Subscription packages
+    Route::get('/all-packages', [SubscriptionsController::class, 'allPackages', ])->name('all.packages');
+    Route::get('/subscription/{package}', [SubscriptionsController::class, 'paySubscription',])->name('subscription.index');
+    
+    // Payment
+    Route::post('/payments/pay/{id}', [PaymentController::class, 'pay'])->name('pay.subscription');
+    Route::get('/payments/approval', [PaymentController::class, 'approval'])->name('approval.subscription');
+    Route::get('/payments/cancelled', [PaymentController::class, 'cancelled'])->name('cancelled.subscription');
+});
