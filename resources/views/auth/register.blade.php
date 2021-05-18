@@ -90,7 +90,9 @@
                 </div>
             </form>
 
-            @include('auth.social-auth')
+            @if (setting('social_auth') == 'true')
+                @include('auth.social-auth')
+            @endif
 
             <a href="{{ route('login') }}" class="text-center">{{__('global.i_have_an_account')}}</a>
         </div>

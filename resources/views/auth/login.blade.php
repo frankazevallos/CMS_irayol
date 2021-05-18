@@ -52,7 +52,9 @@
                     </div>
                 </div>
             </form>
-            @include('auth.social-auth')
+            @if (setting('social_auth') == 'true')
+                @include('auth.social-auth')
+            @endif
 
             <p class="mb-1">
                 @if (Route::has('password.request'))
