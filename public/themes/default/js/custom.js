@@ -1,12 +1,3 @@
-$(document).ready(function () {
-    //FANCYBOX
-    //https://github.com/fancyapps/fancyBox
-    $(".fancybox").fancybox({
-        openEffect: "none",
-        closeEffect: "none"
-    });
-});
-
 let Dropdowns = function () {
     let t = $(".dropup, .dropright, .dropdown, .dropleft"), e = $(".dropdown-menu"), r = $(".dropdown-menu .dropdown-menu");
     $(".dropdown-menu .dropdown-toggle").on("click", function () {
