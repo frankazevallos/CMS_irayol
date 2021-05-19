@@ -5,6 +5,7 @@ namespace Modules\PaySubscriptions\Resolvers;
 use Exception;
 
 class PaymentPlatformResolver {
+
     protected $paymentPlatforms;
 
     public function __construct()
@@ -12,16 +13,20 @@ class PaymentPlatformResolver {
         $this->paymentPlatforms = setting('paymentPlatforms');
     }
 
-    public function resolveService($paymentPlatformId)
-    {
-        $name = strtolower(in_array($paymentPlatformId, $$this->paymentPlatforms));
+    public function resolveService($paymentPlatform)
+    {   
+        $servicesClass = [
+            'paypal' => \Modules\PaySubscriptions\Services\PayPalService::class,
+            'stripe' => \Modules\PaySubscriptions\Services\StripeService::class,
+            'wompi' => \Modules\PaySubscriptions\Services\WompiService::class,
+        ];
 
-        $service = config("services.{$name}.class");
+        $service = $servicesClass[$paymentPlatform];
 
         if ($service) {
             return resolve($service);
         }
 
-        throw new Exception('The selected payment platform is not in the configuration');
+        throw new Exception(__('paysubscriptions::global.not_in_the_configuration'));
     }
 }
