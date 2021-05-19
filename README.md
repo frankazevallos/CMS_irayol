@@ -5,7 +5,7 @@ IRAYOL is a Wordpress style CMS with easy to install modules, themes, configure 
 
 
 
-## Related
+## 🧩 Related
 
 Here are some related projects
 
@@ -14,7 +14,7 @@ Here are some related projects
 [AdminLTE](https://adminlte.io/)
 
   
-## Installation 
+## 🔧 Installation 
 
 Install my-project with npm
 
@@ -29,19 +29,23 @@ Install my-project with npm
 
   php artisan migrate --seed
 
+  php artisan storage:link
+
   http://127.0.0.1:8000
 
-  User: admin@admin.com
+  User: admin@admin.com or admin
   Pass: 123456
 ```
+
+### 📷 Media
+
+![Imgur](https://imgur.com/x5X9Fjx.png "Home")
     
-## Authors
+## 🧑🏻 Authors
 
 - [@jesusave](https://github.com/jesusave)
 
   
-## License
+## 📝 License
 
 [GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
-
-  
