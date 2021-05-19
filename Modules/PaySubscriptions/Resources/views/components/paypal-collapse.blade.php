@@ -1,1 +1,1 @@
-<small>You will be redirected to the PayPal checkout page</small>
+<small>{{__('paysubscriptions::global.redirected_to_paypal')}}</small>

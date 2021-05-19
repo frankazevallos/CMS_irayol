@@ -28,29 +28,33 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <form action="" method="post">
+                <form action="{{route('pay.subscription', $package->id)}}" method="post">
                     @csrf
                     <div class="card">
                         <div class="card-header">
-                            {{__('paysubscriptions::global.invest_in_yourself')}}
+                            {{__('paysubscriptions::global.payment_platform')}}
                         </div>
                         <div class="card-body">
-                                <label>Select the desired payment platform:</label>
-                                <div class="form-group" id="toggler">
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        @foreach (setting('paymentPlatforms') as $paymentPlatform)
-                                        <label class="btn btn-outline-secondary rounded m-2 p-1" data-target="#{{ $paymentPlatform }}Collapse" data-toggle="collapse">
-                                            <input type="radio" name="payment_platform" value="{{ $paymentPlatform }}" required>
-                                            <img class="img-fluid" src="{{ asset('modules/paysubscriptions/img/' . $paymentPlatform . '.jpg') }}">
-                                        </label>
-                                        @endforeach
-                                    </div>
+                            <div class="form-group" id="toggler">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                     @foreach (setting('paymentPlatforms') as $paymentPlatform)
-                                        <div id="{{ $paymentPlatform }}Collapse" class="collapse" data-parent="#toggler">
-                                            @includeIf('paysubscriptions::components.' . strtolower($paymentPlatform) . '-collapse')
-                                        </div>
+                                    <label class="btn btn-outline-secondary rounded m-2 p-1" data-target="#{{ $paymentPlatform }}Collapse" data-toggle="collapse">
+                                        <input type="radio" name="payment_platform" value="{{ $paymentPlatform }}" required>
+                                        <img class="img-fluid" src="{{ asset('modules/paysubscriptions/img/' . $paymentPlatform . '.jpg') }}">
+                                    </label>
                                     @endforeach
                                 </div>
+                                @foreach (setting('paymentPlatforms') as $paymentPlatform)
+                                    <div id="{{ $paymentPlatform }}Collapse" class="collapse" data-parent="#toggler">
+                                        @includeIf('paysubscriptions::components.' . strtolower($paymentPlatform) . '-collapse')
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-center">
+                                <button type="submit" id="payButton" class="btn btn-primary btn-lg btn-block">{{__('paysubscriptions::global.pay')}}</button>
+                            </div>
                         </div>
                     </div>
                 </form>

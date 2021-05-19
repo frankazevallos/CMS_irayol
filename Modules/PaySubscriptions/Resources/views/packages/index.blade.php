@@ -13,6 +13,7 @@
                 </div>
                 <div class="btn-group-sm float-right" role="group">
                     <a href="{{ route('packages.create') }}" class="btn btn-success" title="{{__('paysubscriptions::global.new')}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('paysubscriptions::global.create')}}</a>
+                    <a href="{{ route('all.packages') }}" class="btn btn-secondary" target="_blank" title="{{__('paysubscriptions::global.view_all_packages')}}"><i class="fas fa-globe-americas"></i> {{__('paysubscriptions::global.view_all_packages')}}</a>
                 </div>
             </div>
             <div class="card-body">

@@ -35,7 +35,7 @@
 @endpush
 
 
-<label class="mt-3">Card details:</label>
+<label class="mt-3">{{__('paysubscriptions::global.card_details')}}</label>
 <div id="cardElement"></div>
 <small class="form-text text-muted" id="cardErrors" role="alert"></small>
 <input type="hidden" name="payment_method" id="paymentMethod">
