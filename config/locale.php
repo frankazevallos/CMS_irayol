@@ -17,6 +17,5 @@ return [
     'languages' => [
         'en'    => ['en', 'en_US', false, 'English', 'us'],
         'es'    => ['es', 'es_ES', false, 'Español', 'es'],
-
     ],
 ];
