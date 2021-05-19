@@ -64,39 +64,4 @@
             </div>
         </div>
     </form>
-
-
-<!--Modal-->
-<div class="modal fade" id="MediaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Image library</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    @foreach($media as $medias)
-                    <div class="col-md-3 mt-3">
-                        @if($medias->extension == 'png' || $medias->extension == 'jpg' || $medias->extension == 'jpeg')
-                        <a data-toggle="modal" data-target="#{{ $medias->id }}">
-                            <img class="thumbnail img-fluid rounded filter image addimage" alt="" data-src="{{ $medias->path }}" />
-                        </a>
-                        @endif
-                    </div>
-                    <!-- col-md-2 / end -->
-                    @endforeach
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" data-id="" id="InsertPhoto" type="button">Insert to post</button>
-                <button class="btn btn-primary" data-dismiss="modal" type="button">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Modal-->
-
 @endsection

@@ -1,4 +1,6 @@
 /* **** FILE MANAGER **** */
+let url = new URL($('meta[name="current-route"]').attr("content"));
+
 $('.custom-file-input').on('change', function() {
     var fileName = $(this).val().split('\\').pop();
     $(this).siblings('.custom-file-label').addClass("selected").html(fileName);
@@ -43,15 +45,27 @@ $(document).ready(function(){
 
                     let src = response.message[index].path;
                     let mediaId = response.message[index].id;
-                    $('.ajaxMediaShow').prepend(`
-                        <div class="col-md-2 mt-3" id="card_media_${mediaId}">
-                            <div class="card-body img-card-background loading filter image" style="background-image: url('${src}'); ">
-                                <div class="card-tools">
-                                    <a href="javascript:void(0)" id="showMedia" data-id="${mediaId}" class="btn btn-tool"><i class="fas fa-eye"></i></a>
+                    if (url.pathname == '/media') {
+                        $('.ajaxMediaShow').prepend(`
+                            <div class="col-md-2 mt-3" id="card_media_${mediaId}">
+                                <div class="card-body img-card-background" style="background-image: url('${src}'); ">
+                                    <div class="card-tools">
+                                        <a href="javascript:void(0)" id="showMedia" data-id="${mediaId}" class="btn btn-tool"><i class="fas fa-eye"></i></a>
+                                    </div>
+                                </div>
+                            </div>`
+                        );
+                    } else {
+                        $('.ajaxMediaShow').prepend(`
+                            <div class="col-md-2 mt-3" id="card_media_${mediaId}">
+                                <div class="card-body img-card-background selectedFileAndInsert" data-src="${src}" style="background-image: url('${src}'); ">
+                                    
                                 </div>
                             </div>
-                        </div>`
-                    );
+                            `
+                        );
+                    }
+                    
                 }
                 $("#file_count").text(0);
                 $("#submit").attr("disabled", true);
@@ -142,7 +156,6 @@ $(document).ready(function(){
         })
     }
 
-    var url = new URL($('meta[name="current-route"]').attr("content"));
     if (url.pathname == '/media') {
         getData();
     }
