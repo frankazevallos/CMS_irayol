@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/subscription/{package}', [SubscriptionsController::class, 'paySubscription',])->name('subscription.index');
     
     // Payment
-    Route::post('/payments/pay/{id}', [PaymentController::class, 'pay'])->name('pay.subscription');
+    Route::post('/payments/pay/{package}', [PaymentController::class, 'pay'])->name('pay.subscription');
     Route::get('/payments/approval', [PaymentController::class, 'approval'])->name('approval.subscription');
     Route::get('/payments/cancelled', [PaymentController::class, 'cancelled'])->name('cancelled.subscription');
 });
