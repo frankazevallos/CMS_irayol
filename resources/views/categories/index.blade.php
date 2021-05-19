@@ -6,7 +6,7 @@
             <div class="float-left">
                 {{__('global.categories')}}
             </div>
-            <div class="btn-group-sm float-right" role="group">
+            <div class="float-right" role="group">
                 <a href="{{ route('categories.create') }}" class="btn btn-success" title="{{__('global.create')}}"><i class="fa fa-plus-circle" aria-hidden="true"></i> {{__('global.create')}}</a>
             </div>
         </div>
