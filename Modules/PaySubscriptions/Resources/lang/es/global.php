@@ -78,5 +78,12 @@ return [
     'test' => 'Prueba',
     'become_premium' => 'Vuélvete Premium',
     'invest_in_yourself' => 'Invierte en ti mismo',
-    'with_any_subscription' => 'Con cualquier suscripción tienes acceso a todo nuestro contenido y a los repositorios privados.'
+    'with_any_subscription' => 'Con cualquier suscripción tienes acceso a todo nuestro contenido y a los repositorios privados.',
+    'view_all_packages' => 'Ver todas los paquetes',
+    'pay' => 'Pagar',
+    'payment_platform' => 'Seleccione la plataforma de pago deseada.',
+    'redirected_to_paypal' => 'Será redirigido a la página de pago de PayPal',
+    'card_details' => 'Detalles de la tarjeta',
+    'not_in_the_configuration' => 'La plataforma de pago seleccionada no está en la configuración',
+
 ];
