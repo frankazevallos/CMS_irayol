@@ -37,7 +37,7 @@ Install my-project with npm
   Pass: 123456
 ```
 
-### 📷 Media
+## 📷 Media
 
 ![Imgur](https://imgur.com/x5X9Fjx.png "Home")
     
